@@ -2341,23 +2341,35 @@ Ready to see what's possible?
 
             const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
             
-            // Content keywords for smart matching
+            // Content keywords for smart matching - expanded for better photo matching
             const contentKeywords = {
-                energy: ['energy', 'tired', 'fatigue', 'exhausted', 'sleep', 'rest', 'nap', 'morning', 'afternoon', 'coffee', 'awake', 'alert'],
-                brainFog: ['brain', 'fog', 'focus', 'memory', 'think', 'concentrate', 'forget', 'mental', 'clarity', 'cognitive', 'sharp', 'clear'],
-                mood: ['mood', 'motivation', 'drive', 'irritable', 'anxious', 'anxiety', 'depression', 'emotion', 'feeling', 'happy', 'angry'],
-                fitness: ['gym', 'workout', 'exercise', 'muscle', 'weight', 'fat', 'body', 'fitness', 'strength', 'lean', 'gains', 'physique'],
-                hormones: ['hormone', 'testosterone', 'estrogen', 'trt', 'hrt', 'therapy', 'treatment', 'levels', 'balance', 'optimization', 'replacement'],
-                symptoms: ['symptom', 'sign', 'hot flash', 'night sweat', 'sweat', 'perimenopause', 'menopause', 'peri'],
-                myths: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe', 'lie', 'false'],
-                transformation: ['before', 'after', 'change', 'journey', 'story', 'result', 'transform', 'life', 'benefit', 'improvement', 'success', 'progress', 'comparison', 'difference']
+                energy: ['energy', 'tired', 'fatigue', 'exhausted', 'sleep', 'rest', 'nap', 'morning', 'afternoon', 'coffee', 'awake', 'alert', 'vitality', 'energized', 'sluggish', 'dragging', 'lethargic'],
+                brainFog: ['brain', 'fog', 'focus', 'memory', 'think', 'concentrate', 'forget', 'mental', 'clarity', 'cognitive', 'sharp', 'clear', 'confused', 'fuzzy', 'hazy', 'scattered'],
+                mood: ['mood', 'motivation', 'drive', 'irritable', 'anxious', 'anxiety', 'depression', 'emotion', 'feeling', 'happy', 'angry', 'confident', 'confidence', 'sad', 'grumpy', 'positive'],
+                weightLoss: ['fat', 'weight', 'lose', 'lost', 'thin', 'skinny', 'belly', 'stomach', 'gut', 'waist', 'overweight', 'obese', 'pounds', 'lbs', 'kg', 'slim', 'slimmer', 'leaner', 'shred', 'cut', 'cutting', 'diet', 'eating'],
+                muscleGain: ['muscle', 'gains', 'gym', 'workout', 'exercise', 'lift', 'lifting', 'strength', 'strong', 'stronger', 'physique', 'build', 'built', 'ripped', 'jacked', 'shredded', 'bulk', 'bulking', 'arms', 'chest', 'back', 'legs', 'abs', 'biceps', 'triceps'],
+                bodyTransformation: ['body', 'transform', 'transformation', 'before', 'after', 'compare', 'comparison', 'change', 'changed', 'different', 'now', 'was', 'used to', 'became', 'become', 'progress', 'results', 'glow up', 'makeover'],
+                hormones: ['hormone', 'testosterone', 'estrogen', 'trt', 'hrt', 'therapy', 'treatment', 'levels', 'balance', 'optimization', 'replacement', 'low t', 'low testosterone', 'test', 'pellets', 'injection', 'cream', 'gel'],
+                symptoms: ['symptom', 'sign', 'hot flash', 'night sweat', 'sweat', 'perimenopause', 'menopause', 'peri', 'libido', 'sex drive', 'hair loss', 'hair', 'skin'],
+                myths: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe', 'lie', 'false', 'think', 'people say', 'heard'],
+                age: ['age', 'aging', 'old', 'older', 'young', 'younger', '40', '50', '60', 'middle age', 'senior', 'youthful', 'years old'],
+                success: ['success', 'successful', 'win', 'won', 'achieve', 'achieved', 'goal', 'goals', 'result', 'results', 'benefit', 'benefits', 'improvement', 'improved', 'better', 'best']
+            };
+            
+            // Phrase patterns for better context detection (matches multi-word phrases)
+            const phrasePatterns = {
+                weightLoss: [/lost\s+\d+\s*(pounds|lbs|kg)/i, /was\s+(fat|overweight|heavy)/i, /not\s+fat/i, /lose\s+weight/i, /weight\s+loss/i, /lost\s+the\s+weight/i, /shed\s+(the\s+)?(pounds|weight)/i],
+                muscleGain: [/gained\s+muscle/i, /build\s+muscle/i, /put\s+on\s+muscle/i, /muscle\s+gain/i, /got\s+(ripped|jacked|shredded)/i],
+                transformation: [/before\s*(and|&|\/)\s*after/i, /used\s+to\s+be/i, /now\s+(he|she|i|they)\s*(is|am|are)/i, /transformation/i, /changed\s+(my|his|her|their)\s+life/i, /look\s+at\s+(the\s+)?difference/i],
+                testimonial: [/it\s+worked/i, /changed\s+my\s+life/i, /best\s+decision/i, /finally\s+found/i, /wish\s+i\s+(had|knew)/i, /recommend/i, /helped\s+me/i],
+                trtBenefit: [/due\s+to\s+trt/i, /thanks\s+to\s+(trt|hrt)/i, /after\s+starting\s+(trt|hrt)/i, /trt\s+(helped|changed|gave)/i, /on\s+trt/i, /since\s+(starting\s+)?(trt|hrt)/i]
             };
             
             // Keywords that suggest specific content types
             const contentTypeSuggestions = {
-                testimonial: ['before', 'after', 'transformation', 'journey', 'story', 'result', 'benefit', 'success', 'progress', 'comparison', 'difference', 'changed', 'helped', 'worked', 'testimonial', 'review', 'experience'],
-                mythBusting: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe', 'lie', 'false', 'debunk', 'busting'],
-                educational: ['learn', 'explain', 'what is', 'how does', 'why', 'understand', 'education', 'info', 'information', 'facts', 'science']
+                testimonial: ['before', 'after', 'transformation', 'journey', 'story', 'result', 'benefit', 'success', 'progress', 'comparison', 'difference', 'changed', 'helped', 'worked', 'testimonial', 'review', 'experience', 'was', 'now', 'used to', 'became', 'finally', 'life', 'amazing', 'incredible', 'best decision', 'fat', 'muscle', 'weight', 'body'],
+                mythBusting: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe', 'lie', 'false', 'debunk', 'busting', 'people think', 'they say'],
+                educational: ['learn', 'explain', 'what is', 'how does', 'why', 'understand', 'education', 'info', 'information', 'facts', 'science', 'did you know', 'here\'s why']
             };
             
             // Detect best content type from description
@@ -2365,6 +2377,18 @@ Ready to see what's possible?
                 const desc = description.toLowerCase();
                 let scores = { testimonial: 0, mythBusting: 0, educational: 0 };
                 
+                // Check phrase patterns first (higher weight for transformation/body content)
+                Object.entries(phrasePatterns).forEach(([patternType, patterns]) => {
+                    patterns.forEach(pattern => {
+                        if (pattern.test(description)) {
+                            if (patternType === 'transformation' || patternType === 'testimonial' || patternType === 'trtBenefit' || patternType === 'weightLoss' || patternType === 'muscleGain') {
+                                scores.testimonial += 5;
+                            }
+                        }
+                    });
+                });
+                
+                // Then check individual keywords
                 Object.entries(contentTypeSuggestions).forEach(([type, keywords]) => {
                     keywords.forEach(keyword => {
                         if (desc.includes(keyword)) {
@@ -2381,6 +2405,31 @@ Ready to see what's possible?
                 return null; // No strong signal, use selected type
             };
             
+            // Detect content themes from description for better hook matching
+            const detectContentThemes = (description) => {
+                const desc = description.toLowerCase();
+                const themes = [];
+                
+                // Check phrase patterns for strong theme signals
+                Object.entries(phrasePatterns).forEach(([patternType, patterns]) => {
+                    patterns.forEach(pattern => {
+                        if (pattern.test(description)) {
+                            themes.push(patternType);
+                        }
+                    });
+                });
+                
+                // Check keyword categories
+                Object.entries(contentKeywords).forEach(([category, keywords]) => {
+                    const matchCount = keywords.filter(k => desc.includes(k)).length;
+                    if (matchCount >= 1) {
+                        themes.push(category);
+                    }
+                });
+                
+                return [...new Set(themes)]; // Remove duplicates
+            };
+            
             // Smart hook matching based on description
             const findRelevantHooks = (description) => {
                 const desc = description.toLowerCase();
@@ -2389,25 +2438,69 @@ Ready to see what's possible?
                 const detectedType = detectContentType(description);
                 const effectiveContentType = detectedType || contentType;
                 
+                // Update the auto-detected type for display
+                if (detectedType && detectedType !== contentType) {
+                    setAutoDetectedContentType(detectedType);
+                }
+                
+                // Detect themes in the description
+                const themes = detectContentThemes(description);
+                
                 const baseHooks = hooksLibrary[effectiveContentType]?.[audience] || hooksLibrary[effectiveContentType]?.general || [];
                 
-                // Score each hook based on keyword matches
+                // Score each hook based on keyword and theme matches
                 const scoredHooks = baseHooks.map(hook => {
                     let score = 0;
                     const hookLower = hook.toLowerCase();
                     
+                    // High score for phrase pattern matches in hook
+                    Object.entries(phrasePatterns).forEach(([patternType, patterns]) => {
+                        // Check if description matches this pattern
+                        const descMatchesPattern = patterns.some(p => p.test(description));
+                        if (descMatchesPattern) {
+                            // Now check if hook contains related keywords
+                            const relatedKeywords = contentKeywords[patternType] || contentKeywords.bodyTransformation || [];
+                            relatedKeywords.forEach(keyword => {
+                                if (hookLower.includes(keyword)) {
+                                    score += 5;
+                                }
+                            });
+                        }
+                    });
+                    
+                    // Score based on detected themes
+                    themes.forEach(theme => {
+                        const themeKeywords = contentKeywords[theme] || [];
+                        themeKeywords.forEach(keyword => {
+                            if (hookLower.includes(keyword)) {
+                                score += 3;
+                            }
+                        });
+                    });
+                    
+                    // Direct keyword matching between description and hook
                     Object.entries(contentKeywords).forEach(([category, keywords]) => {
                         keywords.forEach(keyword => {
                             if (desc.includes(keyword) && hookLower.includes(keyword)) {
-                                score += 3;
+                                score += 4;
                             } else if (desc.includes(keyword)) {
                                 // Check if hook is relevant to the category
                                 if (hookLower.includes(category) || keywords.some(k => hookLower.includes(k))) {
-                                    score += 1;
+                                    score += 2;
                                 }
                             }
                         });
                     });
+                    
+                    // Bonus for transformation-related hooks when content is about body changes
+                    if (themes.includes('weightLoss') || themes.includes('muscleGain') || themes.includes('bodyTransformation') || themes.includes('transformation')) {
+                        const transformWords = ['transform', 'changed', 'different', 'before', 'after', 'results', 'journey', 'progress', 'body', 'weight', 'muscle', 'fat', 'lean', 'strong', 'lost', 'gained', 'pounds', 'gym'];
+                        transformWords.forEach(word => {
+                            if (hookLower.includes(word)) {
+                                score += 4;
+                            }
+                        });
+                    }
                     
                     return { hook, score };
                 });
@@ -2418,7 +2511,8 @@ Ready to see what's possible?
                 // If we have good matches (score > 0), use them; otherwise fall back to random
                 const goodMatches = scoredHooks.filter(h => h.score > 0);
                 if (goodMatches.length > 0) {
-                    return goodMatches.slice(0, 10).map(h => h.hook);
+                    // Return top matches with some variety
+                    return goodMatches.slice(0, 15).map(h => h.hook);
                 }
                 
                 return baseHooks;
@@ -2499,6 +2593,9 @@ Ready to see what's possible?
                 const detectedType = detectContentType(desc);
                 const effectiveContentType = detectedType || contentType;
                 
+                // Detect themes for better matching
+                const themes = detectContentThemes(desc);
+                
                 const baseCaptions = captionsLibrary[effectiveContentType]?.[audience] || captionsLibrary[effectiveContentType]?.general || [];
                 
                 // Score captions based on relevance
@@ -2506,13 +2603,47 @@ Ready to see what's possible?
                     let score = 0;
                     const captionLower = caption.toLowerCase();
                     
-                    Object.entries(contentKeywords).forEach(([category, keywords]) => {
-                        keywords.forEach(keyword => {
-                            if (descLower.includes(keyword) && captionLower.includes(keyword)) {
-                                score += 2;
+                    // High score for phrase pattern matches
+                    Object.entries(phrasePatterns).forEach(([patternType, patterns]) => {
+                        const descMatchesPattern = patterns.some(p => p.test(desc));
+                        if (descMatchesPattern) {
+                            const relatedKeywords = contentKeywords[patternType] || contentKeywords.bodyTransformation || [];
+                            relatedKeywords.forEach(keyword => {
+                                if (captionLower.includes(keyword)) {
+                                    score += 5;
+                                }
+                            });
+                        }
+                    });
+                    
+                    // Score based on detected themes
+                    themes.forEach(theme => {
+                        const themeKeywords = contentKeywords[theme] || [];
+                        themeKeywords.forEach(keyword => {
+                            if (captionLower.includes(keyword)) {
+                                score += 3;
                             }
                         });
                     });
+                    
+                    // Direct keyword matching
+                    Object.entries(contentKeywords).forEach(([category, keywords]) => {
+                        keywords.forEach(keyword => {
+                            if (descLower.includes(keyword) && captionLower.includes(keyword)) {
+                                score += 4;
+                            }
+                        });
+                    });
+                    
+                    // Bonus for transformation-related captions
+                    if (themes.includes('weightLoss') || themes.includes('muscleGain') || themes.includes('bodyTransformation') || themes.includes('transformation')) {
+                        const transformWords = ['transform', 'changed', 'different', 'before', 'after', 'results', 'journey', 'progress', 'body', 'weight', 'muscle', 'fat', 'lean', 'strong', 'lost', 'gained', 'pounds', 'energy', 'confidence'];
+                        transformWords.forEach(word => {
+                            if (captionLower.includes(word)) {
+                                score += 4;
+                            }
+                        });
+                    }
                     
                     return { caption, score };
                 });
@@ -2521,7 +2652,7 @@ Ready to see what's possible?
                 const goodMatches = scoredCaptions.filter(c => c.score > 0);
                 
                 if (goodMatches.length > 0) {
-                    return getRandomItem(goodMatches.slice(0, 5).map(c => c.caption));
+                    return getRandomItem(goodMatches.slice(0, 8).map(c => c.caption));
                 }
                 
                 return getRandomItem(baseCaptions);
