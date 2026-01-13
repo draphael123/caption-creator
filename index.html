@@ -19,9 +19,32 @@
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: linear-gradient(180deg, #f9f7f4 0%, #f5f2ed 50%, #f0ebe4 100%);
+            background: linear-gradient(135deg, #e8f5f3 0%, #f0f7f5 25%, #fff9f0 50%, #f5f0e8 75%, #e8f0f5 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             color: #1a1a1a;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 128, 128, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(156, 175, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 70%, rgba(230, 126, 34, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, rgba(102, 178, 178, 0.08) 0%, transparent 45%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #root {
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeIn {
@@ -41,6 +64,17 @@
         @keyframes shimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .fade-in {
@@ -1348,6 +1382,20 @@ Ready to see what's possible?
 
             const currentTips = platformTips[platform];
 
+            // Brand Colors from fountain.net
+            const colors = {
+                teal: '#008080',
+                tealDark: '#006666',
+                tealLight: '#66B2B2',
+                sage: '#9CAF88',
+                sageDark: '#7A9066',
+                sageLight: '#B8C9A8',
+                coral: '#E67E22',
+                coralLight: '#F5A962',
+                warmWhite: '#FFFAF5',
+                cream: '#FFF5E6',
+            };
+
             const styles = {
                 container: {
                     maxWidth: '900px',
@@ -1358,185 +1406,231 @@ Ready to see what's possible?
                 header: {
                     textAlign: 'center',
                     marginBottom: '48px',
+                    background: 'linear-gradient(135deg, rgba(0,128,128,0.1) 0%, rgba(156,175,136,0.1) 50%, rgba(230,126,34,0.08) 100%)',
+                    padding: '48px 32px',
+                    borderRadius: '32px',
+                    border: '2px solid rgba(0,128,128,0.15)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                },
+                headerDecor: {
+                    position: 'absolute',
+                    width: '200px',
+                    height: '200px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, rgba(0,128,128,0.1), rgba(156,175,136,0.1))',
+                    filter: 'blur(40px)',
                 },
                 logo: {
                     fontSize: '14px',
                     fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: '600',
-                    letterSpacing: '3px',
+                    fontWeight: '700',
+                    letterSpacing: '4px',
                     textTransform: 'uppercase',
-                    color: '#2d8a7b',
+                    background: 'linear-gradient(135deg, #008080 0%, #9CAF88 50%, #E67E22 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
                     marginBottom: '16px',
                 },
                 title: {
                     fontFamily: "'Fraunces', serif",
-                    fontSize: '42px',
-                    fontWeight: '500',
-                    color: '#1a1a1a',
-                    marginBottom: '12px',
+                    fontSize: '46px',
+                    fontWeight: '600',
+                    background: 'linear-gradient(135deg, #006666 0%, #008080 50%, #7A9066 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    marginBottom: '16px',
                     lineHeight: '1.2',
                 },
                 subtitle: {
                     fontSize: '18px',
-                    color: '#666',
-                    fontWeight: '400',
+                    color: '#5a7a6a',
+                    fontWeight: '500',
                 },
                 card: {
-                    background: '#ffffff',
-                    borderRadius: '20px',
+                    background: 'linear-gradient(180deg, #ffffff 0%, #fafcfb 100%)',
+                    borderRadius: '24px',
                     padding: '32px',
                     marginBottom: '24px',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-                    border: '1px solid rgba(45,138,123,0.1)',
+                    boxShadow: '0 8px 32px rgba(0,128,128,0.08), 0 2px 8px rgba(0,0,0,0.04)',
+                    border: '2px solid transparent',
+                    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgba(0,128,128,0.3) 0%, rgba(156,175,136,0.3) 50%, rgba(230,126,34,0.2) 100%)',
+                    backgroundOrigin: 'border-box',
+                    backgroundClip: 'padding-box, border-box',
                 },
                 sectionTitle: {
                     fontFamily: "'Fraunces', serif",
                     fontSize: '20px',
-                    fontWeight: '500',
-                    color: '#1a1a1a',
+                    fontWeight: '600',
+                    color: '#006666',
                     marginBottom: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
                 },
                 buttonGroup: {
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: '10px',
+                    gap: '12px',
                 },
                 toggleButton: (isActive) => ({
-                    padding: '12px 24px',
-                    borderRadius: '100px',
-                    border: isActive ? '2px solid #2d8a7b' : '2px solid #e0e0e0',
-                    background: isActive ? 'linear-gradient(135deg, #2d8a7b 0%, #3a9d8d 100%)' : '#ffffff',
-                    color: isActive ? '#ffffff' : '#555',
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: '15px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    outline: 'none',
-                }),
-                generateButton: {
-                    width: '100%',
-                    padding: '18px 32px',
+                    padding: '14px 28px',
                     borderRadius: '100px',
                     border: 'none',
-                    background: 'linear-gradient(135deg, #2d8a7b 0%, #247a6b 100%)',
-                    color: '#ffffff',
+                    background: isActive 
+                        ? 'linear-gradient(135deg, #008080 0%, #66B2B2 50%, #9CAF88 100%)' 
+                        : 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+                    color: isActive ? '#ffffff' : '#5a7a6a',
                     fontFamily: "'DM Sans', sans-serif",
-                    fontSize: '17px',
+                    fontSize: '15px',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 16px rgba(45,138,123,0.3)',
+                    outline: 'none',
+                    boxShadow: isActive 
+                        ? '0 4px 16px rgba(0,128,128,0.35), 0 2px 4px rgba(0,0,0,0.1)' 
+                        : '0 2px 8px rgba(0,0,0,0.06), inset 0 1px 2px rgba(255,255,255,0.8)',
+                    transform: isActive ? 'scale(1.02)' : 'scale(1)',
+                }),
+                generateButton: {
+                    width: '100%',
+                    padding: '20px 36px',
+                    borderRadius: '100px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #008080 0%, #009999 25%, #9CAF88 50%, #B8C9A8 75%, #E67E22 100%)',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradientShift 4s ease infinite',
+                    color: '#ffffff',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '18px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 24px rgba(0,128,128,0.35), 0 4px 8px rgba(230,126,34,0.2)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '10px',
+                    gap: '12px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.2)',
                 },
                 spinner: {
-                    width: '20px',
-                    height: '20px',
-                    border: '2px solid rgba(255,255,255,0.3)',
+                    width: '22px',
+                    height: '22px',
+                    border: '3px solid rgba(255,255,255,0.3)',
                     borderTopColor: '#ffffff',
                     borderRadius: '50%',
                     animation: 'spin 0.8s linear infinite',
                 },
                 resultCard: {
-                    background: '#ffffff',
-                    borderRadius: '20px',
-                    padding: '28px',
+                    background: 'linear-gradient(180deg, #ffffff 0%, #f8faf9 100%)',
+                    borderRadius: '24px',
+                    padding: '32px',
                     marginBottom: '24px',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-                    border: '1px solid rgba(45,138,123,0.1)',
-                    animation: 'fadeIn 0.4s ease-out',
+                    marginTop: '24px',
+                    boxShadow: '0 8px 32px rgba(0,128,128,0.1), 0 2px 8px rgba(0,0,0,0.04)',
+                    border: '2px solid transparent',
+                    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgba(0,128,128,0.4) 0%, rgba(156,175,136,0.4) 100%)',
+                    backgroundOrigin: 'border-box',
+                    backgroundClip: 'padding-box, border-box',
+                    animation: 'fadeIn 0.5s ease-out',
                 },
                 resultHeader: {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '16px',
+                    marginBottom: '20px',
                     flexWrap: 'wrap',
                     gap: '12px',
                 },
                 resultTitle: {
                     fontFamily: "'Fraunces', serif",
-                    fontSize: '18px',
-                    fontWeight: '500',
-                    color: '#1a1a1a',
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: '#006666',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
+                    gap: '12px',
                 },
                 platformBadge: {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    padding: '6px 12px',
+                    padding: '8px 16px',
                     borderRadius: '100px',
-                    background: 'linear-gradient(135deg, #e8f5f3 0%, #d4ebe8 100%)',
-                    color: '#2d8a7b',
+                    background: 'linear-gradient(135deg, #008080 0%, #66B2B2 100%)',
+                    color: '#ffffff',
                     fontSize: '13px',
-                    fontWeight: '500',
+                    fontWeight: '600',
+                    boxShadow: '0 2px 8px rgba(0,128,128,0.25)',
                 },
                 resultActions: {
                     display: 'flex',
                     gap: '10px',
                 },
                 actionButton: {
-                    padding: '10px 18px',
+                    padding: '12px 20px',
                     borderRadius: '100px',
-                    border: '1px solid #e0e0e0',
-                    background: '#ffffff',
-                    color: '#555',
+                    border: '2px solid #9CAF88',
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8faf9 100%)',
+                    color: '#7A9066',
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '14px',
-                    fontWeight: '500',
+                    fontWeight: '600',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    transition: 'all 0.25s ease',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
                 },
                 copyButtonSuccess: {
-                    padding: '10px 18px',
+                    padding: '12px 20px',
                     borderRadius: '100px',
-                    border: '1px solid #2d8a7b',
-                    background: '#2d8a7b',
+                    border: '2px solid #9CAF88',
+                    background: 'linear-gradient(135deg, #9CAF88 0%, #B8C9A8 100%)',
                     color: '#ffffff',
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '14px',
-                    fontWeight: '500',
+                    fontWeight: '600',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    transition: 'all 0.25s ease',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
+                    boxShadow: '0 4px 12px rgba(156,175,136,0.4)',
                 },
                 resultContent: {
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '16px',
-                    lineHeight: '1.7',
-                    color: '#333',
+                    lineHeight: '1.75',
+                    color: '#3a5a4a',
                     whiteSpace: 'pre-wrap',
-                    background: '#f9f7f4',
-                    padding: '20px',
-                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, #f0f7f5 0%, #fff9f5 50%, #f5f8f5 100%)',
+                    padding: '24px',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(0,128,128,0.1)',
                 },
                 tipsCard: {
-                    background: 'linear-gradient(135deg, #f0f9f7 0%, #e8f5f3 100%)',
-                    borderRadius: '20px',
-                    padding: '28px',
-                    marginTop: '24px',
-                    border: '1px solid rgba(45,138,123,0.15)',
+                    background: 'linear-gradient(135deg, rgba(0,128,128,0.08) 0%, rgba(156,175,136,0.12) 50%, rgba(230,126,34,0.06) 100%)',
+                    borderRadius: '24px',
+                    padding: '32px',
+                    marginTop: '32px',
+                    border: '2px solid rgba(0,128,128,0.2)',
+                    backdropFilter: 'blur(10px)',
                 },
                 tipsTitle: {
                     fontFamily: "'Fraunces', serif",
-                    fontSize: '18px',
-                    fontWeight: '500',
-                    color: '#2d8a7b',
-                    marginBottom: '16px',
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    background: 'linear-gradient(135deg, #008080 0%, #E67E22 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    marginBottom: '20px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '10px',
                 },
                 tipsList: {
                     listStyle: 'none',
@@ -1546,28 +1640,33 @@ Ready to see what's possible?
                 tipItem: {
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '15px',
-                    color: '#444',
-                    padding: '10px 0',
-                    borderBottom: '1px solid rgba(45,138,123,0.1)',
+                    color: '#3a5a4a',
+                    padding: '14px 0',
+                    borderBottom: '1px solid rgba(0,128,128,0.15)',
                     display: 'flex',
                     alignItems: 'flex-start',
-                    gap: '12px',
+                    gap: '14px',
                 },
                 tipIcon: {
-                    color: '#2d8a7b',
+                    color: '#E67E22',
                     flexShrink: 0,
                     marginTop: '2px',
+                    fontWeight: 'bold',
                 },
                 footer: {
                     textAlign: 'center',
-                    marginTop: '48px',
-                    paddingTop: '24px',
-                    borderTop: '1px solid rgba(0,0,0,0.1)',
+                    marginTop: '56px',
+                    paddingTop: '32px',
+                    borderTop: '2px solid rgba(0,128,128,0.15)',
                 },
                 footerText: {
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '14px',
-                    color: '#888',
+                    background: 'linear-gradient(135deg, #008080 0%, #9CAF88 50%, #E67E22 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    fontWeight: '500',
                 },
             };
 
@@ -1582,14 +1681,39 @@ Ready to see what's possible?
                 <div style={styles.container}>
                     {/* Header */}
                     <header style={styles.header}>
-                        <div style={styles.logo}>Fountain Vitality</div>
+                        <div style={{...styles.headerDecor, top: '-50px', left: '-50px'}}></div>
+                        <div style={{...styles.headerDecor, bottom: '-30px', right: '-30px', background: 'linear-gradient(135deg, rgba(230,126,34,0.1), rgba(156,175,136,0.1))'}}></div>
+                        <div style={styles.logo}>✦ Fountain Vitality ✦</div>
                         <h1 style={styles.title}>Caption & Hook Generator</h1>
                         <p style={styles.subtitle}>Create engaging social media content for hormone health education</p>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            marginTop: '20px',
+                        }}>
+                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: '#008080'}}></span>
+                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: '#9CAF88'}}></span>
+                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: '#E67E22'}}></span>
+                        </div>
                     </header>
 
                     {/* Selection Options */}
                     <div style={styles.card}>
-                        <h2 style={styles.sectionTitle}>Content Type</h2>
+                        <h2 style={styles.sectionTitle}>
+                            <span style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                background: 'linear-gradient(135deg, #008080, #66B2B2)',
+                                color: 'white',
+                                fontSize: '16px',
+                            }}>1</span>
+                            Content Type
+                        </h2>
                         <div style={styles.buttonGroup}>
                             <button 
                                 style={styles.toggleButton(contentType === 'educational')}
@@ -1613,7 +1737,20 @@ Ready to see what's possible?
                     </div>
 
                     <div style={styles.card}>
-                        <h2 style={styles.sectionTitle}>Target Audience</h2>
+                        <h2 style={styles.sectionTitle}>
+                            <span style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                background: 'linear-gradient(135deg, #9CAF88, #B8C9A8)',
+                                color: 'white',
+                                fontSize: '16px',
+                            }}>2</span>
+                            Target Audience
+                        </h2>
                         <div style={styles.buttonGroup}>
                             <button 
                                 style={styles.toggleButton(audience === 'men')}
@@ -1637,7 +1774,20 @@ Ready to see what's possible?
                     </div>
 
                     <div style={styles.card}>
-                        <h2 style={styles.sectionTitle}>Platform</h2>
+                        <h2 style={styles.sectionTitle}>
+                            <span style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                background: 'linear-gradient(135deg, #E67E22, #F5A962)',
+                                color: 'white',
+                                fontSize: '16px',
+                            }}>3</span>
+                            Platform
+                        </h2>
                         <div style={styles.buttonGroup}>
                             <button 
                                 style={styles.toggleButton(platform === 'instagram')}
