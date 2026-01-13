@@ -3390,7 +3390,7 @@ Ready to see what's possible?
                     }
                 } catch (error) {
                     console.error('AI Generation Error:', error);
-                    setAiError('AI generation unavailable. Using library instead...');
+                    setAiError('💡 AI not configured yet - Generated from our 10,000+ caption library instead! (To enable AI: Add OPENAI_API_KEY in Vercel settings)');
                     // Fallback to library
                     setGeneratedHook(generateHook());
                     setGeneratedCaption(contentDescription.trim() ? generateCustomCaption() : generateCaption());
@@ -4394,21 +4394,22 @@ Ready to see what's possible?
                         </p>
                     )}
                     
-                    {/* AI Error Message */}
+                    {/* AI Info Message */}
                     {aiError && (
                         <div style={{
                             marginTop: '12px',
                             padding: '12px 16px',
                             borderRadius: '12px',
-                            background: 'linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%)',
-                            border: '1px solid #ffcccc',
-                            color: '#cc6666',
+                            background: 'linear-gradient(135deg, #f0f9f9 0%, #e8f5f5 100%)',
+                            border: '1px solid rgba(0,128,128,0.3)',
+                            color: '#006666',
                             fontSize: '14px',
                             display: 'flex',
-                            alignItems: 'center',
+                            alignItems: 'flex-start',
                             gap: '8px',
+                            lineHeight: '1.5',
                         }}>
-                            <span>⚠️</span> {aiError}
+                            {aiError}
                         </div>
                     )}
                     
@@ -4420,7 +4421,7 @@ Ready to see what's possible?
                             marginTop: '12px',
                             textAlign: 'center',
                         }}>
-                            💡 <strong>Library</strong> uses 1,200+ pre-written hooks • <strong>AI</strong> creates custom content based on your description
+                            💡 <strong>Library</strong> uses 10,000+ pre-written hooks & captions • <strong>AI</strong> creates custom content based on your description
                         </p>
                     )}
 
@@ -4510,9 +4511,9 @@ Ready to see what's possible?
                         marginTop: '32px',
                     }}>
                         {[
-                            { number: '1,200+', label: 'Hooks & Captions', icon: '📝', color: '#008080' },
-                            { number: '9', label: 'Content Categories', icon: '📂', color: '#9CAF88' },
-                            { number: '4', label: 'Platforms Supported', icon: '📱', color: '#E67E22' },
+                            { number: '10,000+', label: 'Hooks & Captions', icon: '📝', color: '#008080' },
+                            { number: '15+', label: 'Content Categories', icon: '📂', color: '#9CAF88' },
+                            { number: '8', label: 'Platforms Supported', icon: '📱', color: '#E67E22' },
                             { number: '∞', label: 'Combinations', icon: '✨', color: '#8A2BE2' },
                         ].map((stat, index) => (
                             <div key={index} style={{
