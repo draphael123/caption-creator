@@ -3004,6 +3004,25 @@ Ready to see what's possible?
             const [captionCopied, setCaptionCopied] = useState(false);
             const [showResults, setShowResults] = useState(false);
             
+            // Dark mode state
+            const [darkMode, setDarkMode] = useState(() => {
+                // Check localStorage or system preference
+                if (typeof window !== 'undefined') {
+                    const saved = localStorage.getItem('darkMode');
+                    if (saved !== null) return JSON.parse(saved);
+                    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+                }
+                return false;
+            });
+            
+            // Save dark mode preference
+            useEffect(() => {
+                localStorage.setItem('darkMode', JSON.stringify(darkMode));
+                document.body.style.background = darkMode 
+                    ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
+                    : 'linear-gradient(135deg, #FFFAF5 0%, #f0f7f7 25%, #e8f5e8 50%, #fff5e6 75%, #FFFAF5 100%)';
+            }, [darkMode]);
+            
             // Upload feature state
             const [uploadedFile, setUploadedFile] = useState(null);
             const [filePreview, setFilePreview] = useState(null);
@@ -3439,8 +3458,29 @@ Ready to see what's possible?
 
             const currentTips = platformTips[platform];
 
-            // Brand Colors from fountain.net
-            const colors = {
+            // Brand Colors - Light and Dark mode variants
+            const colors = darkMode ? {
+                // Dark mode colors
+                teal: '#4DB6AC',
+                tealDark: '#00897B',
+                tealLight: '#80CBC4',
+                sage: '#A5D6A7',
+                sageDark: '#81C784',
+                sageLight: '#C8E6C9',
+                coral: '#FFB74D',
+                coralLight: '#FFCC80',
+                warmWhite: '#1a1a2e',
+                cream: '#16213e',
+                background: '#0f0f1a',
+                cardBg: 'rgba(30, 30, 50, 0.95)',
+                cardBorder: 'rgba(77, 182, 172, 0.3)',
+                text: '#e0e0e0',
+                textMuted: '#9e9e9e',
+                textDark: '#ffffff',
+                inputBg: 'rgba(40, 40, 60, 0.8)',
+                inputBorder: 'rgba(77, 182, 172, 0.4)',
+            } : {
+                // Light mode colors
                 teal: '#008080',
                 tealDark: '#006666',
                 tealLight: '#66B2B2',
@@ -3451,6 +3491,14 @@ Ready to see what's possible?
                 coralLight: '#F5A962',
                 warmWhite: '#FFFAF5',
                 cream: '#FFF5E6',
+                background: '#FFFAF5',
+                cardBg: 'rgba(255, 255, 255, 0.95)',
+                cardBorder: 'rgba(0, 128, 128, 0.15)',
+                text: '#3d4d3d',
+                textMuted: '#6b7b6b',
+                textDark: '#2d3d2d',
+                inputBg: 'white',
+                inputBorder: 'rgba(0, 128, 128, 0.3)',
             };
 
             const styles = {
@@ -3507,13 +3555,19 @@ Ready to see what's possible?
                     fontWeight: '500',
                 },
                 card: {
-                    background: 'linear-gradient(180deg, #ffffff 0%, #fafcfb 100%)',
+                    background: darkMode 
+                        ? 'linear-gradient(180deg, rgba(30,30,50,0.95) 0%, rgba(25,25,45,0.95) 100%)'
+                        : 'linear-gradient(180deg, #ffffff 0%, #fafcfb 100%)',
                     borderRadius: '24px',
                     padding: '32px',
                     marginBottom: '24px',
-                    boxShadow: '0 8px 32px rgba(0,128,128,0.08), 0 2px 8px rgba(0,0,0,0.04)',
-                    border: '2px solid transparent',
-                    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgba(0,128,128,0.3) 0%, rgba(156,175,136,0.3) 50%, rgba(230,126,34,0.2) 100%)',
+                    boxShadow: darkMode 
+                        ? '0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)'
+                        : '0 8px 32px rgba(0,128,128,0.08), 0 2px 8px rgba(0,0,0,0.04)',
+                    border: `2px solid ${darkMode ? 'rgba(77,182,172,0.3)' : 'transparent'}`,
+                    backgroundImage: darkMode 
+                        ? 'none'
+                        : 'linear-gradient(white, white), linear-gradient(135deg, rgba(0,128,128,0.3) 0%, rgba(156,175,136,0.3) 50%, rgba(230,126,34,0.2) 100%)',
                     backgroundOrigin: 'border-box',
                     backgroundClip: 'padding-box, border-box',
                 },
@@ -3521,7 +3575,7 @@ Ready to see what's possible?
                     fontFamily: "'Fraunces', serif",
                     fontSize: '20px',
                     fontWeight: '600',
-                    color: '#006666',
+                    color: colors.tealDark,
                     marginBottom: '20px',
                     display: 'flex',
                     alignItems: 'center',
@@ -3537,9 +3591,11 @@ Ready to see what's possible?
                     borderRadius: '100px',
                     border: 'none',
                     background: isActive 
-                        ? 'linear-gradient(135deg, #008080 0%, #66B2B2 50%, #9CAF88 100%)' 
-                        : 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
-                    color: isActive ? '#ffffff' : '#5a7a6a',
+                        ? `linear-gradient(135deg, ${colors.teal} 0%, ${colors.tealLight} 50%, ${colors.sage} 100%)` 
+                        : darkMode 
+                            ? 'linear-gradient(135deg, rgba(40,40,60,0.9) 0%, rgba(50,50,70,0.9) 100%)'
+                            : 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+                    color: isActive ? '#ffffff' : colors.text,
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '15px',
                     fontWeight: '600',
@@ -3547,9 +3603,12 @@ Ready to see what's possible?
                     transition: 'all 0.3s ease',
                     outline: 'none',
                     boxShadow: isActive 
-                        ? '0 4px 16px rgba(0,128,128,0.35), 0 2px 4px rgba(0,0,0,0.1)' 
-                        : '0 2px 8px rgba(0,0,0,0.06), inset 0 1px 2px rgba(255,255,255,0.8)',
+                        ? `0 4px 16px rgba(77,182,172,0.35), 0 2px 4px rgba(0,0,0,0.1)` 
+                        : darkMode
+                            ? '0 2px 8px rgba(0,0,0,0.3)'
+                            : '0 2px 8px rgba(0,0,0,0.06), inset 0 1px 2px rgba(255,255,255,0.8)',
                     transform: isActive ? 'scale(1.02)' : 'scale(1)',
+                    border: darkMode && !isActive ? '1px solid rgba(77,182,172,0.3)' : 'none',
                 }),
                 generateButton: {
                     width: '100%',
@@ -3581,14 +3640,20 @@ Ready to see what's possible?
                     animation: 'spin 0.8s linear infinite',
                 },
                 resultCard: {
-                    background: 'linear-gradient(180deg, #ffffff 0%, #f8faf9 100%)',
+                    background: darkMode 
+                        ? 'linear-gradient(180deg, rgba(30,30,50,0.95) 0%, rgba(25,25,45,0.95) 100%)'
+                        : 'linear-gradient(180deg, #ffffff 0%, #f8faf9 100%)',
                     borderRadius: '24px',
                     padding: '32px',
                     marginBottom: '24px',
                     marginTop: '24px',
-                    boxShadow: '0 8px 32px rgba(0,128,128,0.1), 0 2px 8px rgba(0,0,0,0.04)',
-                    border: '2px solid transparent',
-                    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgba(0,128,128,0.4) 0%, rgba(156,175,136,0.4) 100%)',
+                    boxShadow: darkMode 
+                        ? '0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)'
+                        : '0 8px 32px rgba(0,128,128,0.1), 0 2px 8px rgba(0,0,0,0.04)',
+                    border: darkMode ? `2px solid rgba(77,182,172,0.4)` : '2px solid transparent',
+                    backgroundImage: darkMode 
+                        ? 'none'
+                        : 'linear-gradient(white, white), linear-gradient(135deg, rgba(0,128,128,0.4) 0%, rgba(156,175,136,0.4) 100%)',
                     backgroundOrigin: 'border-box',
                     backgroundClip: 'padding-box, border-box',
                     animation: 'fadeIn 0.5s ease-out',
@@ -3605,7 +3670,7 @@ Ready to see what's possible?
                     fontFamily: "'Fraunces', serif",
                     fontSize: '20px',
                     fontWeight: '600',
-                    color: '#006666',
+                    color: colors.tealDark,
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
@@ -3616,7 +3681,7 @@ Ready to see what's possible?
                     gap: '6px',
                     padding: '8px 16px',
                     borderRadius: '100px',
-                    background: 'linear-gradient(135deg, #008080 0%, #66B2B2 100%)',
+                    background: `linear-gradient(135deg, ${colors.teal} 0%, ${colors.tealLight} 100%)`,
                     color: '#ffffff',
                     fontSize: '13px',
                     fontWeight: '600',
@@ -3629,9 +3694,11 @@ Ready to see what's possible?
                 actionButton: {
                     padding: '12px 20px',
                     borderRadius: '100px',
-                    border: '2px solid #9CAF88',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #f8faf9 100%)',
-                    color: '#7A9066',
+                    border: `2px solid ${colors.sage}`,
+                    background: darkMode 
+                        ? 'linear-gradient(135deg, rgba(40,40,60,0.9) 0%, rgba(50,50,70,0.9) 100%)'
+                        : 'linear-gradient(135deg, #ffffff 0%, #f8faf9 100%)',
+                    color: colors.sageDark,
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '14px',
                     fontWeight: '600',
@@ -3644,8 +3711,8 @@ Ready to see what's possible?
                 copyButtonSuccess: {
                     padding: '12px 20px',
                     borderRadius: '100px',
-                    border: '2px solid #9CAF88',
-                    background: 'linear-gradient(135deg, #9CAF88 0%, #B8C9A8 100%)',
+                    border: `2px solid ${colors.sage}`,
+                    background: `linear-gradient(135deg, ${colors.sage} 0%, ${colors.sageLight} 100%)`,
                     color: '#ffffff',
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '14px',
@@ -3661,18 +3728,23 @@ Ready to see what's possible?
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '16px',
                     lineHeight: '1.75',
-                    color: '#3a5a4a',
+                    color: colors.text,
                     whiteSpace: 'pre-wrap',
-                    background: 'linear-gradient(135deg, #f0f7f5 0%, #fff9f5 50%, #f5f8f5 100%)',
+                    background: darkMode 
+                        ? 'linear-gradient(135deg, rgba(40,40,60,0.8) 0%, rgba(35,35,55,0.8) 100%)'
+                        : 'linear-gradient(135deg, #f0f7f5 0%, #fff9f5 50%, #f5f8f5 100%)',
                     padding: '24px',
                     borderRadius: '16px',
-                    border: '1px solid rgba(0,128,128,0.1)',
+                    border: darkMode ? '1px solid rgba(77,182,172,0.2)' : '1px solid rgba(0,128,128,0.1)',
                 },
                 tipsCard: {
-                    background: 'linear-gradient(135deg, rgba(0,128,128,0.08) 0%, rgba(156,175,136,0.12) 50%, rgba(230,126,34,0.06) 100%)',
+                    background: darkMode 
+                        ? 'linear-gradient(135deg, rgba(77,182,172,0.1) 0%, rgba(165,214,167,0.08) 50%, rgba(255,183,77,0.06) 100%)'
+                        : 'linear-gradient(135deg, rgba(0,128,128,0.08) 0%, rgba(156,175,136,0.12) 50%, rgba(230,126,34,0.06) 100%)',
                     borderRadius: '24px',
                     padding: '32px',
                     marginTop: '32px',
+                    border: darkMode ? '1px solid rgba(77,182,172,0.2)' : 'none',
                     border: '2px solid rgba(0,128,128,0.2)',
                     backdropFilter: 'blur(10px)',
                 },
@@ -3680,7 +3752,7 @@ Ready to see what's possible?
                     fontFamily: "'Fraunces', serif",
                     fontSize: '20px',
                     fontWeight: '600',
-                    background: 'linear-gradient(135deg, #008080 0%, #E67E22 100%)',
+                    background: `linear-gradient(135deg, ${colors.teal} 0%, ${colors.coral} 100%)`,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -3697,15 +3769,15 @@ Ready to see what's possible?
                 tipItem: {
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: '15px',
-                    color: '#3a5a4a',
+                    color: colors.text,
                     padding: '14px 0',
-                    borderBottom: '1px solid rgba(0,128,128,0.15)',
+                    borderBottom: darkMode ? '1px solid rgba(77,182,172,0.15)' : '1px solid rgba(0,128,128,0.15)',
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '14px',
                 },
                 tipIcon: {
-                    color: '#E67E22',
+                    color: colors.coral,
                     flexShrink: 0,
                     marginTop: '2px',
                     fontWeight: 'bold',
@@ -3737,21 +3809,54 @@ Ready to see what's possible?
             return (
                 <div style={styles.container}>
                     {/* Header */}
-                    <header style={styles.header}>
+                    <header style={{
+                        ...styles.header,
+                        background: darkMode 
+                            ? 'linear-gradient(135deg, rgba(77,182,172,0.15) 0%, rgba(165,214,167,0.1) 50%, rgba(255,183,77,0.08) 100%)'
+                            : 'linear-gradient(135deg, rgba(0,128,128,0.1) 0%, rgba(156,175,136,0.1) 50%, rgba(230,126,34,0.08) 100%)',
+                        border: darkMode ? '2px solid rgba(77,182,172,0.3)' : '2px solid rgba(0,128,128,0.15)',
+                    }}>
+                        {/* Dark Mode Toggle */}
+                        <button
+                            onClick={() => setDarkMode(!darkMode)}
+                            style={{
+                                position: 'absolute',
+                                top: '16px',
+                                right: '16px',
+                                background: darkMode 
+                                    ? 'linear-gradient(135deg, #4DB6AC 0%, #80CBC4 100%)'
+                                    : 'linear-gradient(135deg, #008080 0%, #66B2B2 100%)',
+                                border: 'none',
+                                borderRadius: '50px',
+                                padding: '10px 20px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                color: 'white',
+                                fontWeight: '600',
+                                fontSize: '14px',
+                                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                                transition: 'all 0.3s ease',
+                            }}
+                            title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                        >
+                            {darkMode ? '☀️ Light' : '🌙 Dark'}
+                        </button>
                         <div style={{...styles.headerDecor, top: '-50px', left: '-50px'}}></div>
-                        <div style={{...styles.headerDecor, bottom: '-30px', right: '-30px', background: 'linear-gradient(135deg, rgba(230,126,34,0.1), rgba(156,175,136,0.1))'}}></div>
-                        <div style={styles.logo}>✦ Fountain Vitality ✦</div>
-                        <h1 style={styles.title}>Caption & Hook Generator</h1>
-                        <p style={styles.subtitle}>Create engaging social media content for hormone health education</p>
+                        <div style={{...styles.headerDecor, bottom: '-30px', right: '-30px', background: darkMode ? 'linear-gradient(135deg, rgba(255,183,77,0.15), rgba(165,214,167,0.15))' : 'linear-gradient(135deg, rgba(230,126,34,0.1), rgba(156,175,136,0.1))'}}></div>
+                        <div style={{...styles.logo, color: colors.teal}}>✦ Fountain Vitality ✦</div>
+                        <h1 style={{...styles.title, color: colors.textDark}}>Caption & Hook Generator</h1>
+                        <p style={{...styles.subtitle, color: colors.textMuted}}>Create engaging social media content for hormone health education</p>
                         <div style={{
                             display: 'flex',
                             justifyContent: 'center',
                             gap: '8px',
                             marginTop: '20px',
                         }}>
-                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: '#008080'}}></span>
-                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: '#9CAF88'}}></span>
-                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: '#E67E22'}}></span>
+                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: colors.teal}}></span>
+                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: colors.sage}}></span>
+                            <span style={{width: '40px', height: '4px', borderRadius: '2px', background: colors.coral}}></span>
                         </div>
                     </header>
 
