@@ -3477,33 +3477,51 @@ Ready to see what's possible?
                             )}
                         </button>
                         
-                        {contentDescription.trim() && (
-                            <button 
-                                style={{
-                                    ...styles.generateButton,
-                                    flex: '1',
-                                    minWidth: '200px',
-                                    background: 'linear-gradient(135deg, #8A2BE2 0%, #9966CC 25%, #008080 50%, #66B2B2 75%, #9CAF88 100%)',
-                                    backgroundSize: '200% 200%',
-                                    animation: 'gradientShift 4s ease infinite',
-                                    opacity: isLoading ? 0.8 : 1,
-                                }}
-                                onClick={handleAIGenerate}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <>
-                                        <div style={styles.spinner}></div>
-                                        AI Thinking...
-                                    </>
-                                ) : (
-                                    <>
-                                        🤖 Generate with AI
-                                    </>
-                                )}
-                            </button>
-                        )}
+                        <button 
+                            style={{
+                                ...styles.generateButton,
+                                flex: '1',
+                                minWidth: '200px',
+                                background: contentDescription.trim() 
+                                    ? 'linear-gradient(135deg, #8A2BE2 0%, #9966CC 25%, #008080 50%, #66B2B2 75%, #9CAF88 100%)'
+                                    : 'linear-gradient(135deg, #aaa 0%, #999 100%)',
+                                backgroundSize: '200% 200%',
+                                animation: contentDescription.trim() ? 'gradientShift 4s ease infinite' : 'none',
+                                opacity: isLoading ? 0.8 : contentDescription.trim() ? 1 : 0.6,
+                                cursor: contentDescription.trim() ? 'pointer' : 'not-allowed',
+                            }}
+                            onClick={handleAIGenerate}
+                            disabled={isLoading || !contentDescription.trim()}
+                            title={!contentDescription.trim() ? 'Add a content description above to enable AI generation' : 'Generate custom content with AI'}
+                        >
+                            {isLoading ? (
+                                <>
+                                    <div style={styles.spinner}></div>
+                                    AI Thinking...
+                                </>
+                            ) : (
+                                <>
+                                    🤖 Generate with AI
+                                </>
+                            )}
+                        </button>
                     </div>
+                    
+                    {/* AI Hint when no description */}
+                    {!contentDescription.trim() && (
+                        <p style={{
+                            fontSize: '13px',
+                            color: '#E67E22',
+                            marginTop: '12px',
+                            textAlign: 'center',
+                            background: 'linear-gradient(135deg, #fff9f0 0%, #fff5e6 100%)',
+                            padding: '10px 16px',
+                            borderRadius: '10px',
+                            border: '1px solid rgba(230,126,34,0.2)',
+                        }}>
+                            💡 <strong>Tip:</strong> Upload content and add a description in Step 4 above to unlock <strong>AI-powered generation</strong>!
+                        </p>
+                    )}
                     
                     {/* AI Error Message */}
                     {aiError && (
@@ -3523,7 +3541,7 @@ Ready to see what's possible?
                         </div>
                     )}
                     
-                    {/* AI Info */}
+                    {/* AI Info when description present */}
                     {contentDescription.trim() && (
                         <p style={{
                             fontSize: '13px',
