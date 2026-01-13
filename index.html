@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caption & Hook Generator | Fountain Vitality</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(180deg, #f9f7f4 0%, #f5f2ed 50%, #f0ebe4 100%);
+            min-height: 100vh;
+            color: #1a1a1a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // ============================================
+        // CONTENT LIBRARY
+        // ============================================
+
+        const hooksLibrary = {
+            educational: {
+                men: [
+                    // Energy/Fatigue
+                    "Most guys think feeling tired all the time is just part of getting older. Here's the truth:",
+                    "You shouldn't need 4 cups of coffee just to function. Here's why:",
+                    "That afternoon crash? It's not just bad sleep. Here's what's really happening:",
+                    "Exhausted by 3pm every day? Your body might be telling you something:",
+                    "If you're running on empty no matter how much you rest, read this:",
+                    "Your energy levels aren't supposed to tank in your 30s. Here's the reality:",
+                    "Chronic fatigue isn't a character flaw. It's often a hormonal signal:",
+                    "Still tired after 8 hours of sleep? Here's what most doctors won't tell you:",
+                    
+                    // Brain Fog
+                    "Brain fog isn't just a buzzword. It's a real symptom—and here's why it matters:",
+                    "Forgetting things more often? Can't focus like you used to? Here's what's happening:",
+                    "That mental cloudiness you've been ignoring? It might be connected to this:",
+                    "Struggling to think clearly? Your brain might be running low on fuel:",
+                    "When your mind feels like it's wading through mud, here's what to check:",
+                    "Memory issues in your 30s and 40s aren't normal. Here's what to know:",
+                    "Brain fog is your body's check engine light. Here's how to read it:",
+                    
+                    // Mood/Motivation
+                    "Lost your drive? It might not be burnout. Here's another explanation:",
+                    "Feeling unmotivated for no clear reason? Your hormones might explain it:",
+                    "When everything feels 'meh'—even things you used to love—consider this:",
+                    "That irritability you can't shake? It's not just stress:",
+                    "Losing interest in life? Before you blame yourself, read this:",
+                    "Mood swings aren't just for teenagers. Here's what's happening in your body:",
+                    "Feeling disconnected from yourself? There might be a biological reason:",
+                    
+                    // Fitness/Body Composition
+                    "Working out but not seeing results? Here's a factor you might be missing:",
+                    "Gaining fat and losing muscle despite the gym? This might be why:",
+                    "Your body composition isn't just about diet and exercise. Here's the missing piece:",
+                    "Can't build muscle like you used to? The gym might not be the problem:",
+                    "Stubborn belly fat that won't budge? Here's what's often overlooked:",
+                    "If your fitness has stalled, check this before changing your routine:",
+                    "The reason your workouts aren't working might surprise you:",
+                    
+                    // Sleep
+                    "Can't sleep but always tired? Here's the connection most miss:",
+                    "Waking up at 3am for no reason? Your hormones might be involved:",
+                    "Quality sleep is more than hours in bed. Here's what really matters:",
+                    "Sleep issues in your 30s and 40s often trace back to this:",
+                    "If you're sleeping but never feel rested, consider this factor:",
+                    
+                    // Testosterone Basics
+                    "What does testosterone actually do? More than you'd think:",
+                    "Testosterone isn't just about muscles. Here's its full job description:",
+                    "Low T symptoms can show up years before blood tests catch it. Here's why:",
+                    "Your testosterone levels are probably lower than your dad's were at your age:",
+                    "Here's what happens when testosterone starts declining—and when it typically starts:",
+                    
+                    // Aging
+                    "Aging is inevitable. Feeling old in your 30s isn't. Here's the difference:",
+                    "You're not supposed to feel this tired at your age. Here's why you might:",
+                    "Getting older doesn't mean giving up on feeling good. Here's what to know:",
+                    "The symptoms you're chalking up to aging might actually be treatable:",
+                    "40 isn't the new 60. Unless this is happening in your body:",
+                    
+                    // Symptoms
+                    "These 5 symptoms are connected—and most guys don't realize it:",
+                    "If you have 3+ of these symptoms, your hormones might need attention:",
+                    "The warning signs most men ignore (until it's really affecting their life):",
+                    "Your body sends signals. Here's how to decode them:",
+                    "When multiple symptoms appear together, here's what it often means:"
+                ],
+                women: [
+                    // Perimenopause/Menopause Basics
+                    "Perimenopause can start earlier than you think. Here's what to know:",
+                    "Menopause isn't a cliff—it's a transition. And it starts sooner than expected:",
+                    "The perimenopause timeline nobody told you about:",
+                    "Your 40s hormonal shift explained in plain terms:",
+                    "What's actually happening in your body during perimenopause:",
+                    "Menopause 101: What every woman should know before it starts:",
+                    "The stages of menopause—and how to navigate each one:",
+                    "Perimenopause symptoms can start at 35. Here's what to watch for:",
+                    
+                    // Energy
+                    "Exhausted all the time? Your hormones might be the reason:",
+                    "That bone-deep tiredness has a name—and often a solution:",
+                    "If coffee stopped working, here's what might be happening:",
+                    "Fatigue isn't just about sleep. Here's the hormone connection:",
+                    "Running on empty during perimenopause? You're not imagining it:",
+                    "Your energy levels and your hormones: The connection explained:",
+                    "Why perimenopause exhaustion feels different—and what to do about it:",
+                    
+                    // Brain Fog
+                    "Brain fog is real—and it's connected to your hormones:",
+                    "Can't find words? Forgetting appointments? Here's what's happening:",
+                    "The 'menopause brain' struggle is real. Here's the science:",
+                    "Cognitive changes during perimenopause aren't in your head (well, actually...):",
+                    "That mental fuzziness has a hormonal explanation:",
+                    "When your brain feels like it's buffering, check this:",
+                    "Perimenopause brain fog explained—and what actually helps:",
+                    
+                    // Mood/Anxiety
+                    "Feeling anxious for no reason? Hormones might be involved:",
+                    "Sudden mood changes aren't a personality flaw. They're often hormonal:",
+                    "That new anxiety might not be situational. Here's another possibility:",
+                    "Irritability, sadness, rage—perimenopause can bring all of them:",
+                    "When your emotions feel out of control, consider this factor:",
+                    "Depression and perimenopause: The link doctors often miss:",
+                    "Anxiety in your 40s that came out of nowhere? Read this:",
+                    
+                    // Sleep/Night Sweats
+                    "Waking up drenched in sweat? You're not alone—and here's why it happens:",
+                    "Night sweats disrupting your life? There's a reason—and options:",
+                    "Hot flashes at 3am are more than annoying. Here's what's happening:",
+                    "Sleep disruption during perimenopause: What's really going on:",
+                    "Can't stay asleep? Your hormones might be to blame:",
+                    "The night sweat nightmare: Causes and real solutions:",
+                    
+                    // Physical Changes
+                    "Weight gain that won't budge despite doing everything 'right'? Here's why:",
+                    "Body composition changes during perimenopause—and what you can do:",
+                    "Why your usual diet and exercise stopped working:",
+                    "The metabolism shift nobody warns you about:",
+                    "Hair, skin, weight changes? They're all connected to this:",
+                    "Your body is changing. Here's what's driving it:",
+                    
+                    // HRT Education
+                    "HRT has come a long way. Here's what modern hormone therapy looks like:",
+                    "What you need to know about hormone therapy in 2024:",
+                    "Bioidentical hormones explained in plain English:",
+                    "The HRT conversation has changed. Here's the current evidence:",
+                    "Hormone therapy options: What's available and how they differ:",
+                    "Making informed decisions about HRT starts with these facts:"
+                ],
+                general: [
+                    // Hormone Basics
+                    "Your hormones control more than you think. Here's the breakdown:",
+                    "Hormones 101: What they do and why balance matters:",
+                    "The endocrine system explained simply:",
+                    "How hormones affect every system in your body:",
+                    "The hormone-health connection everyone should understand:",
+                    "Your body's chemical messengers: A beginner's guide:",
+                    
+                    // Symptoms
+                    "These symptoms might be connected (and here's how):",
+                    "When multiple symptoms appear, here's what to consider:",
+                    "The symptom cluster that points to hormonal imbalance:",
+                    "Your symptoms aren't random. They might be related:",
+                    "Connecting the dots between seemingly unrelated symptoms:",
+                    
+                    // Energy/Vitality
+                    "Vitality isn't just about energy. Here's the full picture:",
+                    "What 'feeling good' actually looks like—and how to get there:",
+                    "The difference between surviving and thriving, explained:",
+                    "Optimal health vs. just getting by: Here's the gap:",
+                    "Your potential energy levels might surprise you:",
+                    
+                    // Aging
+                    "Aging doesn't have to mean declining. Here's the difference:",
+                    "Healthy aging is possible. Here's what it requires:",
+                    "The aging process isn't one-size-fits-all. Here's why:",
+                    "What if aging could feel different? Here's how:",
+                    "Biological age vs. chronological age: What matters more:",
+                    
+                    // Testing
+                    "Lab numbers don't tell the whole story. Here's what else matters:",
+                    "What your standard blood panel might be missing:",
+                    "Testing hormones: What to ask for and why:",
+                    "Normal ranges vs. optimal ranges: The important distinction:",
+                    
+                    // Lifestyle
+                    "Lifestyle matters—but sometimes it's not enough. Here's when:",
+                    "Sleep, nutrition, exercise... and the missing piece:",
+                    "When healthy habits aren't giving you results, consider this:",
+                    "The foundation of health most people overlook:"
+                ]
+            },
+            mythBusting: {
+                men: [
+                    // TRT Misconceptions
+                    '"TRT is just for bodybuilders." Wrong. Let me explain:',
+                    'Myth: Testosterone therapy is dangerous. Let\'s look at the facts:',
+                    '"That\'s steroids!" Actually, there\'s a big difference:',
+                    '"You\'ll become dependent on it." Here\'s the nuanced truth:',
+                    '"TRT causes heart problems." What does the research actually say?',
+                    '"It\'s unnatural." Let\'s talk about what that really means:',
+                    '"You\'re too young for low T." Age isn\'t the only factor:',
+                    '"Just tough it out." Here\'s why that advice falls short:',
+                    '"TRT is just for guys who want to get jacked." Reality check:',
+                    '"Once you start, you can\'t stop." Let\'s clarify this:',
+                    
+                    // Symptom Dismissal
+                    '"Just exercise more and you\'ll feel fine." Here\'s why that\'s not always true:',
+                    '"Everyone feels tired—deal with it." Actually, chronic fatigue isn\'t normal:',
+                    '"It\'s just stress." Sometimes. But sometimes it\'s this:',
+                    '"You\'re just getting older." That\'s not the complete story:',
+                    '"Sleep more and you\'ll have more energy." If only it were that simple:',
+                    '"Just eat better." Diet matters, but here\'s what it can\'t fix:',
+                    
+                    // Treatment Fears
+                    '"Side effects outweigh the benefits." Let\'s look at actual data:',
+                    '"It will shrink your..." Let\'s address this concern directly:',
+                    '"You\'ll lose your hair." Here\'s what the science says:',
+                    '"It causes roid rage." Myth vs. reality on mood effects:',
+                    '"It\'s a slippery slope to steroid abuse." Actually, no:',
+                    
+                    // Lifestyle Myths
+                    '"Real men don\'t need help." Let\'s unpack this harmful myth:',
+                    '"Just hit the gym harder." Exercise is great, but...:',
+                    '"Supplements can fix low T." Here\'s the truth about that:',
+                    '"Low T is rare." It\'s actually more common than you think:'
+                ],
+                women: [
+                    // HRT Safety Myths
+                    '"HRT is dangerous." Let\'s talk about what the research actually says:',
+                    '"HRT causes cancer." Here\'s what current evidence shows:',
+                    'Myth: Hormone therapy is risky. Reality: It\'s more nuanced:',
+                    '"The Women\'s Health Initiative proved HRT is harmful." Not exactly:',
+                    '"Bioidentical is safer than synthetic." Let\'s examine this claim:',
+                    '"HRT is a last resort." Actually, timing matters more:',
+                    '"Natural is always better." Here\'s what that really means:',
+                    
+                    // Symptom Dismissal
+                    'Myth: You just have to tough it out. Reality: You don\'t.',
+                    '"Your labs are normal, you\'re fine." But you don\'t feel fine...',
+                    '"It\'s just part of being a woman." No, it doesn\'t have to be:',
+                    '"Everyone goes through this." Yes, but suffering is optional:',
+                    '"It\'s all in your head." Actually, it\'s in your hormones:',
+                    '"Just wait it out." Here\'s why that advice can backfire:',
+                    '"You\'re too young for menopause." Perimenopause starts earlier:',
+                    
+                    // Treatment Misconceptions
+                    '"HRT just delays the inevitable." Here\'s what it actually does:',
+                    '"You\'ll gain weight on HRT." Let\'s look at what research shows:',
+                    '"Once you start, you\'re on it forever." That\'s not accurate:',
+                    '"HRT masks the real problem." Actually, hormones ARE the issue:',
+                    '"Supplements work just as well." Here\'s the evidence comparison:',
+                    
+                    // Medical Care Myths
+                    '"Your doctor knows best." Doctors are human—advocate for yourself:',
+                    '"If it were serious, your doctor would catch it." Not always:',
+                    '"This is just normal aging." Normal ≠ optimal:',
+                    '"There\'s nothing you can do." Actually, there are options:'
+                ],
+                general: [
+                    // Hormone Therapy Myths
+                    '"Hormone therapy is unnatural." Let\'s unpack that:',
+                    '"It\'s just for vanity." Hormones affect way more than appearance:',
+                    '"Therapy is a quick fix." Actually, it\'s about optimization:',
+                    '"If you need hormones, something\'s wrong with you." Reality check:',
+                    '"Hormone therapy is addictive." Let\'s clarify this misconception:',
+                    
+                    // Diagnosis Myths
+                    '"Normal labs mean you\'re fine." Normal ≠ optimal:',
+                    '"If something were wrong, you\'d know." Actually, decline is gradual:',
+                    '"Symptoms are just in your head." Your body is sending real signals:',
+                    '"Everyone your age feels this way." That doesn\'t make it okay:',
+                    '"Just accept it as aging." Aging and dysfunction aren\'t the same:',
+                    
+                    // Treatment Myths
+                    '"Diet and exercise can fix everything." They\'re foundational, but...:',
+                    '"More supplements = better results." Here\'s why that\'s not true:',
+                    '"One solution works for everyone." Actually, it\'s highly individual:',
+                    '"Results happen overnight." Realistic expectations look like this:',
+                    
+                    // Aging Myths
+                    'The biggest lie we\'ve been told about aging:',
+                    '"Feeling bad is just part of getting older." Challenge accepted:',
+                    '"Your best years are behind you." What if that\'s not true?',
+                    '"You can\'t fight aging." You can\'t stop it, but you can optimize:'
+                ]
+            },
+            testimonial: {
+                men: [
+                    // Energy Transformation
+                    "6 months ago, I could barely get through the day. Now?",
+                    "From needing naps to crushing workouts. Here's my journey:",
+                    "I forgot what having energy felt like. Until now:",
+                    "The difference between then and now is night and day:",
+                    "I used to count down to bedtime by noon. Not anymore:",
+                    "Energy I haven't felt since my 20s. Here's what changed:",
+                    "From surviving to thriving—this is my story:",
+                    
+                    // Skeptic to Believer
+                    "I was skeptical. Now I'm a believer. Here's why:",
+                    "I put off getting help for years. Wish I hadn't:",
+                    "I thought it was all hype. I was wrong:",
+                    "From eye-roll to advocate—my perspective shift:",
+                    "I didn't think I needed help. Then I got it:",
+                    "The results spoke louder than my doubts:",
+                    
+                    // Specific Improvements
+                    "My brain fog lifted. Here's what that's actually like:",
+                    "Finally sleeping through the night. Here's how:",
+                    "The gym results I'd given up on are finally happening:",
+                    "My mood stabilized. My relationships improved. Here's the connection:",
+                    "I can focus again. That alone changed everything:",
+                    "Weight I'd been fighting for years—finally coming off:",
+                    
+                    // Journey/Process
+                    "My journey from 'something's wrong' to feeling right:",
+                    "Here's what the process actually looked like for me:",
+                    "What I wish I knew when I started:",
+                    "The timeline from skeptic to success:",
+                    "My first month, third month, and six months in:",
+                    
+                    // Advice
+                    "What I'd tell myself a year ago:",
+                    "If you're on the fence, here's my experience:",
+                    "The one thing I wish I'd done sooner:",
+                    "My advice to anyone feeling how I felt:"
+                ],
+                women: [
+                    // Transformation
+                    "I finally feel like myself again. Here's what happened:",
+                    "From barely surviving to actually living. My story:",
+                    "The fog lifted. The exhaustion faded. Here's how:",
+                    "I got my life back. That's not an exaggeration:",
+                    "Me before vs. me now—the difference is everything:",
+                    "I didn't realize how bad I felt until I felt better:",
+                    "Transformation isn't too strong a word. Here's why:",
+                    
+                    // Validation
+                    "I wasn't crazy. I was hormonal. And that's valid:",
+                    "Finally, someone listened. Here's what that meant:",
+                    "Years of being dismissed—then finally getting answers:",
+                    "I knew something was wrong. Turns out I was right:",
+                    "Validation after years of 'it's just stress.' My story:",
+                    "Being heard changed everything. Here's my experience:",
+                    
+                    // Symptom Relief
+                    "My hot flashes are gone. Here's how:",
+                    "Night sweats used to rule my life. Not anymore:",
+                    "The anxiety that appeared from nowhere? Finally managed:",
+                    "Brain fog that made me feel stupid—lifted:",
+                    "Sleep I haven't had in years. Finally happening:",
+                    "Weight that wouldn't budge—finally moving:",
+                    
+                    // Life Impact
+                    "My relationships improved. My work improved. Here's the common factor:",
+                    "I'm present for my family again. Here's what changed:",
+                    "Quality of life—that phrase means something to me now:",
+                    "From dreading each day to looking forward to life:",
+                    
+                    // Advocacy
+                    "I share my story so others know they have options:",
+                    "If my experience helps one person, it's worth sharing:",
+                    "What I want every woman my age to know:",
+                    "The conversation I wish I'd had years ago:"
+                ],
+                general: [
+                    // Success Stories
+                    "Real patients. Real results. Real talk.",
+                    "Stories from real people on their hormone journey:",
+                    "What transformation actually looks like:",
+                    "These aren't actors. These are real experiences:",
+                    "From skeptical to successful—real stories:",
+                    
+                    // Diverse Experiences
+                    '"I didn\'t know I could feel this good." Here\'s their story:',
+                    "Different ages, different symptoms, same outcome—relief:",
+                    "Every journey is unique. Here's what they have in common:",
+                    "Real people, real improvements, real hope:",
+                    
+                    // Impact/Outcomes
+                    "When treatment works, this is what it looks like:",
+                    "The ripple effects of feeling better:",
+                    "What getting your life back actually means:",
+                    "Beyond symptom relief—quality of life stories:",
+                    
+                    // Trust/Process
+                    "Why trust matters in this process—real perspectives:",
+                    "The journey from first appointment to feeling better:",
+                    "What working with the right team looks like:",
+                    "Patient perspectives on the Fountain Vitality difference:"
+                ]
+            }
+        };
+
+        const captionsLibrary = {
+            educational: {
+                men: [
+                    `You're in your 30s or 40s, and you're exhausted.
+
+Not "I need more coffee" tired—we're talking bone-deep, can't-focus, losing-motivation tired.
+
+You've tried:
+→ Sleeping more
+→ Eating better
+→ Working out harder
+
+And nothing's really moving the needle.
+
+Here's what most guys don't know: testosterone levels have been declining across the population. Men today have lower T than their fathers did at the same age.
+
+The symptoms? Fatigue, brain fog, mood changes, stubborn weight, low motivation—sound familiar?
+
+It might not be burnout. It might be biology.
+
+Getting your levels checked is simple. And knowledge is power.
+
+Save this for later. 💾`,
+
+                    `Brain fog isn't something you just "push through."
+
+When your mind feels cloudy, when words don't come as easily, when focus takes effort—your body is telling you something.
+
+For many men, cognitive changes in their 30s and 40s trace back to declining testosterone.
+
+Here's why: testosterone plays a role in:
+→ Mental clarity
+→ Memory formation
+→ Cognitive processing
+→ Mood regulation
+
+Low T doesn't just affect the gym. It affects everything above the neck too.
+
+If you're experiencing brain fog alongside fatigue, mood changes, or motivation issues—the connection might be hormonal.
+
+Tap the link in bio to learn more. 🔗`,
+
+                    `"Just exercise more."
+"Sleep better."
+"Manage your stress."
+
+Sound familiar?
+
+This advice isn't wrong—it's just incomplete.
+
+When testosterone is low, no amount of grinding will get you to optimal. Your body needs the right raw materials.
+
+Signs lifestyle alone isn't cutting it:
+→ You do everything "right" but still feel off
+→ Recovery takes forever
+→ Results don't match effort
+→ Energy crashes happen anyway
+
+Sometimes the foundation needs support before the house can stand strong.
+
+That's not weakness. That's biology.
+
+Link in bio for a consultation. 📲`,
+
+                    `Let's talk about what testosterone actually does.
+
+It's not just about muscles and gym gains. Testosterone influences:
+
+🧠 Brain function and clarity
+💤 Sleep quality
+⚡ Energy levels
+🏋️ Body composition
+😊 Mood and motivation
+❤️ Cardiovascular health
+
+When levels decline (which happens gradually starting in your 30s), the effects ripple through every area.
+
+Most men don't notice the decline because it's slow. You adapt. You compensate. You assume it's just aging.
+
+But "normal aging" and "optimal health" aren't the same thing.
+
+Want to know where you stand? Link in bio. 🔗`,
+
+                    `The conversation your doctor probably isn't having with you:
+
+"Normal" lab ranges are based on population averages—including sick, sedentary, and elderly people.
+
+Just because your levels fall within "normal" doesn't mean they're optimal FOR YOU.
+
+Here's the difference:
+→ Normal: You're not dying
+→ Optimal: You're thriving
+
+Many men walking around with "normal" testosterone are experiencing:
+• Fatigue
+• Brain fog
+• Low motivation
+• Stubborn weight
+• Mood changes
+
+Your symptoms matter more than a number on a page.
+
+If something feels off, it probably is.
+
+Save this. Share it with someone who needs to hear it. 💾`
+                ],
+                women: [
+                    `Perimenopause can start in your mid-30s. Yes, really.
+
+Most women don't hear about it until they're deep in symptoms, wondering what's wrong with them.
+
+Here's what perimenopause can look like:
+→ Cycles that change or become unpredictable
+→ Sleep disruption (especially waking at 3am)
+→ Mood shifts that feel out of character
+→ Brain fog and focus issues
+→ Fatigue that sleep doesn't fix
+→ Anxiety that appears from nowhere
+
+This transition can last 8-10 years before actual menopause.
+
+That's a long time to feel "off" without understanding why.
+
+Knowledge is power. Hormones are health.
+
+Save this and share with someone who needs to see it. 💜`,
+
+                    `"Your labs are normal."
+
+Three words that dismiss years of struggling.
+
+Here's what many women experience:
+→ You know something's wrong
+→ You advocate for testing
+→ Results come back "normal"
+→ You're told you're fine
+→ But you don't FEEL fine
+
+The problem? "Normal" ranges are broad. They include postmenopausal women, teenagers, and everyone in between.
+
+Normal ≠ optimal FOR YOU.
+
+Your symptoms are real. Your experience matters. And "normal" labs don't mean there's nothing to be done.
+
+You deserve providers who listen to your whole story—not just look at numbers.
+
+Link in bio if you're ready to be heard. 🔗`,
+
+                    `Hot flashes. Night sweats. The internal furnace.
+
+If you know, you know.
+
+Here's what's happening: declining estrogen affects your hypothalamus (your body's thermostat). It starts misreading temperatures and triggers heat-dispersing responses.
+
+The result?
+→ Sudden warmth spreading across your body
+→ Sweating that soaks through your clothes
+→ Waking up drenched at 2am
+→ A chill that follows the heat wave
+
+For some women, these symptoms are mild and brief. For others? Severe and lasting years.
+
+The good news: you don't have to just "wait it out."
+
+Options exist. Relief is possible. You deserve to be comfortable in your own body.
+
+Tap the link in bio to learn more. 💜`,
+
+                    `Let's talk about estrogen—and why it matters.
+
+Estrogen isn't just about reproduction. It affects:
+
+🧠 Brain function and mood
+💤 Sleep quality
+🦴 Bone density
+❤️ Cardiovascular health
+💪 Muscle maintenance
+✨ Skin health
+
+When estrogen declines during perimenopause and menopause, the effects go far beyond hot flashes.
+
+This is why so many women describe feeling "like a different person"—because hormones truly affect how we think, feel, and function.
+
+Understanding the why behind your symptoms is the first step to feeling better.
+
+Save this for reference. 💾`,
+
+                    `The timeline nobody talks about:
+
+📍 Perimenopause often starts: 35-45
+📍 Average perimenopause length: 4-8 years
+📍 Average menopause age: 51
+📍 Symptoms can continue: Years post-menopause
+
+That's potentially 15+ years of hormonal transition.
+
+And yet, most women learn about this when they're already struggling.
+
+Symptoms at each stage can include:
+→ Early perimenopause: Subtle changes, cycle shifts
+→ Late perimenopause: Hot flashes, sleep issues, mood changes
+→ Menopause: Continued symptoms, dryness, cognitive changes
+→ Post-menopause: Bone health concerns, heart health considerations
+
+Information is empowerment. The more you know, the better you can advocate for yourself.
+
+Follow for more hormone education. 🔗`
+                ],
+                general: [
+                    `Your hormones affect everything. Here's what they do:
+
+⚡ Energy & metabolism
+🧠 Brain function & mood
+💤 Sleep quality
+💪 Muscle & bone health
+❤️ Heart health
+✨ Skin & hair
+
+When hormones are out of balance, you feel it—even if you can't name it.
+
+Common signs of hormonal imbalance:
+→ Unexplained fatigue
+→ Brain fog
+→ Mood changes
+→ Weight shifts
+→ Sleep issues
+→ Low motivation
+
+The tricky part? These symptoms overlap with so many other things. That's why proper testing and personalized care matter.
+
+Your body is talking. Are you listening?
+
+Link in bio to learn more. 🔗`,
+
+                    `"Normal" vs. "Optimal" — here's why it matters:
+
+Normal: Based on population averages
+Optimal: Where YOU function best
+
+Standard lab ranges include everyone—young, old, sick, healthy. Falling within "normal" just means you're not an outlier.
+
+But here's the thing: you can be "normal" and still feel terrible.
+
+Optimal health means:
+→ Energy that lasts all day
+→ Clear, focused thinking
+→ Stable, balanced mood
+→ Quality, restorative sleep
+→ Strength and vitality
+
+Normal is the absence of disease.
+Optimal is the presence of wellness.
+
+Which one are you aiming for?
+
+💾 Save this reminder.`,
+
+                    `Aging is inevitable. Declining is optional.
+
+There's a difference between:
+→ Getting older (happening to everyone)
+→ Feeling old (not necessary)
+
+Many symptoms we accept as "just getting older" are actually addressable:
+• Fatigue
+• Brain fog
+• Low energy
+• Mood changes
+• Weight gain
+• Sleep issues
+
+The first step? Stop accepting "that's just aging" as an answer.
+
+The second step? Get informed. Understand your options. Work with providers who see you as a whole person.
+
+Your best years don't have to be behind you.
+
+Tap link in bio to learn more. 🔗`,
+
+                    `What are hormones, really?
+
+Think of them as your body's messaging system. They're chemical signals that tell your cells what to do.
+
+Key hormones and their jobs:
+🔹 Testosterone: Energy, strength, mood, cognition
+🔹 Estrogen: Brain, bones, heart, metabolism
+🔹 Progesterone: Sleep, calm, balance
+🔹 Thyroid: Metabolism, energy, temperature
+🔹 Cortisol: Stress response, inflammation
+
+When these messengers are out of balance, the signals get scrambled.
+
+The result? Symptoms that seem unrelated but actually share a common root.
+
+Understanding hormones = understanding your body.
+
+Follow for more education. 💾`
+                ]
+            },
+            mythBusting: {
+                men: [
+                    `"TRT is just for bodybuilders who want to get huge."
+
+Let's bust this myth. 💪
+
+The reality? Most men seeking testosterone therapy are:
+→ In their 30s-50s
+→ Dealing with fatigue and brain fog
+→ Experiencing mood and motivation issues
+→ Not trying to compete in bodybuilding
+
+TRT isn't about getting jacked. It's about feeling normal again.
+
+When testosterone is optimized—not supercharged—men report:
+• More consistent energy
+• Better mental clarity
+• Improved mood stability
+• Better sleep quality
+
+It's not about being huge. It's about being YOU—at your best.
+
+Save this for someone who needs to hear it. 💾`,
+
+                    `"Just exercise more and eat better."
+
+Great advice—if hormones aren't the issue.
+
+Here's the problem: when testosterone is genuinely low, no amount of clean eating and exercise will fully close the gap.
+
+It's like trying to fill a bucket with a hole in it.
+
+What low T actually does:
+→ Makes workouts less effective
+→ Slows recovery
+→ Reduces motivation to train
+→ Makes it harder to build muscle
+→ Makes fat loss more difficult
+
+Lifestyle matters—it's foundational. But sometimes the foundation needs support first.
+
+This isn't an excuse. It's biology.
+
+Working harder isn't always the answer. Working smarter is.
+
+🔗 Link in bio for a consultation.`,
+
+                    `"You're too young for low testosterone."
+
+Age isn't the only factor. Let me explain.
+
+While T does decline naturally with age, low testosterone can happen in your 20s, 30s, and 40s due to:
+→ Environmental factors
+→ Stress and sleep issues
+→ Diet and lifestyle
+→ Medical conditions
+→ Genetic factors
+
+Studies show testosterone levels in men have been declining across generations. Men today have lower T than their fathers did at the same age.
+
+Young men are affected too. Symptoms don't check your ID.
+
+If you're experiencing fatigue, brain fog, mood changes, or low motivation—age doesn't disqualify your experience.
+
+Your symptoms are valid. Get checked.
+
+📲 Link in bio.`,
+
+                    `"TRT causes heart problems."
+
+This myth needs context. Here's what research actually shows:
+
+Outdated studies with methodological issues created fear. More recent, higher-quality research tells a different story.
+
+What we now know:
+→ Optimized testosterone may support cardiovascular health
+→ Low T is associated with increased cardiovascular risk
+→ Proper monitoring and dosing matter
+
+Key word: optimized. Not abused. Not unmonitored.
+
+Like any medical treatment, TRT requires:
+• Proper diagnosis
+• Individualized approach
+• Regular monitoring
+• Qualified medical oversight
+
+The goal is balance—not excess.
+
+Fear shouldn't prevent you from exploring options. Information should guide you.
+
+💾 Save this for reference.`
+                ],
+                women: [
+                    `"You just have to tough it out."
+
+The most harmful menopause myth? That suffering is mandatory.
+
+Here's the truth:
+→ Hot flashes are treatable
+→ Night sweats are manageable
+→ Brain fog can lift
+→ Sleep can improve
+→ Mood can stabilize
+
+"Toughing it out" isn't brave—it's outdated advice from a time when we had fewer options.
+
+You don't get extra points for suffering.
+
+Quality of life matters. Your comfort matters. You matter.
+
+Options exist. Relief is possible. You deserve to feel good in your body.
+
+🔗 Link in bio to learn more.`,
+
+                    `"HRT is dangerous."
+
+Let's talk about what the research actually says.
+
+The 2002 Women's Health Initiative created widespread fear about hormone therapy. But here's what happened since:
+
+→ Those findings were re-analyzed
+→ Major flaws were identified
+→ New research emerged
+→ Guidelines were updated
+
+What we know now:
+• Timing matters (starting earlier is typically better)
+• Route matters (transdermal may be safer than oral)
+• Type matters (different formulations have different profiles)
+• Individual risk factors matter
+
+Blanket statements about HRT being "dangerous" aren't accurate or helpful.
+
+Modern hormone therapy, when properly prescribed and monitored, is an option many women benefit from.
+
+💜 Education over fear. Save this.`,
+
+                    `"Your labs are normal. You're fine."
+
+But you don't FEEL fine.
+
+Here's what's happening:
+→ "Normal" ranges are statistically derived
+→ They include ALL women—all ages, all health statuses
+→ Being "normal" just means you're not outside the range
+
+What normal DOESN'T tell you:
+• Your optimal level
+• How you compare to your own baseline
+• Whether your symptoms are connected to hormones
+• What treatment might help
+
+Symptoms > numbers.
+
+If you're experiencing hot flashes, brain fog, mood changes, sleep issues—your experience is real, regardless of what a lab slip says.
+
+Find providers who listen to you, not just your labs.
+
+🔗 Link in bio for a different approach.`,
+
+                    `"It's all in your head."
+
+Actually, it IS in your head—because your brain runs on hormones.
+
+Estrogen affects:
+🧠 Neurotransmitter production
+🧠 Brain energy metabolism
+🧠 Neural connections
+🧠 Memory formation
+🧠 Mood regulation
+
+When estrogen fluctuates during perimenopause, your brain literally functions differently.
+
+So yes—brain fog, mood changes, anxiety, and cognitive shifts are "in your head."
+
+That doesn't mean they're not real. It means they're neurological.
+
+Your symptoms are valid. You're not crazy. You're not imagining it.
+
+Your brain is responding to a changing hormonal environment.
+
+Understanding this is the first step to getting help.
+
+💜 Share with someone who needs to hear this.`
+                ],
+                general: [
+                    `"Hormone therapy is unnatural."
+
+Let's think about this differently.
+
+Your body was designed to produce hormones. When production declines, replacement is restoring what was supposed to be there.
+
+Other "unnatural" things we accept:
+→ Glasses for declining vision
+→ Insulin for diabetes
+→ Thyroid medication for hypothyroidism
+→ Vitamin D for deficiency
+
+Why are reproductive hormones different?
+
+They're not.
+
+The goal of hormone therapy isn't to create something artificial. It's to restore what your body no longer produces adequately.
+
+Optimize, don't supercharge. Balance, don't excess.
+
+That's not unnatural. That's medical care.
+
+💾 Save this perspective.`,
+
+                    `"Normal labs mean you're healthy."
+
+Not necessarily. Here's why:
+
+Lab "normal" ranges:
+→ Are based on population averages
+→ Include healthy AND unhealthy people
+→ Vary significantly by lab
+→ Don't account for individual variation
+
+Being within range means: you're not statistically abnormal.
+
+Being healthy means: you feel good and function well.
+
+These aren't the same thing.
+
+You can be "normal" and:
+• Still feel exhausted
+• Still have brain fog
+• Still struggle with mood
+• Still not sleep well
+
+Optimal ≠ Normal
+
+Numbers matter. But how you FEEL matters too.
+
+Don't let a "normal" result dismiss your experience.
+
+🔗 Link in bio to work with providers who see the whole picture.`,
+
+                    `"Everyone feels this way at your age."
+
+Maybe. But that doesn't make it okay.
+
+"Common" and "optimal" are different things.
+
+Common at 40+:
+→ Fatigue
+→ Brain fog
+→ Sleep issues
+→ Mood changes
+→ Weight gain
+
+Optimal at 40+:
+→ Steady energy
+→ Mental clarity
+→ Quality sleep
+→ Stable mood
+→ Healthy body composition
+
+Just because something is common doesn't mean you have to accept it.
+
+Options exist. Feeling better is possible.
+
+Don't let "everyone feels that way" be the end of the conversation.
+
+Make it the beginning.
+
+💾 Save this reminder.`
+                ]
+            },
+            testimonial: {
+                men: [
+                    `6 months ago:
+→ Couldn't get through the day without naps
+→ Brain fog so bad I forgot mid-sentence
+→ No motivation for anything—work, gym, family
+→ Irritable for no reason
+→ Thought this was just "getting older"
+
+Today:
+→ Energy from morning to night
+→ Clear head and sharp focus
+→ Back in the gym, seeing results
+→ Present with my family
+→ Feeling like myself again
+
+The difference? I finally got my levels checked.
+
+I'm not sharing this to sell anything. I'm sharing because I wish someone had told me sooner.
+
+If this sounds familiar, don't wait like I did.
+
+🔗 Link in bio changed my life. Maybe it could change yours.`,
+
+                    `I was the biggest skeptic.
+
+"I don't need that."
+"I'm fine, just tired."
+"It's probably just stress."
+"I'll figure it out myself."
+
+Sound familiar?
+
+I spent YEARS making excuses instead of getting answers.
+
+When I finally did:
+→ My testosterone was in the tank
+→ My symptoms suddenly made sense
+→ Treatment started working within weeks
+
+Now I'm that guy who won't shut up about it. Because I wasted so much time feeling like garbage when I didn't have to.
+
+If you're on the fence—just get tested. Information doesn't commit you to anything.
+
+But it might change everything.
+
+📲 Link in bio.`,
+
+                    `What I wish I knew a year ago:
+
+1. "Normal" labs don't mean "optimal"
+2. These symptoms aren't just aging
+3. Help is available and accessible
+4. Results can happen faster than you'd think
+5. Asking for help isn't weakness
+
+I spent too long:
+→ Powering through fatigue
+→ Accepting brain fog as normal
+→ Blaming myself for low motivation
+→ Thinking I just needed to try harder
+
+Getting support wasn't giving up. It was getting smart.
+
+Best decision I've made in years.
+
+💾 Save this if you needed to hear it.`,
+
+                    `The timeline of my transformation:
+
+Week 1: Started treatment, felt the same
+Week 3: Noticed I wasn't dragging by afternoon
+Week 6: Brain fog started lifting
+Week 8: Gym performance improving
+Week 12: Energy steady all day
+Week 16: Sleep quality way better
+6 months: Feel like a different person
+
+Was it overnight magic? No.
+Was it worth it? Absolutely.
+
+The gradual improvement meant I almost didn't notice how much better I was getting—until I looked back.
+
+If you're considering it, be patient. Trust the process.
+
+🔗 Link in bio to start your own timeline.`
+                ],
+                women: [
+                    `I thought I was losing my mind.
+
+Forgetting words. Forgetting appointments. Forgetting what I walked into a room for.
+
+I thought: Is this early dementia? Am I going crazy?
+
+Then I learned about perimenopause brain fog.
+
+Getting my hormones checked revealed what was actually happening. And getting support changed everything.
+
+My brain works again:
+→ I can focus
+→ I can remember
+→ I can think clearly
+
+I wasn't crazy. I was hormonal. And there's no shame in that.
+
+If you're experiencing this—you're not alone, and you're not losing it.
+
+💜 Share with someone who needs to hear this.`,
+
+                    `For years I was dismissed.
+
+"Your labs are normal."
+"It's just stress."
+"Try yoga and deep breathing."
+"This is just part of being a woman."
+
+I KNEW something was wrong. But I started doubting myself.
+
+Then I found providers who actually listened.
+
+Who looked at my symptoms, not just my labs.
+Who treated me as a whole person.
+Who believed my experience.
+
+The difference? Night and day.
+
+If you're being dismissed—keep advocating. The right care exists.
+
+You deserve to be heard.
+
+🔗 Link in bio for providers who listen.`,
+
+                    `My hot flashes were stealing my life.
+
+→ Waking up drenched at 2am
+→ Sweating through work meetings
+→ Never knowing when the next wave would hit
+→ Anxious about social situations
+→ Exhausted from interrupted sleep
+
+I thought I just had to wait it out.
+
+I didn't.
+
+After getting support, my hot flashes went from 10+ per day to nearly zero.
+
+I sleep through the night. I feel comfortable in my body. I got my confidence back.
+
+Why did I wait so long to get help?
+
+If this is you—don't wait. Relief is possible.
+
+💜 Link in bio.`,
+
+                    `What perimenopause took from me:
+→ My energy
+→ My sharp mind
+→ My stable mood
+→ My good sleep
+→ My sense of self
+
+What I got back with proper support:
+→ Energy to do things I love
+→ Mental clarity to excel at work
+→ Emotional balance
+→ Restorative sleep
+→ ME
+
+This isn't an exaggeration. Hormonal support gave me my life back.
+
+I share my story because I want other women to know: you don't have to suffer through this.
+
+Options exist. You deserve to explore them.
+
+🔗 Link in bio to start your journey.`
+                ],
+                general: [
+                    `Real people. Real results. Real talk.
+
+We share patient stories because hope matters.
+
+When you're struggling with symptoms and wondering if anything can help—hearing from someone who's been there makes a difference.
+
+What our patients consistently tell us:
+→ "I wish I'd done this sooner"
+→ "I didn't know I could feel this good"
+→ "Everything changed"
+→ "I got my life back"
+
+Everyone's journey is different. Results vary. But relief IS possible for many people.
+
+If you're curious whether hormone optimization could help you—let's talk.
+
+🔗 Link in bio for a consultation.`,
+
+                    `"I didn't know I could feel this good."
+
+We hear this all the time.
+
+When you've felt off for months or years, you forget what "good" feels like. You adapt. You adjust. You accept.
+
+Then something shifts, and you realize: oh. THIS is how I'm supposed to feel.
+
+That realization—that moment of clarity—is why we do what we do.
+
+Helping people rediscover their potential energy, mental clarity, and quality of life? There's nothing better.
+
+Your story could be next.
+
+💾 Save this if you're ready for a change.`,
+
+                    `What our patients say about working with Fountain Vitality:
+
+"They actually listened to me." ✓
+"I felt like a person, not a number." ✓
+"The process was simple." ✓
+"I saw results faster than expected." ✓
+"I finally have answers." ✓
+
+We believe in:
+→ Personalized care
+→ Listening to symptoms AND labs
+→ Education and empowerment
+→ Ongoing support
+→ Real accessibility
+
+Your health journey matters to us.
+
+Ready to see what's possible?
+
+🔗 Link in bio to connect.`
+                ]
+            }
+        };
+
+        const platformTips = {
+            instagram: {
+                title: "Instagram Tips",
+                tips: [
+                    "Hook preview shows ~125 characters before 'more...' — make them count!",
+                    "Use 5-10 relevant hashtags (mix of popular and niche)",
+                    "Include a clear CTA: 'Save this', 'Link in bio', 'Share with a friend'",
+                    "Line breaks improve readability — use them liberally",
+                    "Emojis help break up text and add visual interest"
+                ]
+            },
+            tiktok: {
+                title: "TikTok Tips",
+                tips: [
+                    "The first 3 seconds are EVERYTHING — hook immediately",
+                    "Keep captions short (~150 characters) — the video is the star",
+                    "Use trending sounds when appropriate",
+                    "Text overlays can reinforce your hook",
+                    "Ask questions to boost comments"
+                ]
+            },
+            facebook: {
+                title: "Facebook Tips",
+                tips: [
+                    "Longer captions perform well — tell the full story",
+                    "Ask questions to spark discussion in comments",
+                    "Personal stories resonate strongly",
+                    "Native video gets better reach than links",
+                    "Post when your audience is most active"
+                ]
+            },
+            youtube: {
+                title: "YouTube Tips",
+                tips: [
+                    "Use your hook for video intros AND thumbnails",
+                    "Include timestamps for longer content",
+                    "End with a clear CTA: Subscribe, like, comment",
+                    "Descriptions should include relevant keywords",
+                    "First 48 hours matter most for algorithm"
+                ]
+            }
+        };
+
+        // ============================================
+        // MAIN APP COMPONENT
+        // ============================================
+
+        function App() {
+            const [contentType, setContentType] = useState('educational');
+            const [audience, setAudience] = useState('men');
+            const [platform, setPlatform] = useState('instagram');
+            const [isLoading, setIsLoading] = useState(false);
+            const [generatedHook, setGeneratedHook] = useState('');
+            const [generatedCaption, setGeneratedCaption] = useState('');
+            const [hookCopied, setHookCopied] = useState(false);
+            const [captionCopied, setCaptionCopied] = useState(false);
+            const [showResults, setShowResults] = useState(false);
+
+            const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+            const generateHook = () => {
+                const hooks = hooksLibrary[contentType]?.[audience] || hooksLibrary[contentType]?.general || [];
+                return getRandomItem(hooks) || "No hooks available for this combination.";
+            };
+
+            const generateCaption = () => {
+                const captions = captionsLibrary[contentType]?.[audience] || captionsLibrary[contentType]?.general || [];
+                return getRandomItem(captions) || "No captions available for this combination.";
+            };
+
+            const handleGenerate = () => {
+                setIsLoading(true);
+                setShowResults(false);
+                
+                setTimeout(() => {
+                    setGeneratedHook(generateHook());
+                    setGeneratedCaption(generateCaption());
+                    setIsLoading(false);
+                    setShowResults(true);
+                }, 800);
+            };
+
+            const handleRegenerateHook = () => {
+                const newHook = generateHook();
+                setGeneratedHook(newHook);
+            };
+
+            const handleRegenerateCaption = () => {
+                const newCaption = generateCaption();
+                setGeneratedCaption(newCaption);
+            };
+
+            const copyToClipboard = async (text, type) => {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    if (type === 'hook') {
+                        setHookCopied(true);
+                        setTimeout(() => setHookCopied(false), 2000);
+                    } else {
+                        setCaptionCopied(true);
+                        setTimeout(() => setCaptionCopied(false), 2000);
+                    }
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            };
+
+            const currentTips = platformTips[platform];
+
+            const styles = {
+                container: {
+                    maxWidth: '900px',
+                    margin: '0 auto',
+                    padding: '40px 20px',
+                    minHeight: '100vh',
+                },
+                header: {
+                    textAlign: 'center',
+                    marginBottom: '48px',
+                },
+                logo: {
+                    fontSize: '14px',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: '600',
+                    letterSpacing: '3px',
+                    textTransform: 'uppercase',
+                    color: '#2d8a7b',
+                    marginBottom: '16px',
+                },
+                title: {
+                    fontFamily: "'Fraunces', serif",
+                    fontSize: '42px',
+                    fontWeight: '500',
+                    color: '#1a1a1a',
+                    marginBottom: '12px',
+                    lineHeight: '1.2',
+                },
+                subtitle: {
+                    fontSize: '18px',
+                    color: '#666',
+                    fontWeight: '400',
+                },
+                card: {
+                    background: '#ffffff',
+                    borderRadius: '20px',
+                    padding: '32px',
+                    marginBottom: '24px',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+                    border: '1px solid rgba(45,138,123,0.1)',
+                },
+                sectionTitle: {
+                    fontFamily: "'Fraunces', serif",
+                    fontSize: '20px',
+                    fontWeight: '500',
+                    color: '#1a1a1a',
+                    marginBottom: '20px',
+                },
+                buttonGroup: {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
+                },
+                toggleButton: (isActive) => ({
+                    padding: '12px 24px',
+                    borderRadius: '100px',
+                    border: isActive ? '2px solid #2d8a7b' : '2px solid #e0e0e0',
+                    background: isActive ? 'linear-gradient(135deg, #2d8a7b 0%, #3a9d8d 100%)' : '#ffffff',
+                    color: isActive ? '#ffffff' : '#555',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '15px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    outline: 'none',
+                }),
+                generateButton: {
+                    width: '100%',
+                    padding: '18px 32px',
+                    borderRadius: '100px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #2d8a7b 0%, #247a6b 100%)',
+                    color: '#ffffff',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '17px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 16px rgba(45,138,123,0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                },
+                spinner: {
+                    width: '20px',
+                    height: '20px',
+                    border: '2px solid rgba(255,255,255,0.3)',
+                    borderTopColor: '#ffffff',
+                    borderRadius: '50%',
+                    animation: 'spin 0.8s linear infinite',
+                },
+                resultCard: {
+                    background: '#ffffff',
+                    borderRadius: '20px',
+                    padding: '28px',
+                    marginBottom: '24px',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+                    border: '1px solid rgba(45,138,123,0.1)',
+                    animation: 'fadeIn 0.4s ease-out',
+                },
+                resultHeader: {
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '16px',
+                    flexWrap: 'wrap',
+                    gap: '12px',
+                },
+                resultTitle: {
+                    fontFamily: "'Fraunces', serif",
+                    fontSize: '18px',
+                    fontWeight: '500',
+                    color: '#1a1a1a',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                },
+                platformBadge: {
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: '100px',
+                    background: 'linear-gradient(135deg, #e8f5f3 0%, #d4ebe8 100%)',
+                    color: '#2d8a7b',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                },
+                resultActions: {
+                    display: 'flex',
+                    gap: '10px',
+                },
+                actionButton: {
+                    padding: '10px 18px',
+                    borderRadius: '100px',
+                    border: '1px solid #e0e0e0',
+                    background: '#ffffff',
+                    color: '#555',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                },
+                copyButtonSuccess: {
+                    padding: '10px 18px',
+                    borderRadius: '100px',
+                    border: '1px solid #2d8a7b',
+                    background: '#2d8a7b',
+                    color: '#ffffff',
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                },
+                resultContent: {
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '16px',
+                    lineHeight: '1.7',
+                    color: '#333',
+                    whiteSpace: 'pre-wrap',
+                    background: '#f9f7f4',
+                    padding: '20px',
+                    borderRadius: '12px',
+                },
+                tipsCard: {
+                    background: 'linear-gradient(135deg, #f0f9f7 0%, #e8f5f3 100%)',
+                    borderRadius: '20px',
+                    padding: '28px',
+                    marginTop: '24px',
+                    border: '1px solid rgba(45,138,123,0.15)',
+                },
+                tipsTitle: {
+                    fontFamily: "'Fraunces', serif",
+                    fontSize: '18px',
+                    fontWeight: '500',
+                    color: '#2d8a7b',
+                    marginBottom: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                },
+                tipsList: {
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0,
+                },
+                tipItem: {
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '15px',
+                    color: '#444',
+                    padding: '10px 0',
+                    borderBottom: '1px solid rgba(45,138,123,0.1)',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '12px',
+                },
+                tipIcon: {
+                    color: '#2d8a7b',
+                    flexShrink: 0,
+                    marginTop: '2px',
+                },
+                footer: {
+                    textAlign: 'center',
+                    marginTop: '48px',
+                    paddingTop: '24px',
+                    borderTop: '1px solid rgba(0,0,0,0.1)',
+                },
+                footerText: {
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: '14px',
+                    color: '#888',
+                },
+            };
+
+            const platformIcons = {
+                instagram: '📸',
+                tiktok: '🎵',
+                facebook: '👥',
+                youtube: '▶️'
+            };
+
+            return (
+                <div style={styles.container}>
+                    {/* Header */}
+                    <header style={styles.header}>
+                        <div style={styles.logo}>Fountain Vitality</div>
+                        <h1 style={styles.title}>Caption & Hook Generator</h1>
+                        <p style={styles.subtitle}>Create engaging social media content for hormone health education</p>
+                    </header>
+
+                    {/* Selection Options */}
+                    <div style={styles.card}>
+                        <h2 style={styles.sectionTitle}>Content Type</h2>
+                        <div style={styles.buttonGroup}>
+                            <button 
+                                style={styles.toggleButton(contentType === 'educational')}
+                                onClick={() => setContentType('educational')}
+                            >
+                                📚 Educational
+                            </button>
+                            <button 
+                                style={styles.toggleButton(contentType === 'mythBusting')}
+                                onClick={() => setContentType('mythBusting')}
+                            >
+                                🔍 Myth-Busting
+                            </button>
+                            <button 
+                                style={styles.toggleButton(contentType === 'testimonial')}
+                                onClick={() => setContentType('testimonial')}
+                            >
+                                💬 Testimonial
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style={styles.card}>
+                        <h2 style={styles.sectionTitle}>Target Audience</h2>
+                        <div style={styles.buttonGroup}>
+                            <button 
+                                style={styles.toggleButton(audience === 'men')}
+                                onClick={() => setAudience('men')}
+                            >
+                                👨 Men (TRT)
+                            </button>
+                            <button 
+                                style={styles.toggleButton(audience === 'women')}
+                                onClick={() => setAudience('women')}
+                            >
+                                👩 Women (HRT)
+                            </button>
+                            <button 
+                                style={styles.toggleButton(audience === 'general')}
+                                onClick={() => setAudience('general')}
+                            >
+                                👥 General
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style={styles.card}>
+                        <h2 style={styles.sectionTitle}>Platform</h2>
+                        <div style={styles.buttonGroup}>
+                            <button 
+                                style={styles.toggleButton(platform === 'instagram')}
+                                onClick={() => setPlatform('instagram')}
+                            >
+                                📸 Instagram
+                            </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'tiktok')}
+                                onClick={() => setPlatform('tiktok')}
+                            >
+                                🎵 TikTok
+                            </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'facebook')}
+                                onClick={() => setPlatform('facebook')}
+                            >
+                                👥 Facebook
+                            </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'youtube')}
+                                onClick={() => setPlatform('youtube')}
+                            >
+                                ▶️ YouTube
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Generate Button */}
+                    <button 
+                        style={{
+                            ...styles.generateButton,
+                            opacity: isLoading ? 0.8 : 1,
+                        }}
+                        onClick={handleGenerate}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <>
+                                <div style={styles.spinner}></div>
+                                Generating...
+                            </>
+                        ) : (
+                            <>
+                                ✨ Generate Content
+                            </>
+                        )}
+                    </button>
+
+                    {/* Results */}
+                    {showResults && (
+                        <>
+                            {/* Hook Result */}
+                            <div style={styles.resultCard} className="fade-in">
+                                <div style={styles.resultHeader}>
+                                    <div style={styles.resultTitle}>
+                                        🪝 Generated Hook
+                                        <span style={styles.platformBadge}>
+                                            {platformIcons[platform]} {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                                        </span>
+                                    </div>
+                                    <div style={styles.resultActions}>
+                                        <button 
+                                            style={styles.actionButton}
+                                            onClick={handleRegenerateHook}
+                                        >
+                                            🔄 Regenerate
+                                        </button>
+                                        <button 
+                                            style={hookCopied ? styles.copyButtonSuccess : styles.actionButton}
+                                            onClick={() => copyToClipboard(generatedHook, 'hook')}
+                                        >
+                                            {hookCopied ? '✓ Copied!' : '📋 Copy'}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style={styles.resultContent}>
+                                    {generatedHook}
+                                </div>
+                            </div>
+
+                            {/* Caption Result */}
+                            <div style={styles.resultCard} className="fade-in">
+                                <div style={styles.resultHeader}>
+                                    <div style={styles.resultTitle}>
+                                        📝 Generated Caption
+                                        <span style={styles.platformBadge}>
+                                            {platformIcons[platform]} {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                                        </span>
+                                    </div>
+                                    <div style={styles.resultActions}>
+                                        <button 
+                                            style={styles.actionButton}
+                                            onClick={handleRegenerateCaption}
+                                        >
+                                            🔄 Regenerate
+                                        </button>
+                                        <button 
+                                            style={captionCopied ? styles.copyButtonSuccess : styles.actionButton}
+                                            onClick={() => copyToClipboard(generatedCaption, 'caption')}
+                                        >
+                                            {captionCopied ? '✓ Copied!' : '📋 Copy'}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style={styles.resultContent}>
+                                    {generatedCaption}
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Platform Tips */}
+                    <div style={styles.tipsCard}>
+                        <h3 style={styles.tipsTitle}>
+                            💡 {currentTips.title}
+                        </h3>
+                        <ul style={styles.tipsList}>
+                            {currentTips.tips.map((tip, index) => (
+                                <li key={index} style={styles.tipItem}>
+                                    <span style={styles.tipIcon}>→</span>
+                                    <span>{tip}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Footer */}
+                    <footer style={styles.footer}>
+                        <p style={styles.footerText}>
+                            Built for Fountain Vitality's Content Team • Friendly hormone health education
+                        </p>
+                    </footer>
+                </div>
+            );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
