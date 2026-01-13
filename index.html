@@ -2487,9 +2487,13 @@ Ready to see what's possible?
                 return getRandomItem(baseCaptions);
             };
 
+            const [useAI, setUseAI] = useState(false);
+            const [aiError, setAiError] = useState('');
+
             const handleGenerate = () => {
                 setIsLoading(true);
                 setShowResults(false);
+                setAiError('');
                 
                 setTimeout(() => {
                     setGeneratedHook(generateHook());
@@ -2497,6 +2501,56 @@ Ready to see what's possible?
                     setIsLoading(false);
                     setShowResults(true);
                 }, 800);
+            };
+
+            // AI-powered generation
+            const handleAIGenerate = async () => {
+                if (!contentDescription.trim()) {
+                    setAiError('Please describe your content first to use AI generation');
+                    return;
+                }
+
+                setIsLoading(true);
+                setShowResults(false);
+                setAiError('');
+
+                try {
+                    const response = await fetch('/api/generate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            description: contentDescription,
+                            contentType,
+                            audience,
+                            platform
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('AI generation failed');
+                    }
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        setGeneratedHook(data.hook);
+                        setGeneratedCaption(data.caption);
+                        setShowResults(true);
+                    } else {
+                        throw new Error(data.error || 'Generation failed');
+                    }
+                } catch (error) {
+                    console.error('AI Generation Error:', error);
+                    setAiError('AI generation unavailable. Using library instead...');
+                    // Fallback to library
+                    setGeneratedHook(generateHook());
+                    setGeneratedCaption(contentDescription.trim() ? generateCustomCaption() : generateCaption());
+                    setShowResults(true);
+                } finally {
+                    setIsLoading(false);
+                }
             };
 
             const handleRegenerateHook = () => {
@@ -3395,26 +3449,91 @@ Ready to see what's possible?
                         )}
                     </div>
 
-                    {/* Generate Button */}
-                    <button 
-                        style={{
-                            ...styles.generateButton,
-                            opacity: isLoading ? 0.8 : 1,
-                        }}
-                        onClick={handleGenerate}
-                        disabled={isLoading}
-                    >
-                        {isLoading ? (
-                            <>
-                                <div style={styles.spinner}></div>
-                                Generating...
-                            </>
-                        ) : (
-                            <>
-                                ✨ Generate {contentDescription.trim() ? 'Content for Your Upload' : 'Content'}
-                            </>
+                    {/* Generate Buttons */}
+                    <div style={{
+                        display: 'flex',
+                        gap: '12px',
+                        flexWrap: 'wrap',
+                    }}>
+                        <button 
+                            style={{
+                                ...styles.generateButton,
+                                flex: '1',
+                                minWidth: '200px',
+                                opacity: isLoading ? 0.8 : 1,
+                            }}
+                            onClick={handleGenerate}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? (
+                                <>
+                                    <div style={styles.spinner}></div>
+                                    Generating...
+                                </>
+                            ) : (
+                                <>
+                                    ✨ Generate from Library
+                                </>
+                            )}
+                        </button>
+                        
+                        {contentDescription.trim() && (
+                            <button 
+                                style={{
+                                    ...styles.generateButton,
+                                    flex: '1',
+                                    minWidth: '200px',
+                                    background: 'linear-gradient(135deg, #8A2BE2 0%, #9966CC 25%, #008080 50%, #66B2B2 75%, #9CAF88 100%)',
+                                    backgroundSize: '200% 200%',
+                                    animation: 'gradientShift 4s ease infinite',
+                                    opacity: isLoading ? 0.8 : 1,
+                                }}
+                                onClick={handleAIGenerate}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <div style={styles.spinner}></div>
+                                        AI Thinking...
+                                    </>
+                                ) : (
+                                    <>
+                                        🤖 Generate with AI
+                                    </>
+                                )}
+                            </button>
                         )}
-                    </button>
+                    </div>
+                    
+                    {/* AI Error Message */}
+                    {aiError && (
+                        <div style={{
+                            marginTop: '12px',
+                            padding: '12px 16px',
+                            borderRadius: '12px',
+                            background: 'linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%)',
+                            border: '1px solid #ffcccc',
+                            color: '#cc6666',
+                            fontSize: '14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                        }}>
+                            <span>⚠️</span> {aiError}
+                        </div>
+                    )}
+                    
+                    {/* AI Info */}
+                    {contentDescription.trim() && (
+                        <p style={{
+                            fontSize: '13px',
+                            color: '#8a9a8a',
+                            marginTop: '12px',
+                            textAlign: 'center',
+                        }}>
+                            💡 <strong>Library</strong> uses 1,200+ pre-written hooks • <strong>AI</strong> creates custom content based on your description
+                        </p>
+                    )}
 
                     {/* Results */}
                     {showResults && (
