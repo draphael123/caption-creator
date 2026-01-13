@@ -3494,10 +3494,415 @@ Ready to see what's possible?
                         </ul>
                     </div>
 
+                    {/* Stats Section */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(4, 1fr)',
+                        gap: '16px',
+                        marginTop: '32px',
+                    }}>
+                        {[
+                            { number: '1,200+', label: 'Hooks & Captions', icon: '📝', color: '#008080' },
+                            { number: '9', label: 'Content Categories', icon: '📂', color: '#9CAF88' },
+                            { number: '4', label: 'Platforms Supported', icon: '📱', color: '#E67E22' },
+                            { number: '∞', label: 'Combinations', icon: '✨', color: '#8A2BE2' },
+                        ].map((stat, index) => (
+                            <div key={index} style={{
+                                background: 'linear-gradient(180deg, #ffffff 0%, #fafcfb 100%)',
+                                borderRadius: '20px',
+                                padding: '24px 16px',
+                                textAlign: 'center',
+                                boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+                                border: `2px solid ${stat.color}22`,
+                            }}>
+                                <div style={{ fontSize: '28px', marginBottom: '8px' }}>{stat.icon}</div>
+                                <div style={{
+                                    fontFamily: "'Fraunces', serif",
+                                    fontSize: '28px',
+                                    fontWeight: '700',
+                                    color: stat.color,
+                                    marginBottom: '4px',
+                                }}>{stat.number}</div>
+                                <div style={{
+                                    fontSize: '13px',
+                                    color: '#6a8a7a',
+                                    fontWeight: '500',
+                                }}>{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Weekly Content Calendar */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, #ffffff 0%, #f8faf9 100%)',
+                        borderRadius: '24px',
+                        padding: '32px',
+                        marginTop: '32px',
+                        boxShadow: '0 8px 32px rgba(0,128,128,0.08)',
+                        border: '2px solid rgba(0,128,128,0.1)',
+                    }}>
+                        <h3 style={{
+                            fontFamily: "'Fraunces', serif",
+                            fontSize: '22px',
+                            fontWeight: '600',
+                            color: '#006666',
+                            marginBottom: '20px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                        }}>
+                            📅 Weekly Content Ideas
+                        </h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+                            gap: '12px',
+                        }}>
+                            {[
+                                { day: 'Monday', theme: 'Motivation Monday', emoji: '💪', tip: 'Share transformation stories & success quotes' },
+                                { day: 'Tuesday', theme: 'Truth Tuesday', emoji: '🔍', tip: 'Bust myths & share facts about hormones' },
+                                { day: 'Wednesday', theme: 'Wellness Wednesday', emoji: '🌿', tip: 'Lifestyle tips & holistic health content' },
+                                { day: 'Thursday', theme: 'Throwback Thursday', emoji: '📸', tip: 'Before/after transformations & patient journeys' },
+                                { day: 'Friday', theme: 'FAQ Friday', emoji: '❓', tip: 'Answer common questions about TRT/HRT' },
+                                { day: 'Saturday', theme: 'Science Saturday', emoji: '🧬', tip: 'Educational content about how hormones work' },
+                                { day: 'Sunday', theme: 'Self-Care Sunday', emoji: '🛁', tip: 'Gentle reminders about health & wellness' },
+                            ].map((item, index) => (
+                                <div key={index} style={{
+                                    background: 'linear-gradient(135deg, #f0f7f5 0%, #fff9f5 100%)',
+                                    borderRadius: '16px',
+                                    padding: '16px',
+                                    textAlign: 'center',
+                                    border: '1px solid rgba(0,128,128,0.1)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                }} title={item.tip}>
+                                    <div style={{ fontSize: '24px', marginBottom: '8px' }}>{item.emoji}</div>
+                                    <div style={{
+                                        fontSize: '11px',
+                                        color: '#008080',
+                                        fontWeight: '700',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.5px',
+                                        marginBottom: '4px',
+                                    }}>{item.day}</div>
+                                    <div style={{
+                                        fontSize: '12px',
+                                        color: '#3a5a4a',
+                                        fontWeight: '600',
+                                        lineHeight: '1.3',
+                                    }}>{item.theme}</div>
+                                </div>
+                            ))}
+                        </div>
+                        <p style={{
+                            fontSize: '13px',
+                            color: '#8a9a8a',
+                            marginTop: '16px',
+                            textAlign: 'center',
+                            fontStyle: 'italic',
+                        }}>
+                            💡 Hover over each day for content ideas!
+                        </p>
+                    </div>
+
+                    {/* Inspirational Quote */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(0,128,128,0.08) 0%, rgba(156,175,136,0.1) 50%, rgba(230,126,34,0.06) 100%)',
+                        borderRadius: '24px',
+                        padding: '40px 32px',
+                        marginTop: '32px',
+                        textAlign: 'center',
+                        border: '2px solid rgba(0,128,128,0.15)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                    }}>
+                        <div style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '30px',
+                            fontSize: '60px',
+                            opacity: '0.15',
+                            color: '#008080',
+                        }}>"</div>
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '20px',
+                            right: '30px',
+                            fontSize: '60px',
+                            opacity: '0.15',
+                            color: '#008080',
+                            transform: 'rotate(180deg)',
+                        }}>"</div>
+                        <p style={{
+                            fontFamily: "'Fraunces', serif",
+                            fontSize: '22px',
+                            fontWeight: '500',
+                            color: '#006666',
+                            lineHeight: '1.6',
+                            marginBottom: '16px',
+                            position: 'relative',
+                            zIndex: 1,
+                        }}>
+                            {[
+                                "Your hormones don't define you, but understanding them can help you become the best version of yourself.",
+                                "Feeling good isn't a luxury—it's the foundation for living fully.",
+                                "The goal isn't to be perfect. The goal is to feel like yourself again.",
+                                "Small changes in hormone balance can lead to big transformations in quality of life.",
+                                "You deserve to feel as good on the inside as you look on the outside."
+                            ][Math.floor(Date.now() / 86400000) % 5]}
+                        </p>
+                        <p style={{
+                            fontSize: '14px',
+                            color: '#9CAF88',
+                            fontWeight: '600',
+                        }}>
+                            — Fountain Vitality
+                        </p>
+                    </div>
+
+                    {/* Pro Tips Section */}
+                    <div style={{
+                        background: 'linear-gradient(180deg, #ffffff 0%, #fafcfb 100%)',
+                        borderRadius: '24px',
+                        padding: '32px',
+                        marginTop: '32px',
+                        boxShadow: '0 8px 32px rgba(0,128,128,0.08)',
+                        border: '2px solid rgba(230,126,34,0.15)',
+                    }}>
+                        <h3 style={{
+                            fontFamily: "'Fraunces', serif",
+                            fontSize: '22px',
+                            fontWeight: '600',
+                            background: 'linear-gradient(135deg, #E67E22 0%, #9CAF88 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            marginBottom: '24px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                        }}>
+                            🎯 Pro Tips for Hormone Health Content
+                        </h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                            gap: '20px',
+                        }}>
+                            {[
+                                {
+                                    title: "Lead with Empathy",
+                                    tip: "Start posts acknowledging how your audience feels. They want to know you understand their struggles.",
+                                    icon: "❤️"
+                                },
+                                {
+                                    title: "Use 'You' Language",
+                                    tip: "Write as if speaking directly to one person. 'You might be feeling...' beats 'People often feel...'",
+                                    icon: "👤"
+                                },
+                                {
+                                    title: "Show, Don't Just Tell",
+                                    tip: "Transformation photos, real testimonials, and before/after stories are your most powerful content.",
+                                    icon: "📸"
+                                },
+                                {
+                                    title: "Educate Without Overwhelming",
+                                    tip: "Break complex hormone science into bite-sized, relatable pieces. One concept per post.",
+                                    icon: "🧠"
+                                },
+                                {
+                                    title: "Always Include a CTA",
+                                    tip: "Every post should guide the viewer: Save, Share, Comment, or Link in Bio. Make it clear.",
+                                    icon: "👆"
+                                },
+                                {
+                                    title: "Be Consistent, Not Perfect",
+                                    tip: "Regular posting builds trust. Don't let perfectionism slow you down—use this tool to stay consistent!",
+                                    icon: "📆"
+                                }
+                            ].map((item, index) => (
+                                <div key={index} style={{
+                                    background: 'linear-gradient(135deg, #f8faf9 0%, #f5f7f6 100%)',
+                                    borderRadius: '16px',
+                                    padding: '20px',
+                                    border: '1px solid rgba(0,128,128,0.1)',
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '10px',
+                                        marginBottom: '10px',
+                                    }}>
+                                        <span style={{ fontSize: '20px' }}>{item.icon}</span>
+                                        <h4 style={{
+                                            fontFamily: "'DM Sans', sans-serif",
+                                            fontSize: '15px',
+                                            fontWeight: '700',
+                                            color: '#006666',
+                                            margin: 0,
+                                        }}>{item.title}</h4>
+                                    </div>
+                                    <p style={{
+                                        fontSize: '14px',
+                                        color: '#5a7a6a',
+                                        lineHeight: '1.6',
+                                        margin: 0,
+                                    }}>{item.tip}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Content Pillars */}
+                    <div style={{
+                        background: 'linear-gradient(135deg, #006666 0%, #008080 50%, #009999 100%)',
+                        borderRadius: '24px',
+                        padding: '32px',
+                        marginTop: '32px',
+                        color: 'white',
+                    }}>
+                        <h3 style={{
+                            fontFamily: "'Fraunces', serif",
+                            fontSize: '22px',
+                            fontWeight: '600',
+                            marginBottom: '8px',
+                        }}>
+                            🏛️ Fountain Vitality Content Pillars
+                        </h3>
+                        <p style={{
+                            fontSize: '14px',
+                            opacity: 0.85,
+                            marginBottom: '24px',
+                        }}>
+                            Every piece of content should align with one of these core themes:
+                        </p>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '16px',
+                        }}>
+                            {[
+                                { pillar: "Education", desc: "Teaching about hormones, symptoms, and treatments", icon: "📚" },
+                                { pillar: "Empowerment", desc: "Helping people take control of their health", icon: "💪" },
+                                { pillar: "Evidence", desc: "Sharing research, facts, and science", icon: "🔬" },
+                                { pillar: "Experience", desc: "Real stories from real patients", icon: "💬" },
+                            ].map((item, index) => (
+                                <div key={index} style={{
+                                    background: 'rgba(255,255,255,0.15)',
+                                    borderRadius: '16px',
+                                    padding: '20px',
+                                    backdropFilter: 'blur(10px)',
+                                }}>
+                                    <div style={{ fontSize: '28px', marginBottom: '12px' }}>{item.icon}</div>
+                                    <h4 style={{
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        marginBottom: '8px',
+                                    }}>{item.pillar}</h4>
+                                    <p style={{
+                                        fontSize: '13px',
+                                        opacity: 0.9,
+                                        lineHeight: '1.5',
+                                        margin: 0,
+                                    }}>{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Quick Reference: Best Performing Content */}
+                    <div style={{
+                        background: 'linear-gradient(180deg, #ffffff 0%, #f8faf9 100%)',
+                        borderRadius: '24px',
+                        padding: '32px',
+                        marginTop: '32px',
+                        boxShadow: '0 8px 32px rgba(0,128,128,0.08)',
+                        border: '2px solid rgba(156,175,136,0.2)',
+                    }}>
+                        <h3 style={{
+                            fontFamily: "'Fraunces', serif",
+                            fontSize: '22px',
+                            fontWeight: '600',
+                            color: '#7A9066',
+                            marginBottom: '20px',
+                        }}>
+                            🏆 What Performs Best on Each Platform
+                        </h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '16px',
+                        }}>
+                            {[
+                                { platform: 'Instagram', icon: '📸', best: ['Carousels with value', 'Before/after Reels', 'Testimonial quotes', 'Educational infographics'] },
+                                { platform: 'TikTok', icon: '🎵', best: ['Myth-busting videos', 'Day in the life', 'Quick symptom checks', 'Transformation reveals'] },
+                                { platform: 'Facebook', icon: '👥', best: ['Longer testimonials', 'Article shares', 'Community questions', 'Live Q&As'] },
+                                { platform: 'YouTube', icon: '▶️', best: ['Deep-dive education', 'Patient interviews', 'Doctor explanations', 'FAQ compilations'] },
+                            ].map((item, index) => (
+                                <div key={index} style={{
+                                    background: '#f8faf9',
+                                    borderRadius: '16px',
+                                    padding: '20px',
+                                    border: '1px solid rgba(156,175,136,0.2)',
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        marginBottom: '12px',
+                                    }}>
+                                        <span style={{ fontSize: '20px' }}>{item.icon}</span>
+                                        <h4 style={{
+                                            fontSize: '16px',
+                                            fontWeight: '700',
+                                            color: '#006666',
+                                            margin: 0,
+                                        }}>{item.platform}</h4>
+                                    </div>
+                                    <ul style={{
+                                        margin: 0,
+                                        padding: 0,
+                                        listStyle: 'none',
+                                    }}>
+                                        {item.best.map((b, i) => (
+                                            <li key={i} style={{
+                                                fontSize: '13px',
+                                                color: '#5a7a6a',
+                                                padding: '4px 0',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                            }}>
+                                                <span style={{ color: '#9CAF88' }}>✓</span> {b}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                     {/* Footer */}
                     <footer style={styles.footer}>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: '24px',
+                            marginBottom: '16px',
+                        }}>
+                            <span style={{ fontSize: '24px' }}>💚</span>
+                            <span style={{ fontSize: '24px' }}>🌿</span>
+                            <span style={{ fontSize: '24px' }}>✨</span>
+                        </div>
                         <p style={styles.footerText}>
-                            Built for Fountain Vitality's Content Team • Friendly hormone health education
+                            Built for Fountain Vitality's Content Team
+                        </p>
+                        <p style={{
+                            fontSize: '13px',
+                            color: '#9a9a9a',
+                            marginTop: '8px',
+                        }}>
+                            Empowering friendly hormone health education • One caption at a time
                         </p>
                     </footer>
                 </div>
