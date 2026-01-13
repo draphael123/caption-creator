@@ -2275,6 +2275,46 @@ Ready to see what's possible?
                     "Descriptions should include relevant keywords",
                     "First 48 hours matter most for algorithm"
                 ]
+            },
+            twitter: {
+                title: "Twitter/X Tips",
+                tips: [
+                    "Keep it punchy — 280 characters max, but shorter often wins",
+                    "Threads can deep-dive into topics (number them 1/, 2/, etc)",
+                    "Use 1-2 relevant hashtags max — less is more here",
+                    "Quote tweets with your take get great engagement",
+                    "Post multiple times daily — Twitter moves fast"
+                ]
+            },
+            linkedin: {
+                title: "LinkedIn Tips",
+                tips: [
+                    "Professional but personable — share your expertise authentically",
+                    "First line is crucial — it shows in the preview before 'see more'",
+                    "Use line breaks generously for readability",
+                    "Tag relevant people/companies to boost reach",
+                    "Document posts (carousel PDFs) perform exceptionally well"
+                ]
+            },
+            threads: {
+                title: "Threads Tips",
+                tips: [
+                    "Conversational tone works best — be authentic",
+                    "Cross-post from Instagram for maximum reach",
+                    "Shorter posts (under 200 chars) tend to perform better",
+                    "Engage in replies — community building is key",
+                    "Skip hashtags for now — they're not heavily used yet"
+                ]
+            },
+            pinterest: {
+                title: "Pinterest Tips",
+                tips: [
+                    "Vertical images (2:3 ratio) get the most saves",
+                    "SEO matters here — use keywords in titles and descriptions",
+                    "Create boards around specific health topics",
+                    "Rich pins with detailed descriptions rank better",
+                    "Link directly to relevant landing pages or blog posts"
+                ]
             }
         };
 
@@ -3169,6 +3209,30 @@ Ready to see what's possible?
                             >
                                 ▶️ YouTube
                             </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'twitter')}
+                                onClick={() => setPlatform('twitter')}
+                            >
+                                𝕏 Twitter/X
+                            </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'linkedin')}
+                                onClick={() => setPlatform('linkedin')}
+                            >
+                                💼 LinkedIn
+                            </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'threads')}
+                                onClick={() => setPlatform('threads')}
+                            >
+                                🧵 Threads
+                            </button>
+                            <button 
+                                style={styles.toggleButton(platform === 'pinterest')}
+                                onClick={() => setPlatform('pinterest')}
+                            >
+                                📌 Pinterest
+                            </button>
                         </div>
                     </div>
 
@@ -3975,6 +4039,10 @@ Ready to see what's possible?
                                 { platform: 'TikTok', icon: '🎵', best: ['Myth-busting videos', 'Day in the life', 'Quick symptom checks', 'Transformation reveals'] },
                                 { platform: 'Facebook', icon: '👥', best: ['Longer testimonials', 'Article shares', 'Community questions', 'Live Q&As'] },
                                 { platform: 'YouTube', icon: '▶️', best: ['Deep-dive education', 'Patient interviews', 'Doctor explanations', 'FAQ compilations'] },
+                                { platform: 'Twitter/X', icon: '𝕏', best: ['Quick health tips', 'Myth-busting threads', 'Patient wins (short)', 'Industry news takes'] },
+                                { platform: 'LinkedIn', icon: '💼', best: ['Professional insights', 'Research highlights', 'Clinic achievements', 'Team spotlights'] },
+                                { platform: 'Threads', icon: '🧵', best: ['Conversational content', 'Quick tips & tricks', 'Behind the scenes', 'Community engagement'] },
+                                { platform: 'Pinterest', icon: '📌', best: ['Symptom infographics', 'Healthy lifestyle pins', 'Before/after boards', 'Educational guides'] },
                             ].map((item, index) => (
                                 <div key={index} style={{
                                     background: '#f8faf9',
