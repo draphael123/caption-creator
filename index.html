@@ -2303,21 +2303,53 @@ Ready to see what's possible?
             
             // Content keywords for smart matching
             const contentKeywords = {
-                energy: ['energy', 'tired', 'fatigue', 'exhausted', 'sleep', 'rest', 'nap', 'morning', 'afternoon', 'coffee'],
-                brainFog: ['brain', 'fog', 'focus', 'memory', 'think', 'concentrate', 'forget', 'mental', 'clarity', 'cognitive'],
-                mood: ['mood', 'motivation', 'drive', 'irritable', 'anxious', 'anxiety', 'depression', 'emotion', 'feeling'],
-                fitness: ['gym', 'workout', 'exercise', 'muscle', 'weight', 'fat', 'body', 'fitness', 'strength', 'results'],
-                hormones: ['hormone', 'testosterone', 'estrogen', 'trt', 'hrt', 'therapy', 'treatment', 'levels', 'balance'],
-                symptoms: ['symptom', 'sign', 'hot flash', 'night sweat', 'sweat', 'perimenopause', 'menopause'],
-                myths: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe'],
-                transformation: ['before', 'after', 'change', 'journey', 'story', 'result', 'transform', 'life']
+                energy: ['energy', 'tired', 'fatigue', 'exhausted', 'sleep', 'rest', 'nap', 'morning', 'afternoon', 'coffee', 'awake', 'alert'],
+                brainFog: ['brain', 'fog', 'focus', 'memory', 'think', 'concentrate', 'forget', 'mental', 'clarity', 'cognitive', 'sharp', 'clear'],
+                mood: ['mood', 'motivation', 'drive', 'irritable', 'anxious', 'anxiety', 'depression', 'emotion', 'feeling', 'happy', 'angry'],
+                fitness: ['gym', 'workout', 'exercise', 'muscle', 'weight', 'fat', 'body', 'fitness', 'strength', 'lean', 'gains', 'physique'],
+                hormones: ['hormone', 'testosterone', 'estrogen', 'trt', 'hrt', 'therapy', 'treatment', 'levels', 'balance', 'optimization', 'replacement'],
+                symptoms: ['symptom', 'sign', 'hot flash', 'night sweat', 'sweat', 'perimenopause', 'menopause', 'peri'],
+                myths: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe', 'lie', 'false'],
+                transformation: ['before', 'after', 'change', 'journey', 'story', 'result', 'transform', 'life', 'benefit', 'improvement', 'success', 'progress', 'comparison', 'difference']
+            };
+            
+            // Keywords that suggest specific content types
+            const contentTypeSuggestions = {
+                testimonial: ['before', 'after', 'transformation', 'journey', 'story', 'result', 'benefit', 'success', 'progress', 'comparison', 'difference', 'changed', 'helped', 'worked', 'testimonial', 'review', 'experience'],
+                mythBusting: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe', 'lie', 'false', 'debunk', 'busting'],
+                educational: ['learn', 'explain', 'what is', 'how does', 'why', 'understand', 'education', 'info', 'information', 'facts', 'science']
+            };
+            
+            // Detect best content type from description
+            const detectContentType = (description) => {
+                const desc = description.toLowerCase();
+                let scores = { testimonial: 0, mythBusting: 0, educational: 0 };
+                
+                Object.entries(contentTypeSuggestions).forEach(([type, keywords]) => {
+                    keywords.forEach(keyword => {
+                        if (desc.includes(keyword)) {
+                            scores[type] += 1;
+                        }
+                    });
+                });
+                
+                // Find highest scoring type
+                const maxScore = Math.max(...Object.values(scores));
+                if (maxScore > 0) {
+                    return Object.entries(scores).find(([type, score]) => score === maxScore)[0];
+                }
+                return null; // No strong signal, use selected type
             };
             
             // Smart hook matching based on description
             const findRelevantHooks = (description) => {
                 const desc = description.toLowerCase();
-                let relevantHooks = [];
-                const baseHooks = hooksLibrary[contentType]?.[audience] || hooksLibrary[contentType]?.general || [];
+                
+                // Auto-detect the best content type based on description
+                const detectedType = detectContentType(description);
+                const effectiveContentType = detectedType || contentType;
+                
+                const baseHooks = hooksLibrary[effectiveContentType]?.[audience] || hooksLibrary[effectiveContentType]?.general || [];
                 
                 // Score each hook based on keyword matches
                 const scoredHooks = baseHooks.map(hook => {
@@ -2421,13 +2453,18 @@ Ready to see what's possible?
                 }
                 
                 const desc = contentDescription.trim();
-                const baseCaptions = captionsLibrary[contentType]?.[audience] || captionsLibrary[contentType]?.general || [];
+                const descLower = desc.toLowerCase();
+                
+                // Auto-detect the best content type based on description
+                const detectedType = detectContentType(desc);
+                const effectiveContentType = detectedType || contentType;
+                
+                const baseCaptions = captionsLibrary[effectiveContentType]?.[audience] || captionsLibrary[effectiveContentType]?.general || [];
                 
                 // Score captions based on relevance
                 const scoredCaptions = baseCaptions.map(caption => {
                     let score = 0;
                     const captionLower = caption.toLowerCase();
-                    const descLower = desc.toLowerCase();
                     
                     Object.entries(contentKeywords).forEach(([category, keywords]) => {
                         keywords.forEach(keyword => {
@@ -3289,6 +3326,29 @@ Ready to see what's possible?
                                     }}>
                                         💡 The more specific your description, the more relevant your generated captions will be!
                                     </p>
+                                    
+                                    {/* Auto-detected content type indicator */}
+                                    {contentDescription.trim() && detectContentType(contentDescription) && (
+                                        <div style={{
+                                            marginTop: '12px',
+                                            padding: '10px 14px',
+                                            borderRadius: '10px',
+                                            background: 'linear-gradient(135deg, rgba(0,128,128,0.1) 0%, rgba(156,175,136,0.1) 100%)',
+                                            border: '1px solid rgba(0,128,128,0.2)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                        }}>
+                                            <span style={{ fontSize: '16px' }}>🎯</span>
+                                            <span style={{ fontSize: '13px', color: '#006666', fontWeight: '500' }}>
+                                                Auto-detected: <strong style={{ color: '#008080' }}>
+                                                    {detectContentType(contentDescription) === 'testimonial' ? '💬 Testimonial' : 
+                                                     detectContentType(contentDescription) === 'mythBusting' ? '🔍 Myth-Busting' : 
+                                                     '📚 Educational'}
+                                                </strong> content — will generate matching hooks & captions!
+                                            </span>
+                                        </div>
+                                    )}
                                     
                                     {/* Quick topic tags */}
                                     <div style={{ marginTop: '12px' }}>
