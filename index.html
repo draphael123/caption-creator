@@ -1330,10 +1330,119 @@ Ready to see what's possible?
             const [hookCopied, setHookCopied] = useState(false);
             const [captionCopied, setCaptionCopied] = useState(false);
             const [showResults, setShowResults] = useState(false);
+            
+            // Upload feature state
+            const [uploadedFile, setUploadedFile] = useState(null);
+            const [filePreview, setFilePreview] = useState(null);
+            const [contentDescription, setContentDescription] = useState('');
+            const [isDragging, setIsDragging] = useState(false);
 
             const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            
+            // Content keywords for smart matching
+            const contentKeywords = {
+                energy: ['energy', 'tired', 'fatigue', 'exhausted', 'sleep', 'rest', 'nap', 'morning', 'afternoon', 'coffee'],
+                brainFog: ['brain', 'fog', 'focus', 'memory', 'think', 'concentrate', 'forget', 'mental', 'clarity', 'cognitive'],
+                mood: ['mood', 'motivation', 'drive', 'irritable', 'anxious', 'anxiety', 'depression', 'emotion', 'feeling'],
+                fitness: ['gym', 'workout', 'exercise', 'muscle', 'weight', 'fat', 'body', 'fitness', 'strength', 'results'],
+                hormones: ['hormone', 'testosterone', 'estrogen', 'trt', 'hrt', 'therapy', 'treatment', 'levels', 'balance'],
+                symptoms: ['symptom', 'sign', 'hot flash', 'night sweat', 'sweat', 'perimenopause', 'menopause'],
+                myths: ['myth', 'truth', 'fact', 'wrong', 'misconception', 'actually', 'really', 'believe'],
+                transformation: ['before', 'after', 'change', 'journey', 'story', 'result', 'transform', 'life']
+            };
+            
+            // Smart hook matching based on description
+            const findRelevantHooks = (description) => {
+                const desc = description.toLowerCase();
+                let relevantHooks = [];
+                const baseHooks = hooksLibrary[contentType]?.[audience] || hooksLibrary[contentType]?.general || [];
+                
+                // Score each hook based on keyword matches
+                const scoredHooks = baseHooks.map(hook => {
+                    let score = 0;
+                    const hookLower = hook.toLowerCase();
+                    
+                    Object.entries(contentKeywords).forEach(([category, keywords]) => {
+                        keywords.forEach(keyword => {
+                            if (desc.includes(keyword) && hookLower.includes(keyword)) {
+                                score += 3;
+                            } else if (desc.includes(keyword)) {
+                                // Check if hook is relevant to the category
+                                if (hookLower.includes(category) || keywords.some(k => hookLower.includes(k))) {
+                                    score += 1;
+                                }
+                            }
+                        });
+                    });
+                    
+                    return { hook, score };
+                });
+                
+                // Sort by score and get top matches
+                scoredHooks.sort((a, b) => b.score - a.score);
+                
+                // If we have good matches (score > 0), use them; otherwise fall back to random
+                const goodMatches = scoredHooks.filter(h => h.score > 0);
+                if (goodMatches.length > 0) {
+                    return goodMatches.slice(0, 10).map(h => h.hook);
+                }
+                
+                return baseHooks;
+            };
+            
+            // File upload handlers
+            const handleFileUpload = (e) => {
+                const file = e.target.files[0];
+                processFile(file);
+            };
+            
+            const handleDrop = (e) => {
+                e.preventDefault();
+                setIsDragging(false);
+                const file = e.dataTransfer.files[0];
+                processFile(file);
+            };
+            
+            const handleDragOver = (e) => {
+                e.preventDefault();
+                setIsDragging(true);
+            };
+            
+            const handleDragLeave = (e) => {
+                e.preventDefault();
+                setIsDragging(false);
+            };
+            
+            const processFile = (file) => {
+                if (file) {
+                    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'video/mp4', 'video/webm', 'video/quicktime'];
+                    if (validTypes.includes(file.type)) {
+                        setUploadedFile(file);
+                        const previewUrl = URL.createObjectURL(file);
+                        setFilePreview(previewUrl);
+                    } else {
+                        alert('Please upload an image (JPG, PNG, GIF, WebP) or video (MP4, WebM, MOV)');
+                    }
+                }
+            };
+            
+            const removeFile = () => {
+                if (filePreview) {
+                    URL.revokeObjectURL(filePreview);
+                }
+                setUploadedFile(null);
+                setFilePreview(null);
+                setContentDescription('');
+            };
+            
+            const isVideo = uploadedFile?.type?.startsWith('video/');
 
             const generateHook = () => {
+                // If content description provided, use smart matching
+                if (contentDescription.trim()) {
+                    const relevantHooks = findRelevantHooks(contentDescription);
+                    return getRandomItem(relevantHooks) || "No hooks available for this combination.";
+                }
                 const hooks = hooksLibrary[contentType]?.[audience] || hooksLibrary[contentType]?.general || [];
                 return getRandomItem(hooks) || "No hooks available for this combination.";
             };
@@ -1342,6 +1451,42 @@ Ready to see what's possible?
                 const captions = captionsLibrary[contentType]?.[audience] || captionsLibrary[contentType]?.general || [];
                 return getRandomItem(captions) || "No captions available for this combination.";
             };
+            
+            // Generate custom caption based on description
+            const generateCustomCaption = () => {
+                if (!contentDescription.trim()) {
+                    return generateCaption();
+                }
+                
+                const desc = contentDescription.trim();
+                const baseCaptions = captionsLibrary[contentType]?.[audience] || captionsLibrary[contentType]?.general || [];
+                
+                // Score captions based on relevance
+                const scoredCaptions = baseCaptions.map(caption => {
+                    let score = 0;
+                    const captionLower = caption.toLowerCase();
+                    const descLower = desc.toLowerCase();
+                    
+                    Object.entries(contentKeywords).forEach(([category, keywords]) => {
+                        keywords.forEach(keyword => {
+                            if (descLower.includes(keyword) && captionLower.includes(keyword)) {
+                                score += 2;
+                            }
+                        });
+                    });
+                    
+                    return { caption, score };
+                });
+                
+                scoredCaptions.sort((a, b) => b.score - a.score);
+                const goodMatches = scoredCaptions.filter(c => c.score > 0);
+                
+                if (goodMatches.length > 0) {
+                    return getRandomItem(goodMatches.slice(0, 5).map(c => c.caption));
+                }
+                
+                return getRandomItem(baseCaptions);
+            };
 
             const handleGenerate = () => {
                 setIsLoading(true);
@@ -1349,7 +1494,7 @@ Ready to see what's possible?
                 
                 setTimeout(() => {
                     setGeneratedHook(generateHook());
-                    setGeneratedCaption(generateCaption());
+                    setGeneratedCaption(contentDescription.trim() ? generateCustomCaption() : generateCaption());
                     setIsLoading(false);
                     setShowResults(true);
                 }, 800);
@@ -1974,6 +2119,260 @@ Ready to see what's possible?
                         </div>
                     </div>
 
+                    {/* Upload Content Section */}
+                    <div style={{
+                        background: 'linear-gradient(180deg, #ffffff 0%, #fafcfb 100%)',
+                        borderRadius: '24px',
+                        padding: '32px',
+                        marginBottom: '24px',
+                        boxShadow: '0 8px 32px rgba(0,128,128,0.08), 0 2px 8px rgba(0,0,0,0.04)',
+                        border: '2px solid transparent',
+                        backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, rgba(138,43,226,0.3) 0%, rgba(0,128,128,0.3) 50%, rgba(230,126,34,0.2) 100%)',
+                        backgroundOrigin: 'border-box',
+                        backgroundClip: 'padding-box, border-box',
+                    }}>
+                        <h2 style={{
+                            fontFamily: "'Fraunces', serif",
+                            fontSize: '20px',
+                            fontWeight: '600',
+                            color: '#006666',
+                            marginBottom: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                        }}>
+                            <span style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                background: 'linear-gradient(135deg, #8A2BE2, #9966CC)',
+                                color: 'white',
+                                fontSize: '16px',
+                            }}>4</span>
+                            Upload Content (Optional)
+                        </h2>
+                        <p style={{
+                            fontSize: '14px',
+                            color: '#6a8a7a',
+                            marginBottom: '20px',
+                            marginLeft: '40px',
+                        }}>
+                            Upload a screenshot or video and describe it to get more relevant captions
+                        </p>
+                        
+                        {!filePreview ? (
+                            <div
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                                onDragLeave={handleDragLeave}
+                                style={{
+                                    border: isDragging ? '3px dashed #008080' : '3px dashed #ccd9d5',
+                                    borderRadius: '16px',
+                                    padding: '40px 20px',
+                                    textAlign: 'center',
+                                    background: isDragging 
+                                        ? 'linear-gradient(135deg, rgba(0,128,128,0.08) 0%, rgba(156,175,136,0.08) 100%)'
+                                        : 'linear-gradient(135deg, #f8faf9 0%, #f5f7f6 100%)',
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => document.getElementById('fileInput').click()}
+                            >
+                                <input
+                                    type="file"
+                                    id="fileInput"
+                                    accept="image/*,video/*"
+                                    onChange={handleFileUpload}
+                                    style={{ display: 'none' }}
+                                />
+                                <div style={{
+                                    fontSize: '48px',
+                                    marginBottom: '16px',
+                                }}>
+                                    {isDragging ? '📥' : '📸'}
+                                </div>
+                                <p style={{
+                                    fontFamily: "'DM Sans', sans-serif",
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                    color: '#3a5a4a',
+                                    marginBottom: '8px',
+                                }}>
+                                    {isDragging ? 'Drop your file here!' : 'Drag & drop or click to upload'}
+                                </p>
+                                <p style={{
+                                    fontFamily: "'DM Sans', sans-serif",
+                                    fontSize: '14px',
+                                    color: '#6a8a7a',
+                                }}>
+                                    Supports images (JPG, PNG, GIF) and videos (MP4, WebM)
+                                </p>
+                            </div>
+                        ) : (
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'minmax(200px, 300px) 1fr',
+                                gap: '24px',
+                                alignItems: 'start',
+                            }}>
+                                {/* Preview */}
+                                <div style={{
+                                    position: 'relative',
+                                    borderRadius: '16px',
+                                    overflow: 'hidden',
+                                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                                    background: '#000',
+                                }}>
+                                    {isVideo ? (
+                                        <video
+                                            src={filePreview}
+                                            controls
+                                            style={{
+                                                width: '100%',
+                                                display: 'block',
+                                                maxHeight: '250px',
+                                                objectFit: 'contain',
+                                            }}
+                                        />
+                                    ) : (
+                                        <img
+                                            src={filePreview}
+                                            alt="Uploaded content"
+                                            style={{
+                                                width: '100%',
+                                                display: 'block',
+                                                maxHeight: '250px',
+                                                objectFit: 'contain',
+                                            }}
+                                        />
+                                    )}
+                                    <button
+                                        onClick={removeFile}
+                                        style={{
+                                            position: 'absolute',
+                                            top: '8px',
+                                            right: '8px',
+                                            width: '32px',
+                                            height: '32px',
+                                            borderRadius: '50%',
+                                            border: 'none',
+                                            background: 'rgba(0,0,0,0.7)',
+                                            color: '#fff',
+                                            fontSize: '18px',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'all 0.2s ease',
+                                        }}
+                                        title="Remove file"
+                                    >
+                                        ×
+                                    </button>
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '8px',
+                                        left: '8px',
+                                        background: 'rgba(0,0,0,0.7)',
+                                        color: '#fff',
+                                        padding: '4px 10px',
+                                        borderRadius: '100px',
+                                        fontSize: '12px',
+                                        fontWeight: '500',
+                                    }}>
+                                        {isVideo ? '🎬 Video' : '🖼️ Image'}
+                                    </div>
+                                </div>
+                                
+                                {/* Description Input */}
+                                <div>
+                                    <label style={{
+                                        display: 'block',
+                                        fontFamily: "'DM Sans', sans-serif",
+                                        fontSize: '15px',
+                                        fontWeight: '600',
+                                        color: '#3a5a4a',
+                                        marginBottom: '10px',
+                                    }}>
+                                        📝 Describe your content
+                                    </label>
+                                    <textarea
+                                        value={contentDescription}
+                                        onChange={(e) => setContentDescription(e.target.value)}
+                                        placeholder="Example: A before/after comparison showing energy levels, a man working out at the gym, a woman discussing brain fog symptoms, an infographic about hormone balance..."
+                                        style={{
+                                            width: '100%',
+                                            minHeight: '120px',
+                                            padding: '16px',
+                                            borderRadius: '12px',
+                                            border: '2px solid #ccd9d5',
+                                            fontFamily: "'DM Sans', sans-serif",
+                                            fontSize: '15px',
+                                            lineHeight: '1.6',
+                                            resize: 'vertical',
+                                            outline: 'none',
+                                            transition: 'border-color 0.2s ease',
+                                            background: '#f8faf9',
+                                        }}
+                                        onFocus={(e) => e.target.style.borderColor = '#008080'}
+                                        onBlur={(e) => e.target.style.borderColor = '#ccd9d5'}
+                                    />
+                                    <p style={{
+                                        fontSize: '13px',
+                                        color: '#8a9a8a',
+                                        marginTop: '8px',
+                                    }}>
+                                        💡 The more specific your description, the more relevant your generated captions will be!
+                                    </p>
+                                    
+                                    {/* Quick topic tags */}
+                                    <div style={{ marginTop: '12px' }}>
+                                        <p style={{
+                                            fontSize: '13px',
+                                            fontWeight: '600',
+                                            color: '#5a7a6a',
+                                            marginBottom: '8px',
+                                        }}>Quick tags (click to add):</p>
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                                            {['energy', 'fatigue', 'brain fog', 'mood', 'gym', 'workout', 'weight', 'sleep', 'hormones', 'transformation', 'before/after', 'testimonial'].map(tag => (
+                                                <button
+                                                    key={tag}
+                                                    onClick={() => setContentDescription(prev => prev + (prev ? ', ' : '') + tag)}
+                                                    style={{
+                                                        padding: '6px 12px',
+                                                        borderRadius: '100px',
+                                                        border: '1px solid #ccd9d5',
+                                                        background: 'white',
+                                                        color: '#5a7a6a',
+                                                        fontSize: '12px',
+                                                        fontWeight: '500',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s ease',
+                                                    }}
+                                                    onMouseOver={(e) => {
+                                                        e.target.style.background = '#008080';
+                                                        e.target.style.color = 'white';
+                                                        e.target.style.borderColor = '#008080';
+                                                    }}
+                                                    onMouseOut={(e) => {
+                                                        e.target.style.background = 'white';
+                                                        e.target.style.color = '#5a7a6a';
+                                                        e.target.style.borderColor = '#ccd9d5';
+                                                    }}
+                                                >
+                                                    {tag}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Generate Button */}
                     <button 
                         style={{
@@ -1990,7 +2389,7 @@ Ready to see what's possible?
                             </>
                         ) : (
                             <>
-                                ✨ Generate Content
+                                ✨ Generate {contentDescription.trim() ? 'Content for Your Upload' : 'Content'}
                             </>
                         )}
                     </button>
