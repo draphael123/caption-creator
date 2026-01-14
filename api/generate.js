@@ -1,23 +1,23 @@
-// Vercel Serverless Function for AI Caption Generation
-// This file goes in /api/generate.js
-
 export default async function handler(req, res) {
     // Enable CORS
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
     res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
     if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+        return res.status(200).end();
+    }
+
+    if (req.method === 'GET') {
+        return res.status(200).json({ status: 'API is working', method: 'GET' });
     }
 
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { description, contentType, audience, platform } = req.body;
+    const { description, contentType, audience, platform } = req.body || {};
 
     if (!description) {
         return res.status(400).json({ error: 'Description is required' });
@@ -88,7 +88,6 @@ CAPTION: [Your caption here]`;
         const data = await response.json();
         const content = data.choices[0].message.content;
 
-        // Parse the response
         const hookMatch = content.match(/HOOK:\s*([\s\S]*?)(?=\n\nCAPTION:|$)/i);
         const captionMatch = content.match(/CAPTION:\s*([\s\S]*?)$/i);
 
@@ -106,4 +105,3 @@ CAPTION: [Your caption here]`;
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
-
