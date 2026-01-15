@@ -50,8 +50,8 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(ellipse 100% 80% at 0% 0%, rgba(101, 173, 178, 0.10) 0%, transparent 50%),
-                radial-gradient(ellipse 80% 100% at 100% 100%, rgba(101, 173, 178, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 100% 80% at 0% 0%, rgba(0, 180, 180, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 100% at 100% 100%, rgba(0, 180, 180, 0.08) 0%, transparent 50%),
                 linear-gradient(180deg, #ffffff 0%, #f5f8f8 100%);
             pointer-events: none;
             z-index: 0;
@@ -111,8 +111,8 @@
         }
 
         @keyframes borderGlow {
-            0%, 100% { border-color: rgba(101, 173, 178, 0.3); box-shadow: 0 0 20px rgba(101, 173, 178, 0.1); }
-            50% { border-color: rgba(101, 173, 178, 0.5); box-shadow: 0 0 30px rgba(101, 173, 178, 0.2); }
+            0%, 100% { border-color: rgba(0, 180, 180, 0.3); box-shadow: 0 0 20px rgba(0, 180, 180, 0.1); }
+            50% { border-color: rgba(0, 180, 180, 0.5); box-shadow: 0 0 30px rgba(0, 180, 180, 0.2); }
         }
 
         @keyframes rotateGradient {
@@ -131,8 +131,8 @@
         }
 
         @keyframes glowPulse {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(101, 173, 178, 0.4)); }
-            50% { filter: drop-shadow(0 0 16px rgba(101, 173, 178, 0.6)); }
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 180, 180, 0.4)); }
+            50% { filter: drop-shadow(0 0 16px rgba(0, 180, 180, 0.6)); }
         }
 
         .fade-in {
@@ -150,19 +150,19 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(101, 173, 178, 0.1);
+            background: rgba(0, 180, 180, 0.1);
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #65ADB2 0%, #1fa39c 100%);
+            background: linear-gradient(180deg, #00B4B4 0%, #1fa39c 100%);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #35ccc4 0%, #65ADB2 100%);
+            background: linear-gradient(180deg, #35ccc4 0%, #00B4B4 100%);
         }
 
         /* Selection color */
         ::selection {
-            background: rgba(101, 173, 178, 0.3);
+            background: rgba(0, 180, 180, 0.3);
             color: #1a2b3c;
         }
     </style>
@@ -3845,16 +3845,16 @@ Save this for later! 📌`
                 style.textContent = darkMode ? `
                     body::after {
                         background: 
-                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(101, 173, 178, 0.2) 0%, transparent 50%),
-                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(101, 173, 178, 0.15) 0%, transparent 50%),
+                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 180, 180, 0.2) 0%, transparent 50%),
+                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(0, 180, 180, 0.15) 0%, transparent 50%),
                             radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 180, 0.1) 0%, transparent 60%),
                             linear-gradient(180deg, #0a1628 0%, #0d1e36 50%, #0a1628 100%) !important;
                     }
                 ` : `
                     body::after {
                         background: 
-                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(101, 173, 178, 0.08) 0%, transparent 50%),
-                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(101, 173, 178, 0.06) 0%, transparent 50%),
+                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 180, 180, 0.08) 0%, transparent 50%),
+                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(0, 180, 180, 0.06) 0%, transparent 50%),
                             radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 180, 0.04) 0%, transparent 60%),
                             linear-gradient(180deg, #ffffff 0%, #f0f7ff 50%, #ffffff 100%) !important;
                     }
@@ -4301,79 +4301,93 @@ Save this for later! 📌`
 
             const currentTips = platformTips[platform];
 
-            // Brand Colors - Fountain.net style (Fountain Blue #65ADB2)
+            // Brand Colors - Fountain.net official colors
             const colors = darkMode ? {
                 // Dark mode - Fountain dark theme
-                teal: '#65ADB2',
-                tealDark: '#4E9499',
-                tealLight: '#7EC4C9',
-                sage: '#65ADB2',
-                sageDark: '#4E9499',
-                sageLight: '#7EC4C9',
-                coral: '#65ADB2',
-                coralLight: '#7EC4C9',
+                teal: '#00B4B4',
+                tealDark: '#009999',
+                tealLight: '#33C7C7',
+                sage: '#00B4B4',
+                sageDark: '#009999',
+                sageLight: '#33C7C7',
+                coral: '#00B4B4',
+                coralLight: '#33C7C7',
                 warmWhite: '#1A242F',
                 cream: '#2F3B45',
                 background: '#1A242F',
                 cardBg: 'rgba(47, 59, 69, 0.95)',
-                cardBorder: 'rgba(101, 173, 178, 0.3)',
+                cardBorder: 'rgba(0, 180, 180, 0.3)',
                 text: '#F5F5F5',
                 textMuted: '#B0BEC5',
                 textDark: '#FFFFFF',
                 inputBg: 'rgba(47, 59, 69, 0.9)',
-                inputBorder: 'rgba(101, 173, 178, 0.4)',
-                accent: '#65ADB2',
-                accentAlt: '#7EC4C9',
+                inputBorder: 'rgba(0, 180, 180, 0.4)',
+                accent: '#00B4B4',
+                accentAlt: '#33C7C7',
                 gold: '#F5A623',
-                glow: 'rgba(101, 173, 178, 0.25)',
+                glow: 'rgba(0, 180, 180, 0.25)',
             } : {
-                // Light mode - Fountain.net branding
-                teal: '#65ADB2',
-                tealDark: '#4E9499',
-                tealLight: '#7EC4C9',
-                sage: '#65ADB2',
-                sageDark: '#4E9499',
-                sageLight: '#7EC4C9',
-                coral: '#65ADB2',
-                coralLight: '#7EC4C9',
-                warmWhite: '#F5F5F5',
-                cream: '#EEF4F4',
+                // Light mode - Fountain.net branding (exact match)
+                teal: '#00B4B4',
+                tealDark: '#009999',
+                tealLight: '#33C7C7',
+                sage: '#00B4B4',
+                sageDark: '#009999',
+                sageLight: '#33C7C7',
+                coral: '#00B4B4',
+                coralLight: '#33C7C7',
+                warmWhite: '#F8F9FA',
+                cream: '#F0F4F4',
                 background: '#FFFFFF',
                 cardBg: 'rgba(255, 255, 255, 0.98)',
-                cardBorder: 'rgba(101, 173, 178, 0.25)',
+                cardBorder: 'rgba(0, 180, 180, 0.2)',
                 text: '#333333',
                 textMuted: '#666666',
-                textDark: '#1A242F',
+                textDark: '#1E2D3A',
                 inputBg: '#FFFFFF',
-                inputBorder: 'rgba(101, 173, 178, 0.4)',
-                accent: '#65ADB2',
-                accentAlt: '#4E9499',
+                inputBorder: 'rgba(0, 180, 180, 0.35)',
+                accent: '#00B4B4',
+                accentAlt: '#009999',
                 gold: '#F5A623',
-                glow: 'rgba(101, 173, 178, 0.15)',
+                glow: 'rgba(0, 180, 180, 0.12)',
             };
 
             const styles = {
+                navbar: {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '70px',
+                    background: darkMode ? '#1A242F' : '#FFFFFF',
+                    borderBottom: `1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 32px',
+                    zIndex: 1000,
+                    boxShadow: darkMode ? '0 2px 8px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.06)',
+                },
                 container: {
                     maxWidth: '960px',
                     margin: '0 auto',
-                    padding: '48px 24px',
+                    padding: '100px 24px 48px 24px',
                     minHeight: '100vh',
                 },
                 header: {
                     textAlign: 'center',
                     marginBottom: '48px',
                     background: darkMode 
-                        ? 'linear-gradient(160deg, rgba(101,173,178,0.08) 0%, rgba(13,30,42,0.95) 40%, rgba(101,173,178,0.05) 100%)'
-                        : 'linear-gradient(160deg, rgba(101,173,178,0.06) 0%, rgba(255,255,255,0.98) 40%, rgba(101,173,178,0.04) 100%)',
+                        ? 'linear-gradient(160deg, rgba(0,180,180,0.08) 0%, rgba(13,30,42,0.95) 40%, rgba(0,180,180,0.05) 100%)'
+                        : 'linear-gradient(160deg, rgba(0,180,180,0.06) 0%, rgba(255,255,255,0.98) 40%, rgba(0,180,180,0.04) 100%)',
                     padding: '56px 40px',
                     borderRadius: '24px',
-                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(101,173,178,0.15)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(0,180,180,0.15)'}`,
                     position: 'relative',
                     overflow: 'hidden',
                     backdropFilter: 'blur(20px)',
                     boxShadow: darkMode 
                         ? '0 24px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03)'
-                        : '0 20px 60px rgba(101,173,178,0.08), inset 0 1px 0 rgba(255,255,255,0.8)',
+                        : '0 20px 60px rgba(0,180,180,0.08), inset 0 1px 0 rgba(255,255,255,0.8)',
                 },
                 headerDecor: {
                     position: 'absolute',
@@ -4381,8 +4395,8 @@ Save this for later! 📌`
                     height: '300px',
                     borderRadius: '50%',
                     background: darkMode 
-                        ? 'radial-gradient(circle, rgba(101,173,178,0.2) 0%, transparent 70%)'
-                        : 'radial-gradient(circle, rgba(101,173,178,0.12) 0%, transparent 70%)',
+                        ? 'radial-gradient(circle, rgba(0,180,180,0.2) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, rgba(0,180,180,0.12) 0%, transparent 70%)',
                     filter: 'blur(60px)',
                     animation: 'floatSlow 8s ease-in-out infinite',
                 },
@@ -4424,7 +4438,7 @@ Save this for later! 📌`
                         ? '0 16px 64px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)'
                         : '0 16px 64px rgba(0,80,60,0.08), 0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)',
                     border: darkMode 
-                        ? '1px solid rgba(101,173,178,0.12)'
+                        ? '1px solid rgba(0,180,180,0.12)'
                         : '1px solid rgba(36,133,145,0.08)',
                     backdropFilter: 'blur(20px)',
                     position: 'relative',
@@ -4451,7 +4465,7 @@ Save this for later! 📌`
                     borderRadius: '12px',
                     border: isActive 
                         ? 'none'
-                        : `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                        : `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
                     background: isActive 
                         ? `linear-gradient(135deg, ${colors.teal} 0%, ${colors.accentAlt} 100%)` 
                         : darkMode 
@@ -4465,7 +4479,7 @@ Save this for later! 📌`
                     transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                     outline: 'none',
                     boxShadow: isActive 
-                        ? `0 8px 24px ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(36,133,145,0.25)'}, inset 0 1px 0 rgba(255,255,255,0.2)` 
+                        ? `0 8px 24px ${darkMode ? 'rgba(0,180,180,0.3)' : 'rgba(36,133,145,0.25)'}, inset 0 1px 0 rgba(255,255,255,0.2)` 
                         : darkMode
                             ? '0 2px 8px rgba(0,0,0,0.2)'
                             : '0 2px 8px rgba(0,0,0,0.04)',
@@ -4486,8 +4500,8 @@ Save this for later! 📌`
                     cursor: 'pointer',
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     boxShadow: darkMode 
-                        ? `0 8px 24px rgba(101,173,178,0.3), 0 4px 12px rgba(0,0,0,0.2)`
-                        : `0 8px 24px rgba(101,173,178,0.25), 0 4px 12px rgba(0,0,0,0.08)`,
+                        ? `0 8px 24px rgba(0,180,180,0.3), 0 4px 12px rgba(0,0,0,0.2)`
+                        : `0 8px 24px rgba(0,180,180,0.25), 0 4px 12px rgba(0,0,0,0.08)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -4515,7 +4529,7 @@ Save this for later! 📌`
                     boxShadow: darkMode 
                         ? '0 20px 60px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3)'
                         : '0 20px 60px rgba(0,80,60,0.1), 0 8px 24px rgba(0,0,0,0.04)',
-                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.1)'}`,
                     backdropFilter: 'blur(20px)',
                     animation: 'fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                     position: 'relative',
@@ -4550,7 +4564,7 @@ Save this for later! 📌`
                     fontFamily: "'Open Sans', sans-serif",
                     letterSpacing: '0.5px',
                     boxShadow: darkMode 
-                        ? '0 4px 12px rgba(101,173,178,0.3)'
+                        ? '0 4px 12px rgba(0,180,180,0.3)'
                         : '0 4px 12px rgba(36,133,145,0.2)',
                 },
                 resultActions: {
@@ -4560,7 +4574,7 @@ Save this for later! 📌`
                 actionButton: {
                     padding: '10px 18px',
                     borderRadius: '10px',
-                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(36,133,145,0.2)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.3)' : 'rgba(36,133,145,0.2)'}`,
                     background: darkMode 
                         ? 'rgba(20,35,28,0.8)'
                         : 'rgba(255,255,255,0.9)',
@@ -4589,7 +4603,7 @@ Save this for later! 📌`
                     alignItems: 'center',
                     gap: '6px',
                     boxShadow: darkMode 
-                        ? '0 4px 16px rgba(101,173,178,0.3)'
+                        ? '0 4px 16px rgba(0,180,180,0.3)'
                         : '0 4px 16px rgba(36,133,145,0.25)',
                 },
                 resultContent: {
@@ -4603,16 +4617,16 @@ Save this for later! 📌`
                         : 'rgba(250,248,244,0.8)',
                     padding: '24px',
                     borderRadius: '14px',
-                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.08)'}`,
                 },
                 tipsCard: {
                     background: darkMode 
-                        ? 'linear-gradient(160deg, rgba(101,173,178,0.04) 0%, rgba(13,30,54,0.85) 50%, rgba(101,173,178,0.03) 100%)'
-                        : 'linear-gradient(160deg, rgba(36,133,145,0.04) 0%, rgba(255,255,255,0.9) 50%, rgba(101,173,178,0.03) 100%)',
+                        ? 'linear-gradient(160deg, rgba(0,180,180,0.04) 0%, rgba(13,30,54,0.85) 50%, rgba(0,180,180,0.03) 100%)'
+                        : 'linear-gradient(160deg, rgba(36,133,145,0.04) 0%, rgba(255,255,255,0.9) 50%, rgba(0,180,180,0.03) 100%)',
                     borderRadius: '20px',
                     padding: '28px',
                     marginTop: '28px',
-                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(36,133,145,0.1)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.15)' : 'rgba(36,133,145,0.1)'}`,
                     backdropFilter: 'blur(16px)',
                 },
                 tipsTitle: {
@@ -4635,7 +4649,7 @@ Save this for later! 📌`
                     fontSize: '14px',
                     color: colors.text,
                     padding: '12px 0',
-                    borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.08)'}`,
+                    borderBottom: `1px solid ${darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.08)'}`,
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '12px',
@@ -4650,7 +4664,7 @@ Save this for later! 📌`
                     textAlign: 'center',
                     marginTop: '64px',
                     paddingTop: '40px',
-                    borderTop: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                    borderTop: `1px solid ${darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.08)'}`,
                 },
                 footerText: {
                     fontFamily: "'Open Sans', sans-serif",
@@ -4669,6 +4683,95 @@ Save this for later! 📌`
             };
 
             return (
+                <>
+                    {/* Fixed Navbar with Logo */}
+                    <nav style={styles.navbar}>
+                        <a 
+                            href="https://fountain.net" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                textDecoration: 'none',
+                                transition: 'opacity 0.2s ease',
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+                            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                        >
+                            <img 
+                                src="fountain logo.png" 
+                                alt="Fountain Logo" 
+                                style={{
+                                    width: '36px',
+                                    height: '36px',
+                                    objectFit: 'contain',
+                                }}
+                            />
+                            <span style={{
+                                fontFamily: "'Montserrat', sans-serif",
+                                fontWeight: '700',
+                                fontSize: '18px',
+                                color: colors.textDark,
+                                letterSpacing: '-0.3px',
+                            }}>
+                                Fountain
+                            </span>
+                        </a>
+                        
+                        {/* Navbar Right Side - Settings & Dark Mode */}
+                        <div style={{
+                            marginLeft: 'auto',
+                            display: 'flex',
+                            gap: '10px',
+                            alignItems: 'center',
+                        }}>
+                            <button
+                                onClick={() => setShowSettings(true)}
+                                style={{
+                                    background: 'transparent',
+                                    border: `1px solid ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'}`,
+                                    borderRadius: '8px',
+                                    padding: '8px 14px',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    color: colors.text,
+                                    fontFamily: "'Open Sans', sans-serif",
+                                    fontWeight: '500',
+                                    fontSize: '13px',
+                                    transition: 'all 0.2s ease',
+                                }}
+                                title="Settings"
+                            >
+                                ⚙️ Settings
+                            </button>
+                            <button
+                                onClick={() => setDarkMode(!darkMode)}
+                                style={{
+                                    background: 'transparent',
+                                    border: `1px solid ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'}`,
+                                    borderRadius: '8px',
+                                    padding: '8px 14px',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    color: colors.text,
+                                    fontFamily: "'Open Sans', sans-serif",
+                                    fontWeight: '500',
+                                    fontSize: '13px',
+                                    transition: 'all 0.2s ease',
+                                }}
+                                title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                            >
+                                {darkMode ? '☀️ Light' : '🌙 Dark'}
+                            </button>
+                        </div>
+                    </nav>
+                    
                 <div style={styles.container}>
                     {/* Decorative floating elements */}
                     <div style={{
@@ -4708,68 +4811,6 @@ Save this for later! 📌`
                     
                     {/* Header */}
                     <header style={styles.header}>
-                        {/* Header Controls */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '20px',
-                            right: '20px',
-                            display: 'flex',
-                            gap: '10px',
-                            alignItems: 'center',
-                        }}>
-                            {/* Settings Button */}
-                            <button
-                                onClick={() => setShowSettings(true)}
-                                style={{
-                                    background: darkMode 
-                                        ? 'rgba(101,173,178,0.15)'
-                                        : 'rgba(101,173,178,0.1)',
-                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(101,173,178,0.2)'}`,
-                                    borderRadius: '10px',
-                                    padding: '10px 16px',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    color: colors.text,
-                                    fontFamily: "'Open Sans', sans-serif",
-                                    fontWeight: '500',
-                                    fontSize: '13px',
-                                    transition: 'all 0.25s ease',
-                                    backdropFilter: 'blur(10px)',
-                                }}
-                                title="Settings"
-                            >
-                                ⚙ Settings
-                            </button>
-                            
-                            {/* Dark Mode Toggle */}
-                            <button
-                                onClick={() => setDarkMode(!darkMode)}
-                                style={{
-                                    background: darkMode 
-                                        ? 'rgba(101,173,178,0.15)'
-                                        : 'rgba(36,133,145,0.1)',
-                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(36,133,145,0.2)'}`,
-                                    borderRadius: '10px',
-                                    padding: '10px 16px',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    color: colors.text,
-                                    fontFamily: "'Open Sans', sans-serif",
-                                    fontWeight: '500',
-                                    fontSize: '13px',
-                                    transition: 'all 0.25s ease',
-                                    backdropFilter: 'blur(10px)',
-                                }}
-                                title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                            >
-                                {darkMode ? '◐ Light' : '◑ Dark'}
-                            </button>
-                        </div>
-                        
                         {/* Animated decorative orbs */}
                         <div style={{...styles.headerDecor, top: '-100px', left: '-80px'}}></div>
                         <div style={{
@@ -4777,56 +4818,10 @@ Save this for later! 📌`
                             bottom: '-80px', 
                             right: '-60px', 
                             background: darkMode 
-                                ? 'radial-gradient(circle, rgba(101,173,178,0.15) 0%, transparent 70%)'
-                                : 'radial-gradient(circle, rgba(101,173,178,0.12) 0%, transparent 70%)',
+                                ? 'radial-gradient(circle, rgba(0,180,180,0.15) 0%, transparent 70%)'
+                                : 'radial-gradient(circle, rgba(0,180,180,0.12) 0%, transparent 70%)',
                             animationDelay: '2s',
                         }}></div>
-                        
-                        {/* Fountain Logo */}
-                        <a 
-                            href="https://fountain.net" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            style={{
-                                textDecoration: 'none',
-                                transition: 'all 0.3s ease',
-                            }}
-                        >
-                            <div style={{
-                                ...styles.logo,
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'scale(1.03)';
-                                e.currentTarget.style.opacity = '0.85';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'scale(1)';
-                                e.currentTarget.style.opacity = '1';
-                            }}
-                            >
-                                {/* Fountain Logo PNG */}
-                                <img 
-                                    src="fountain logo.png" 
-                                    alt="Fountain Logo" 
-                                    style={{
-                                        width: '40px',
-                                        height: '40px',
-                                        objectFit: 'contain',
-                                    }}
-                                />
-                                <span style={{
-                                    fontFamily: "'Open Sans', sans-serif",
-                                    fontWeight: '700',
-                                    fontSize: '20px',
-                                    color: colors.textDark,
-                                    letterSpacing: '-0.3px',
-                                }}>
-                                    Fountain
-                                </span>
-                            </div>
-                        </a>
                         
                         {/* Title with Fountain-style colored accent */}
                         <h1 style={styles.title}>
@@ -4870,7 +4865,7 @@ Save this for later! 📌`
                         boxShadow: darkMode 
                             ? '0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.02)'
                             : '0 12px 40px rgba(0,80,60,0.06), inset 0 1px 0 rgba(255,255,255,0.6)',
-                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.06)'}`,
+                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.06)'}`,
                         backdropFilter: 'blur(20px)',
                     }}>
                         {[
@@ -4907,7 +4902,7 @@ Save this for later! 📌`
                                     gap: '8px',
                                     boxShadow: activeTool === tool.id
                                         ? darkMode 
-                                            ? '0 8px 24px rgba(101,173,178,0.35)'
+                                            ? '0 8px 24px rgba(0,180,180,0.35)'
                                             : '0 8px 24px rgba(36,133,145,0.3)'
                                         : 'none',
                                     transform: activeTool === tool.id ? 'translateY(-1px)' : 'translateY(0)',
@@ -4952,7 +4947,7 @@ Save this for later! 📌`
                                     width: '44px',
                                     height: '44px',
                                     borderRadius: '12px',
-                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
                                     background: darkMode ? 'rgba(13,30,54,0.95)' : 'rgba(255,255,255,0.95)',
                                     color: colors.text,
                                     fontSize: '16px',
@@ -5008,7 +5003,7 @@ Save this for later! 📌`
                                 padding: '32px',
                                 maxWidth: '400px',
                                 width: '90%',
-                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
@@ -5035,13 +5030,13 @@ Save this for later! 📌`
                                             display: 'flex',
                                             justifyContent: 'space-between',
                                             padding: '10px 0',
-                                            borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.06)'}`,
+                                            borderBottom: `1px solid ${darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.06)'}`,
                                         }}>
                                             <span style={{
                                                 fontFamily: "'JetBrains Mono', monospace",
                                                 fontSize: '12px',
                                                 padding: '4px 10px',
-                                                background: darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)',
+                                                background: darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.08)',
                                                 borderRadius: '6px',
                                                 color: colors.teal,
                                             }}>{shortcut.keys}</span>
@@ -5086,7 +5081,7 @@ Save this for later! 📌`
                                 width: '90%',
                                 maxHeight: '80vh',
                                 overflow: 'auto',
-                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -5113,8 +5108,8 @@ Save this for later! 📌`
                                             <div key={item.id} style={{
                                                 padding: '16px',
                                                 borderRadius: '12px',
-                                                background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
-                                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.06)'}`,
+                                                background: darkMode ? 'rgba(0,180,180,0.05)' : 'rgba(36,133,145,0.03)',
+                                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.06)'}`,
                                             }}>
                                                 <p style={{ fontSize: '14px', color: colors.textDark, fontWeight: '500', marginBottom: '8px' }}>
                                                     {item.hook.slice(0, 80)}...
@@ -5484,7 +5479,7 @@ Save this for later! 📌`
                                 
                                 {/* Stats */}
                                 <div style={{
-                                    background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
+                                    background: darkMode ? 'rgba(0,180,180,0.05)' : 'rgba(36,133,145,0.03)',
                                     border: `1px solid ${colors.cardBorder}`,
                                     borderRadius: '12px',
                                     padding: '16px',
@@ -5528,7 +5523,7 @@ Save this for later! 📌`
                                 width: '90%',
                                 maxHeight: '80vh',
                                 overflow: 'auto',
-                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
@@ -5545,8 +5540,8 @@ Save this for later! 📌`
                                             <div key={item.id} style={{
                                                 padding: '16px',
                                                 borderRadius: '12px',
-                                                background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(101,173,178,0.03)',
-                                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(101,173,178,0.1)'}`,
+                                                background: darkMode ? 'rgba(0,180,180,0.05)' : 'rgba(0,180,180,0.03)',
+                                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.15)' : 'rgba(0,180,180,0.1)'}`,
                                             }}>
                                                 <p style={{ fontSize: '14px', color: colors.text, marginBottom: '10px', lineHeight: '1.5' }}>
                                                     {item.content.slice(0, 200)}{item.content.length > 200 ? '...' : ''}
@@ -5603,7 +5598,7 @@ Save this for later! 📌`
                                 padding: '32px',
                                 maxWidth: '400px',
                                 width: '90%',
-                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
@@ -5616,8 +5611,8 @@ Save this for later! 📌`
                                     <button onClick={() => { copyWithFormatting(); setShowExportModal(false); }} style={{
                                         padding: '14px 20px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '14px',
                                         cursor: 'pointer',
@@ -5629,8 +5624,8 @@ Save this for later! 📌`
                                     <button onClick={() => { exportAsText(); setShowExportModal(false); }} style={{
                                         padding: '14px 20px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '14px',
                                         cursor: 'pointer',
@@ -5642,8 +5637,8 @@ Save this for later! 📌`
                                     <button onClick={() => { exportAsCSV(); setShowExportModal(false); }} style={{
                                         padding: '14px 20px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '14px',
                                         cursor: 'pointer',
@@ -5847,7 +5842,7 @@ Save this for later! 📌`
                                 padding: '24px',
                                 maxWidth: '360px',
                                 width: '90%',
-                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
@@ -5866,7 +5861,7 @@ Save this for later! 📌`
                                                     height: '36px',
                                                     borderRadius: '8px',
                                                     border: 'none',
-                                                    background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                                    background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                                     fontSize: '18px',
                                                     cursor: 'pointer',
                                                     transition: 'transform 0.1s',
@@ -5890,11 +5885,11 @@ Save this for later! 📌`
                         {/* Value Proposition */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(101,173,178,0.06) 0%, rgba(13,30,54,0.9) 100%)'
+                                ? 'linear-gradient(165deg, rgba(0,180,180,0.06) 0%, rgba(13,30,54,0.9) 100%)'
                                 : 'linear-gradient(165deg, rgba(36,133,145,0.06) 0%, rgba(255,255,255,0.95) 100%)',
                             borderRadius: '20px',
                             padding: '28px',
-                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.12)' : 'rgba(36,133,145,0.08)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(0,180,180,0.12)' : 'rgba(36,133,145,0.08)'}`,
                             backdropFilter: 'blur(16px)',
                         }}>
                             <div style={{
@@ -5942,7 +5937,7 @@ Save this for later! 📌`
                                         color: colors.text, 
                                         fontSize: '14px',
                                         padding: '8px 0',
-                                        borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.06)' : 'rgba(36,133,145,0.06)'}`,
+                                        borderBottom: `1px solid ${darkMode ? 'rgba(0,180,180,0.06)' : 'rgba(36,133,145,0.06)'}`,
                                     }}>
                                         <span style={{
                                             color: colors.teal,
@@ -5957,11 +5952,11 @@ Save this for later! 📌`
                         {/* How to Use */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(101,173,178,0.05) 0%, rgba(13,30,54,0.9) 100%)'
-                                : 'linear-gradient(165deg, rgba(101,173,178,0.05) 0%, rgba(255,255,255,0.95) 100%)',
+                                ? 'linear-gradient(165deg, rgba(0,180,180,0.05) 0%, rgba(13,30,54,0.9) 100%)'
+                                : 'linear-gradient(165deg, rgba(0,180,180,0.05) 0%, rgba(255,255,255,0.95) 100%)',
                             borderRadius: '20px',
                             padding: '28px',
-                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.12)' : 'rgba(101,173,178,0.08)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(0,180,180,0.12)' : 'rgba(0,180,180,0.08)'}`,
                             backdropFilter: 'blur(16px)',
                         }}>
                             <div style={{
@@ -6009,7 +6004,7 @@ Save this for later! 📌`
                                         color: colors.text, 
                                         fontSize: '14px',
                                         padding: '8px 0',
-                                        borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.06)' : 'rgba(101,173,178,0.06)'}`,
+                                        borderBottom: `1px solid ${darkMode ? 'rgba(0,180,180,0.06)' : 'rgba(0,180,180,0.06)'}`,
                                     }}>
                                         <span style={{
                                             width: '22px',
@@ -6048,7 +6043,7 @@ Save this for later! 📌`
                                 width: '32px',
                                 height: '32px',
                                 borderRadius: '8px',
-                                background: 'linear-gradient(135deg, #65ADB2, #4dd4cc)',
+                                background: 'linear-gradient(135deg, #00B4B4, #4dd4cc)',
                                 color: 'white',
                                 fontSize: '16px',
                             }}>1</span>
@@ -6122,7 +6117,7 @@ Save this for later! 📌`
                                 width: '32px',
                                 height: '32px',
                                 borderRadius: '8px',
-                                background: 'linear-gradient(135deg, #65ADB2, #3399e6)',
+                                background: 'linear-gradient(135deg, #00B4B4, #3399e6)',
                                 color: 'white',
                                 fontSize: '16px',
                             }}>3</span>
@@ -6184,7 +6179,7 @@ Save this for later! 📌`
                     <div style={{
                         ...styles.card,
                         background: darkMode 
-                            ? 'linear-gradient(165deg, rgba(101,173,178,0.04) 0%, rgba(13,30,54,0.95) 100%)'
+                            ? 'linear-gradient(165deg, rgba(0,180,180,0.04) 0%, rgba(13,30,54,0.95) 100%)'
                             : 'linear-gradient(165deg, rgba(36,133,145,0.04) 0%, rgba(255,255,255,0.98) 100%)',
                     }}>
                         <h2 style={styles.sectionTitle}>
@@ -6286,7 +6281,7 @@ Save this for later! 📌`
                                 onDragOver={handleDragOver}
                                 onDragLeave={handleDragLeave}
                                 style={{
-                                    border: isDragging ? '3px dashed #65ADB2' : '3px dashed #ccd9d5',
+                                    border: isDragging ? '3px dashed #00B4B4' : '3px dashed #ccd9d5',
                                     borderRadius: '16px',
                                     padding: '40px 20px',
                                     textAlign: 'center',
@@ -6434,7 +6429,7 @@ Save this for later! 📌`
                                             transition: 'border-color 0.2s ease',
                                             background: '#f8faf9',
                                         }}
-                                        onFocus={(e) => e.target.style.borderColor = '#65ADB2'}
+                                        onFocus={(e) => e.target.style.borderColor = '#00B4B4'}
                                         onBlur={(e) => e.target.style.borderColor = '#ccd9d5'}
                                     />
                                     <p style={{
@@ -6459,7 +6454,7 @@ Save this for later! 📌`
                                         }}>
                                             <span style={{ fontSize: '16px' }}>🎯</span>
                                             <span style={{ fontSize: '13px', color: '#1a5f7a', fontWeight: '500' }}>
-                                                Auto-detected: <strong style={{ color: '#65ADB2' }}>
+                                                Auto-detected: <strong style={{ color: '#00B4B4' }}>
                                                     {detectContentType(contentDescription) === 'testimonial' ? '💬 Testimonial' : 
                                                      detectContentType(contentDescription) === 'mythBusting' ? '🔍 Myth-Busting' : 
                                                      '📚 Educational'}
@@ -6493,9 +6488,9 @@ Save this for later! 📌`
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseOver={(e) => {
-                                                        e.target.style.background = '#65ADB2';
+                                                        e.target.style.background = '#00B4B4';
                                                         e.target.style.color = 'white';
-                                                        e.target.style.borderColor = '#65ADB2';
+                                                        e.target.style.borderColor = '#00B4B4';
                                                     }}
                                                     onMouseOut={(e) => {
                                                         e.target.style.background = 'white';
@@ -6547,7 +6542,7 @@ Save this for later! 📌`
                                 flex: '1',
                                 minWidth: '200px',
                                 background: contentDescription.trim() 
-                                    ? 'linear-gradient(135deg, #1fa39c 0%, #65ADB2 50%, #4dd4cc 100%)'
+                                    ? 'linear-gradient(135deg, #1fa39c 0%, #00B4B4 50%, #4dd4cc 100%)'
                                     : 'linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%)',
                                 backgroundSize: '200% 200%',
                                 animation: contentDescription.trim() ? 'gradientShift 4s ease infinite' : 'none',
@@ -6575,7 +6570,7 @@ Save this for later! 📌`
                     {!contentDescription.trim() && (
                         <p style={{
                             fontSize: '13px',
-                            color: '#65ADB2',
+                            color: '#00B4B4',
                             marginTop: '12px',
                             textAlign: 'center',
                             background: 'linear-gradient(135deg, #fff9f0 0%, #fff5e6 100%)',
@@ -6738,7 +6733,7 @@ Save this for later! 📌`
                                     </div>
                                     <div style={{
                                         height: '4px',
-                                        background: darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.1)',
+                                        background: darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.1)',
                                         borderRadius: '2px',
                                         overflow: 'hidden',
                                     }}>
@@ -6767,8 +6762,8 @@ Save this for later! 📌`
                                     style={{
                                         padding: '10px 18px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '13px',
                                         cursor: 'pointer',
@@ -6784,8 +6779,8 @@ Save this for later! 📌`
                                     style={{
                                         padding: '10px 18px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '13px',
                                         cursor: 'pointer',
@@ -6801,8 +6796,8 @@ Save this for later! 📌`
                                     style={{
                                         padding: '10px 18px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(0,180,180,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '13px',
                                         cursor: 'pointer',
@@ -6837,8 +6832,8 @@ Save this for later! 📌`
                                             <div key={v.id} style={{
                                                 padding: '16px',
                                                 borderRadius: '12px',
-                                                background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
-                                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                                                background: darkMode ? 'rgba(0,180,180,0.05)' : 'rgba(36,133,145,0.03)',
+                                                border: `1px solid ${darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.08)'}`,
                                             }}>
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                                                     <span style={{
@@ -6893,9 +6888,9 @@ Save this for later! 📌`
                         marginTop: '32px',
                     }}>
                         {[
-                            { number: '10,000+', label: 'Hooks & Captions', icon: '📝', color: '#65ADB2' },
+                            { number: '10,000+', label: 'Hooks & Captions', icon: '📝', color: '#00B4B4' },
                             { number: '15+', label: 'Content Categories', icon: '📂', color: '#5a8fa8' },
-                            { number: '8', label: 'Platforms Supported', icon: '📱', color: '#65ADB2' },
+                            { number: '8', label: 'Platforms Supported', icon: '📱', color: '#00B4B4' },
                             { number: '∞', label: 'Combinations', icon: '✨', color: '#8A2BE2' },
                         ].map((stat, index) => (
                             <div key={index} style={{
@@ -6970,7 +6965,7 @@ Save this for later! 📌`
                                     <div style={{ fontSize: '24px', marginBottom: '8px' }}>{item.emoji}</div>
                                     <div style={{
                                         fontSize: '11px',
-                                        color: '#65ADB2',
+                                        color: '#00B4B4',
                                         fontWeight: '700',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.5px',
@@ -7013,7 +7008,7 @@ Save this for later! 📌`
                             left: '30px',
                             fontSize: '60px',
                             opacity: '0.15',
-                            color: '#65ADB2',
+                            color: '#00B4B4',
                         }}>"</div>
                         <div style={{
                             position: 'absolute',
@@ -7021,7 +7016,7 @@ Save this for later! 📌`
                             right: '30px',
                             fontSize: '60px',
                             opacity: '0.15',
-                            color: '#65ADB2',
+                            color: '#00B4B4',
                             transform: 'rotate(180deg)',
                         }}>"</div>
                         <p style={{
@@ -7064,7 +7059,7 @@ Save this for later! 📌`
                             fontFamily: "'Montserrat', serif",
                             fontSize: '22px',
                             fontWeight: '600',
-                            background: 'linear-gradient(135deg, #65ADB2 0%, #5a8fa8 100%)',
+                            background: 'linear-gradient(135deg, #00B4B4 0%, #5a8fa8 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
@@ -7146,7 +7141,7 @@ Save this for later! 📌`
 
                     {/* Content Pillars */}
                     <div style={{
-                        background: 'linear-gradient(135deg, #1a5f7a 0%, #65ADB2 50%, #4dd4cc 100%)',
+                        background: 'linear-gradient(135deg, #1a5f7a 0%, #00B4B4 50%, #4dd4cc 100%)',
                         borderRadius: '24px',
                         padding: '32px',
                         marginTop: '32px',
@@ -7938,7 +7933,7 @@ Save this for later! 📌`
                                                 <div style={{
                                                     flex: 1,
                                                     padding: '20px',
-                                                    background: 'linear-gradient(135deg, #65ADB2 0%, #4dd4cc 100%)',
+                                                    background: 'linear-gradient(135deg, #00B4B4 0%, #4dd4cc 100%)',
                                                     borderRadius: '12px',
                                                     color: 'white',
                                                     fontWeight: '600',
@@ -8057,8 +8052,8 @@ Save this for later! 📌`
                                 <div key={i} style={{
                                     padding: '16px 20px',
                                     borderRadius: '12px',
-                                    background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
-                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                                    background: darkMode ? 'rgba(0,180,180,0.05)' : 'rgba(36,133,145,0.03)',
+                                    border: `1px solid ${darkMode ? 'rgba(0,180,180,0.1)' : 'rgba(36,133,145,0.08)'}`,
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
@@ -8069,7 +8064,7 @@ Save this for later! 📌`
                                         <button onClick={() => addToFavorites(cta, 'cta')} style={{
                                             padding: '6px 12px',
                                             borderRadius: '6px',
-                                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                            border: `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
                                             background: 'transparent',
                                             color: colors.text,
                                             fontSize: '12px',
@@ -8114,11 +8109,11 @@ Save this for later! 📌`
                         {/* Seasonal Content Suggestions */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(101,173,178,0.08) 0%, rgba(13,30,54,0.95) 100%)'
-                                : 'linear-gradient(165deg, rgba(101,173,178,0.08) 0%, rgba(255,255,255,0.98) 100%)',
+                                ? 'linear-gradient(165deg, rgba(0,180,180,0.08) 0%, rgba(13,30,54,0.95) 100%)'
+                                : 'linear-gradient(165deg, rgba(0,180,180,0.08) 0%, rgba(255,255,255,0.98) 100%)',
                             borderRadius: '20px',
                             padding: '24px',
-                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(101,173,178,0.1)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(0,180,180,0.15)' : 'rgba(0,180,180,0.1)'}`,
                         }}>
                             <h3 style={{
                                 fontFamily: "'Montserrat', serif",
@@ -8139,7 +8134,7 @@ Save this for later! 📌`
                                     <div key={i} style={{
                                         padding: '12px',
                                         borderRadius: '10px',
-                                        background: darkMode ? 'rgba(101,173,178,0.06)' : 'rgba(101,173,178,0.04)',
+                                        background: darkMode ? 'rgba(0,180,180,0.06)' : 'rgba(0,180,180,0.04)',
                                         fontSize: '13px',
                                         color: colors.text,
                                         display: 'flex',
@@ -8176,11 +8171,11 @@ Save this for later! 📌`
                         {/* CTA Library Quick Access */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(101,173,178,0.06) 0%, rgba(13,30,54,0.95) 100%)'
+                                ? 'linear-gradient(165deg, rgba(0,180,180,0.06) 0%, rgba(13,30,54,0.95) 100%)'
                                 : 'linear-gradient(165deg, rgba(36,133,145,0.06) 0%, rgba(255,255,255,0.98) 100%)',
                             borderRadius: '20px',
                             padding: '24px',
-                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(36,133,145,0.1)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(0,180,180,0.15)' : 'rgba(36,133,145,0.1)'}`,
                         }}>
                             <h3 style={{
                                 fontFamily: "'Montserrat', serif",
@@ -8198,7 +8193,7 @@ Save this for later! 📌`
                                     <button key={type} onClick={() => setBioTone(type)} style={{
                                         padding: '6px 12px',
                                         borderRadius: '8px',
-                                        border: bioTone === type ? 'none' : `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        border: bioTone === type ? 'none' : `1px solid ${darkMode ? 'rgba(0,180,180,0.2)' : 'rgba(36,133,145,0.15)'}`,
                                         background: bioTone === type ? colors.teal : 'transparent',
                                         color: bioTone === type ? (darkMode ? '#0a0f0d' : '#fff') : colors.text,
                                         fontSize: '12px',
@@ -8212,7 +8207,7 @@ Save this for later! 📌`
                                     <div key={i} style={{
                                         padding: '10px 12px',
                                         borderRadius: '8px',
-                                        background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
+                                        background: darkMode ? 'rgba(0,180,180,0.05)' : 'rgba(36,133,145,0.03)',
                                         fontSize: '12px',
                                         color: colors.text,
                                         display: 'flex',
@@ -8315,6 +8310,7 @@ Save this for later! 📌`
                         </div>
                     </footer>
                 </div>
+                </>
             );
         }
 
