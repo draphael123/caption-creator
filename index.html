@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caption & Hook Generator | Fountain Vitality</title>
+    <title>Caption & Hook Generator | Fountain</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -18,16 +18,16 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: #0a1628;
+            font-family: 'Open Sans', sans-serif;
+            background: #ffffff;
             background-attachment: fixed;
             min-height: 100vh;
-            color: #e8f0f8;
+            color: #333333;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Animated grain texture overlay */
+        /* Subtle texture overlay */
         body::before {
             content: '';
             position: fixed;
@@ -36,12 +36,12 @@
             right: 0;
             bottom: 0;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.03;
+            opacity: 0.015;
             pointer-events: none;
             z-index: 1000;
         }
 
-        /* Gradient mesh background */
+        /* Clean gradient background - Fountain Blue */
         body::after {
             content: '';
             position: fixed;
@@ -50,11 +50,9 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(ellipse 80% 60% at 10% 20%, rgba(36, 133, 145, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse 60% 80% at 90% 80%, rgba(0, 115, 207, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 180, 0.1) 0%, transparent 60%),
-                radial-gradient(circle at 30% 70%, rgba(36, 133, 145, 0.12) 0%, transparent 40%),
-                linear-gradient(180deg, #0a1628 0%, #0d1e36 50%, #0a1628 100%);
+                radial-gradient(ellipse 100% 80% at 0% 0%, rgba(101, 173, 178, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 100% at 100% 100%, rgba(101, 173, 178, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, #ffffff 0%, #f5f8f8 100%);
             pointer-events: none;
             z-index: 0;
         }
@@ -113,8 +111,8 @@
         }
 
         @keyframes borderGlow {
-            0%, 100% { border-color: rgba(0, 180, 150, 0.3); box-shadow: 0 0 20px rgba(0, 180, 150, 0.1); }
-            50% { border-color: rgba(180, 140, 80, 0.4); box-shadow: 0 0 30px rgba(180, 140, 80, 0.15); }
+            0%, 100% { border-color: rgba(101, 173, 178, 0.3); box-shadow: 0 0 20px rgba(101, 173, 178, 0.1); }
+            50% { border-color: rgba(101, 173, 178, 0.5); box-shadow: 0 0 30px rgba(101, 173, 178, 0.2); }
         }
 
         @keyframes rotateGradient {
@@ -133,8 +131,8 @@
         }
 
         @keyframes glowPulse {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 180, 150, 0.4)); }
-            50% { filter: drop-shadow(0 0 16px rgba(0, 180, 150, 0.6)); }
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(101, 173, 178, 0.4)); }
+            50% { filter: drop-shadow(0 0 16px rgba(101, 173, 178, 0.6)); }
         }
 
         .fade-in {
@@ -152,20 +150,20 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(101, 173, 178, 0.1);
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #248591 0%, #0073cf 100%);
+            background: linear-gradient(180deg, #65ADB2 0%, #1fa39c 100%);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #2fa3b0 0%, #1a8ae6 100%);
+            background: linear-gradient(180deg, #35ccc4 0%, #65ADB2 100%);
         }
 
         /* Selection color */
         ::selection {
-            background: rgba(36, 133, 145, 0.4);
-            color: #ffffff;
+            background: rgba(101, 173, 178, 0.3);
+            color: #1a2b3c;
         }
     </style>
 </head>
@@ -3847,16 +3845,16 @@ Save this for later! 📌`
                 style.textContent = darkMode ? `
                     body::after {
                         background: 
-                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(36, 133, 145, 0.2) 0%, transparent 50%),
-                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(0, 115, 207, 0.15) 0%, transparent 50%),
+                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(101, 173, 178, 0.2) 0%, transparent 50%),
+                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(101, 173, 178, 0.15) 0%, transparent 50%),
                             radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 180, 0.1) 0%, transparent 60%),
                             linear-gradient(180deg, #0a1628 0%, #0d1e36 50%, #0a1628 100%) !important;
                     }
                 ` : `
                     body::after {
                         background: 
-                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(36, 133, 145, 0.08) 0%, transparent 50%),
-                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(0, 115, 207, 0.06) 0%, transparent 50%),
+                            radial-gradient(ellipse 80% 60% at 10% 20%, rgba(101, 173, 178, 0.08) 0%, transparent 50%),
+                            radial-gradient(ellipse 60% 80% at 90% 80%, rgba(101, 173, 178, 0.06) 0%, transparent 50%),
                             radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59, 130, 180, 0.04) 0%, transparent 60%),
                             linear-gradient(180deg, #ffffff 0%, #f0f7ff 50%, #ffffff 100%) !important;
                     }
@@ -4303,53 +4301,55 @@ Save this for later! 📌`
 
             const currentTips = platformTips[platform];
 
-            // Brand Colors - Blue and White (Fountain.net style)
+            // Brand Colors - Fountain.net style (Fountain Blue #65ADB2)
             const colors = darkMode ? {
-                // Dark mode - deep blue & white
-                teal: '#3ba3b5',
-                tealDark: '#248591',
-                tealLight: '#5fc4d4',
-                sage: '#6b9bc4',
-                sageDark: '#4a7a9e',
-                sageLight: '#8ec0e8',
-                coral: '#0073cf',
-                coralLight: '#3399e6',
-                warmWhite: '#0d1e36',
-                cream: '#0f2440',
-                background: '#0a1628',
-                cardBg: 'rgba(13, 30, 54, 0.9)',
-                cardBorder: 'rgba(59, 163, 181, 0.25)',
-                text: '#c8dce8',
-                textMuted: '#7a9cb8',
-                textDark: '#e8f4ff',
-                inputBg: 'rgba(15, 36, 64, 0.9)',
-                inputBorder: 'rgba(59, 163, 181, 0.35)',
-                accent: '#0073cf',
-                accentAlt: '#3ba3b5',
-                glow: 'rgba(59, 163, 181, 0.2)',
+                // Dark mode - Fountain dark theme
+                teal: '#65ADB2',
+                tealDark: '#4E9499',
+                tealLight: '#7EC4C9',
+                sage: '#65ADB2',
+                sageDark: '#4E9499',
+                sageLight: '#7EC4C9',
+                coral: '#65ADB2',
+                coralLight: '#7EC4C9',
+                warmWhite: '#1A242F',
+                cream: '#2F3B45',
+                background: '#1A242F',
+                cardBg: 'rgba(47, 59, 69, 0.95)',
+                cardBorder: 'rgba(101, 173, 178, 0.3)',
+                text: '#F5F5F5',
+                textMuted: '#B0BEC5',
+                textDark: '#FFFFFF',
+                inputBg: 'rgba(47, 59, 69, 0.9)',
+                inputBorder: 'rgba(101, 173, 178, 0.4)',
+                accent: '#65ADB2',
+                accentAlt: '#7EC4C9',
+                gold: '#F5A623',
+                glow: 'rgba(101, 173, 178, 0.25)',
             } : {
-                // Light mode - clean blue & white
-                teal: '#248591',
-                tealDark: '#1a6570',
-                tealLight: '#3ba3b5',
-                sage: '#5a8fa8',
-                sageDark: '#4a7a92',
-                sageLight: '#7eb8d0',
-                coral: '#0073cf',
-                coralLight: '#3399e6',
-                warmWhite: '#f8fafc',
-                cream: '#f0f7ff',
-                background: '#ffffff',
+                // Light mode - Fountain.net branding
+                teal: '#65ADB2',
+                tealDark: '#4E9499',
+                tealLight: '#7EC4C9',
+                sage: '#65ADB2',
+                sageDark: '#4E9499',
+                sageLight: '#7EC4C9',
+                coral: '#65ADB2',
+                coralLight: '#7EC4C9',
+                warmWhite: '#F5F5F5',
+                cream: '#EEF4F4',
+                background: '#FFFFFF',
                 cardBg: 'rgba(255, 255, 255, 0.98)',
-                cardBorder: 'rgba(36, 133, 145, 0.2)',
-                text: '#1e3a4d',
-                textMuted: '#5a7a8a',
-                textDark: '#0a1e2e',
-                inputBg: '#ffffff',
-                inputBorder: 'rgba(36, 133, 145, 0.3)',
-                accent: '#0073cf',
-                accentAlt: '#248591',
-                glow: 'rgba(36, 133, 145, 0.12)',
+                cardBorder: 'rgba(101, 173, 178, 0.25)',
+                text: '#333333',
+                textMuted: '#666666',
+                textDark: '#1A242F',
+                inputBg: '#FFFFFF',
+                inputBorder: 'rgba(101, 173, 178, 0.4)',
+                accent: '#65ADB2',
+                accentAlt: '#4E9499',
+                gold: '#F5A623',
+                glow: 'rgba(101, 173, 178, 0.15)',
             };
 
             const styles = {
@@ -4363,17 +4363,17 @@ Save this for later! 📌`
                     textAlign: 'center',
                     marginBottom: '48px',
                     background: darkMode 
-                        ? 'linear-gradient(160deg, rgba(59,163,181,0.1) 0%, rgba(13,30,54,0.95) 40%, rgba(0,115,207,0.08) 100%)'
-                        : 'linear-gradient(160deg, rgba(36,133,145,0.08) 0%, rgba(255,255,255,0.98) 40%, rgba(0,115,207,0.06) 100%)',
+                        ? 'linear-gradient(160deg, rgba(101,173,178,0.08) 0%, rgba(13,30,42,0.95) 40%, rgba(101,173,178,0.05) 100%)'
+                        : 'linear-gradient(160deg, rgba(101,173,178,0.06) 0%, rgba(255,255,255,0.98) 40%, rgba(101,173,178,0.04) 100%)',
                     padding: '56px 40px',
-                    borderRadius: '32px',
-                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                    borderRadius: '24px',
+                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(101,173,178,0.15)'}`,
                     position: 'relative',
                     overflow: 'hidden',
                     backdropFilter: 'blur(20px)',
                     boxShadow: darkMode 
                         ? '0 24px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03)'
-                        : '0 24px 80px rgba(36,133,145,0.08), inset 0 1px 0 rgba(255,255,255,0.8)',
+                        : '0 20px 60px rgba(101,173,178,0.08), inset 0 1px 0 rgba(255,255,255,0.8)',
                 },
                 headerDecor: {
                     position: 'absolute',
@@ -4381,32 +4381,31 @@ Save this for later! 📌`
                     height: '300px',
                     borderRadius: '50%',
                     background: darkMode 
-                        ? 'radial-gradient(circle, rgba(59,163,181,0.25) 0%, transparent 70%)'
-                        : 'radial-gradient(circle, rgba(36,133,145,0.15) 0%, transparent 70%)',
+                        ? 'radial-gradient(circle, rgba(101,173,178,0.2) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, rgba(101,173,178,0.12) 0%, transparent 70%)',
                     filter: 'blur(60px)',
                     animation: 'floatSlow 8s ease-in-out infinite',
                 },
                 logo: {
-                    fontSize: '12px',
-                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: '14px',
+                    fontFamily: "'Open Sans', sans-serif",
                     fontWeight: '600',
-                    letterSpacing: '6px',
-                    textTransform: 'uppercase',
-                    color: colors.accent,
-                    marginBottom: '20px',
+                    letterSpacing: '0.5px',
+                    color: colors.textDark,
+                    marginBottom: '24px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '12px',
+                    gap: '10px',
                 },
                 title: {
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: '52px',
-                    fontWeight: '500',
+                    fontFamily: "'Montserrat', serif",
+                    fontSize: '48px',
+                    fontWeight: '600',
                     color: colors.textDark,
                     marginBottom: '20px',
-                    lineHeight: '1.1',
-                    letterSpacing: '-1px',
+                    lineHeight: '1.15',
+                    letterSpacing: '-0.5px',
                 },
                 subtitle: {
                     fontSize: '17px',
@@ -4425,14 +4424,14 @@ Save this for later! 📌`
                         ? '0 16px 64px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)'
                         : '0 16px 64px rgba(0,80,60,0.08), 0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)',
                     border: darkMode 
-                        ? '1px solid rgba(59,163,181,0.12)'
+                        ? '1px solid rgba(101,173,178,0.12)'
                         : '1px solid rgba(36,133,145,0.08)',
                     backdropFilter: 'blur(20px)',
                     position: 'relative',
                     overflow: 'hidden',
                 },
                 sectionTitle: {
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Montserrat', serif",
                     fontSize: '18px',
                     fontWeight: '500',
                     color: colors.textDark,
@@ -4452,21 +4451,21 @@ Save this for later! 📌`
                     borderRadius: '12px',
                     border: isActive 
                         ? 'none'
-                        : `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                        : `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
                     background: isActive 
                         ? `linear-gradient(135deg, ${colors.teal} 0%, ${colors.accentAlt} 100%)` 
                         : darkMode 
                             ? 'rgba(20,35,28,0.6)'
                             : 'rgba(255,255,255,0.8)',
                     color: isActive ? '#0a0f0d' : colors.text,
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '14px',
                     fontWeight: isActive ? '600' : '500',
                     cursor: 'pointer',
                     transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                     outline: 'none',
                     boxShadow: isActive 
-                        ? `0 8px 24px ${darkMode ? 'rgba(59,163,181,0.3)' : 'rgba(36,133,145,0.25)'}, inset 0 1px 0 rgba(255,255,255,0.2)` 
+                        ? `0 8px 24px ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(36,133,145,0.25)'}, inset 0 1px 0 rgba(255,255,255,0.2)` 
                         : darkMode
                             ? '0 2px 8px rgba(0,0,0,0.2)'
                             : '0 2px 8px rgba(0,0,0,0.04)',
@@ -4476,25 +4475,24 @@ Save this for later! 📌`
                 generateButton: {
                     width: '100%',
                     padding: '18px 36px',
-                    borderRadius: '14px',
+                    borderRadius: '12px',
                     border: 'none',
-                    background: `linear-gradient(135deg, ${colors.teal} 0%, ${colors.accentAlt} 50%, ${colors.accent} 100%)`,
+                    background: `linear-gradient(135deg, ${colors.teal} 0%, ${colors.tealDark} 100%)`,
                     backgroundSize: '200% 200%',
-                    animation: 'gradientShift 6s ease infinite',
-                    color: darkMode ? '#0a0f0d' : '#ffffff',
-                    fontFamily: "'Outfit', sans-serif",
+                    color: '#ffffff',
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '16px',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     boxShadow: darkMode 
-                        ? `0 12px 40px rgba(59,163,181,0.3), 0 4px 12px rgba(0,0,0,0.3)`
-                        : `0 12px 40px rgba(36,133,145,0.25), 0 4px 12px rgba(0,0,0,0.1)`,
+                        ? `0 8px 24px rgba(101,173,178,0.3), 0 4px 12px rgba(0,0,0,0.2)`
+                        : `0 8px 24px rgba(101,173,178,0.25), 0 4px 12px rgba(0,0,0,0.08)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '12px',
-                    letterSpacing: '0.5px',
+                    letterSpacing: '0.3px',
                     position: 'relative',
                     overflow: 'hidden',
                 },
@@ -4517,7 +4515,7 @@ Save this for later! 📌`
                     boxShadow: darkMode 
                         ? '0 20px 60px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3)'
                         : '0 20px 60px rgba(0,80,60,0.1), 0 8px 24px rgba(0,0,0,0.04)',
-                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
                     backdropFilter: 'blur(20px)',
                     animation: 'fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                     position: 'relative',
@@ -4531,7 +4529,7 @@ Save this for later! 📌`
                     gap: '12px',
                 },
                 resultTitle: {
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Montserrat', serif",
                     fontSize: '18px',
                     fontWeight: '500',
                     color: colors.textDark,
@@ -4549,10 +4547,10 @@ Save this for later! 📌`
                     color: darkMode ? '#0a0f0d' : '#ffffff',
                     fontSize: '12px',
                     fontWeight: '600',
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     letterSpacing: '0.5px',
                     boxShadow: darkMode 
-                        ? '0 4px 12px rgba(59,163,181,0.3)'
+                        ? '0 4px 12px rgba(101,173,178,0.3)'
                         : '0 4px 12px rgba(36,133,145,0.2)',
                 },
                 resultActions: {
@@ -4562,12 +4560,12 @@ Save this for later! 📌`
                 actionButton: {
                     padding: '10px 18px',
                     borderRadius: '10px',
-                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.3)' : 'rgba(36,133,145,0.2)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(36,133,145,0.2)'}`,
                     background: darkMode 
                         ? 'rgba(20,35,28,0.8)'
                         : 'rgba(255,255,255,0.9)',
                     color: colors.text,
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '13px',
                     fontWeight: '500',
                     cursor: 'pointer',
@@ -4582,7 +4580,7 @@ Save this for later! 📌`
                     border: 'none',
                     background: `linear-gradient(135deg, ${colors.teal} 0%, ${colors.accentAlt} 100%)`,
                     color: darkMode ? '#0a0f0d' : '#ffffff',
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '13px',
                     fontWeight: '600',
                     cursor: 'pointer',
@@ -4591,11 +4589,11 @@ Save this for later! 📌`
                     alignItems: 'center',
                     gap: '6px',
                     boxShadow: darkMode 
-                        ? '0 4px 16px rgba(59,163,181,0.3)'
+                        ? '0 4px 16px rgba(101,173,178,0.3)'
                         : '0 4px 16px rgba(36,133,145,0.25)',
                 },
                 resultContent: {
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '15px',
                     lineHeight: '1.8',
                     color: colors.text,
@@ -4605,20 +4603,20 @@ Save this for later! 📌`
                         : 'rgba(250,248,244,0.8)',
                     padding: '24px',
                     borderRadius: '14px',
-                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
                 },
                 tipsCard: {
                     background: darkMode 
-                        ? 'linear-gradient(160deg, rgba(59,163,181,0.04) 0%, rgba(13,30,54,0.85) 50%, rgba(0,115,207,0.03) 100%)'
-                        : 'linear-gradient(160deg, rgba(36,133,145,0.04) 0%, rgba(255,255,255,0.9) 50%, rgba(0,115,207,0.03) 100%)',
+                        ? 'linear-gradient(160deg, rgba(101,173,178,0.04) 0%, rgba(13,30,54,0.85) 50%, rgba(101,173,178,0.03) 100%)'
+                        : 'linear-gradient(160deg, rgba(36,133,145,0.04) 0%, rgba(255,255,255,0.9) 50%, rgba(101,173,178,0.03) 100%)',
                     borderRadius: '20px',
                     padding: '28px',
                     marginTop: '28px',
-                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.15)' : 'rgba(36,133,145,0.1)'}`,
+                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(36,133,145,0.1)'}`,
                     backdropFilter: 'blur(16px)',
                 },
                 tipsTitle: {
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Montserrat', serif",
                     fontSize: '17px',
                     fontWeight: '500',
                     color: colors.textDark,
@@ -4633,11 +4631,11 @@ Save this for later! 📌`
                     margin: 0,
                 },
                 tipItem: {
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '14px',
                     color: colors.text,
                     padding: '12px 0',
-                    borderBottom: `1px solid ${darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.08)'}`,
+                    borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.08)'}`,
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '12px',
@@ -4652,10 +4650,10 @@ Save this for later! 📌`
                     textAlign: 'center',
                     marginTop: '64px',
                     paddingTop: '40px',
-                    borderTop: `1px solid ${darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                    borderTop: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
                 },
                 footerText: {
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Open Sans', sans-serif",
                     fontSize: '14px',
                     color: colors.textMuted,
                     fontWeight: '400',
@@ -4724,9 +4722,9 @@ Save this for later! 📌`
                                 onClick={() => setShowSettings(true)}
                                 style={{
                                     background: darkMode 
-                                        ? 'rgba(0,115,207,0.15)'
-                                        : 'rgba(0,115,207,0.1)',
-                                    border: `1px solid ${darkMode ? 'rgba(0,115,207,0.3)' : 'rgba(0,115,207,0.2)'}`,
+                                        ? 'rgba(101,173,178,0.15)'
+                                        : 'rgba(101,173,178,0.1)',
+                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(101,173,178,0.2)'}`,
                                     borderRadius: '10px',
                                     padding: '10px 16px',
                                     cursor: 'pointer',
@@ -4734,7 +4732,7 @@ Save this for later! 📌`
                                     alignItems: 'center',
                                     gap: '8px',
                                     color: colors.text,
-                                    fontFamily: "'Outfit', sans-serif",
+                                    fontFamily: "'Open Sans', sans-serif",
                                     fontWeight: '500',
                                     fontSize: '13px',
                                     transition: 'all 0.25s ease',
@@ -4750,9 +4748,9 @@ Save this for later! 📌`
                                 onClick={() => setDarkMode(!darkMode)}
                                 style={{
                                     background: darkMode 
-                                        ? 'rgba(59,163,181,0.15)'
+                                        ? 'rgba(101,173,178,0.15)'
                                         : 'rgba(36,133,145,0.1)',
-                                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.3)' : 'rgba(36,133,145,0.2)'}`,
+                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.3)' : 'rgba(36,133,145,0.2)'}`,
                                     borderRadius: '10px',
                                     padding: '10px 16px',
                                     cursor: 'pointer',
@@ -4760,7 +4758,7 @@ Save this for later! 📌`
                                     alignItems: 'center',
                                     gap: '8px',
                                     color: colors.text,
-                                    fontFamily: "'Outfit', sans-serif",
+                                    fontFamily: "'Open Sans', sans-serif",
                                     fontWeight: '500',
                                     fontSize: '13px',
                                     transition: 'all 0.25s ease',
@@ -4779,12 +4777,12 @@ Save this for later! 📌`
                             bottom: '-80px', 
                             right: '-60px', 
                             background: darkMode 
-                                ? 'radial-gradient(circle, rgba(0,115,207,0.15) 0%, transparent 70%)'
-                                : 'radial-gradient(circle, rgba(0,115,207,0.12) 0%, transparent 70%)',
+                                ? 'radial-gradient(circle, rgba(101,173,178,0.15) 0%, transparent 70%)'
+                                : 'radial-gradient(circle, rgba(101,173,178,0.12) 0%, transparent 70%)',
                             animationDelay: '2s',
                         }}></div>
                         
-                        {/* Logo */}
+                        {/* Fountain Logo */}
                         <a 
                             href="https://fountain.net" 
                             target="_blank" 
@@ -4800,31 +4798,39 @@ Save this for later! 📌`
                                 transition: 'all 0.3s ease',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'scale(1.05)';
-                                e.currentTarget.style.filter = `drop-shadow(0 0 12px ${colors.accent}60)`;
+                                e.currentTarget.style.transform = 'scale(1.03)';
+                                e.currentTarget.style.opacity = '0.85';
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = 'scale(1)';
-                                e.currentTarget.style.filter = 'none';
+                                e.currentTarget.style.opacity = '1';
                             }}
                             >
-                                <span style={{ 
-                                    width: '24px', 
-                                    height: '1px', 
-                                    background: `linear-gradient(90deg, transparent 0%, ${colors.accent} 100%)`,
-                                }}></span>
-                                Fountain Vitality
-                                <span style={{ 
-                                    width: '24px', 
-                                    height: '1px', 
-                                    background: `linear-gradient(90deg, ${colors.accent} 0%, transparent 100%)`,
-                                }}></span>
+                                {/* Fountain Logo PNG */}
+                                <img 
+                                    src="fountain logo.png" 
+                                    alt="Fountain Logo" 
+                                    style={{
+                                        width: '40px',
+                                        height: '40px',
+                                        objectFit: 'contain',
+                                    }}
+                                />
+                                <span style={{
+                                    fontFamily: "'Open Sans', sans-serif",
+                                    fontWeight: '700',
+                                    fontSize: '20px',
+                                    color: colors.textDark,
+                                    letterSpacing: '-0.3px',
+                                }}>
+                                    Fountain
+                                </span>
                             </div>
                         </a>
                         
-                        {/* Title with italic accent */}
+                        {/* Title with Fountain-style colored accent */}
                         <h1 style={styles.title}>
-                            Content <span style={{ fontStyle: 'italic', fontWeight: '400' }}>Creation</span> Suite
+                            Content <span style={{ color: colors.teal }}>Creation</span> Suite
                         </h1>
                         
                         <p style={styles.subtitle}>Your complete toolkit for engaging hormone health content</p>
@@ -4864,7 +4870,7 @@ Save this for later! 📌`
                         boxShadow: darkMode 
                             ? '0 12px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.02)'
                             : '0 12px 40px rgba(0,80,60,0.06), inset 0 1px 0 rgba(255,255,255,0.6)',
-                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.06)'}`,
+                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.06)'}`,
                         backdropFilter: 'blur(20px)',
                     }}>
                         {[
@@ -4891,7 +4897,7 @@ Save this for later! 📌`
                                     color: activeTool === tool.id 
                                         ? (darkMode ? '#0a0f0d' : '#ffffff')
                                         : colors.textMuted,
-                                    fontFamily: "'Outfit', sans-serif",
+                                    fontFamily: "'Open Sans', sans-serif",
                                     fontSize: '14px',
                                     fontWeight: activeTool === tool.id ? '600' : '500',
                                     cursor: 'pointer',
@@ -4901,7 +4907,7 @@ Save this for later! 📌`
                                     gap: '8px',
                                     boxShadow: activeTool === tool.id
                                         ? darkMode 
-                                            ? '0 8px 24px rgba(59,163,181,0.35)'
+                                            ? '0 8px 24px rgba(101,173,178,0.35)'
                                             : '0 8px 24px rgba(36,133,145,0.3)'
                                         : 'none',
                                     transform: activeTool === tool.id ? 'translateY(-1px)' : 'translateY(0)',
@@ -4946,7 +4952,7 @@ Save this for later! 📌`
                                     width: '44px',
                                     height: '44px',
                                     borderRadius: '12px',
-                                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
                                     background: darkMode ? 'rgba(13,30,54,0.95)' : 'rgba(255,255,255,0.95)',
                                     color: colors.text,
                                     fontSize: '16px',
@@ -5002,11 +5008,11 @@ Save this for later! 📌`
                                 padding: '32px',
                                 maxWidth: '400px',
                                 width: '90%',
-                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
-                                    fontFamily: "'Playfair Display', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '20px',
                                     color: colors.textDark,
                                     marginBottom: '20px',
@@ -5029,13 +5035,13 @@ Save this for later! 📌`
                                             display: 'flex',
                                             justifyContent: 'space-between',
                                             padding: '10px 0',
-                                            borderBottom: `1px solid ${darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.06)'}`,
+                                            borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.06)'}`,
                                         }}>
                                             <span style={{
                                                 fontFamily: "'JetBrains Mono', monospace",
                                                 fontSize: '12px',
                                                 padding: '4px 10px',
-                                                background: darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.08)',
+                                                background: darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)',
                                                 borderRadius: '6px',
                                                 color: colors.teal,
                                             }}>{shortcut.keys}</span>
@@ -5080,12 +5086,12 @@ Save this for later! 📌`
                                 width: '90%',
                                 maxHeight: '80vh',
                                 overflow: 'auto',
-                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                                     <h3 style={{
-                                        fontFamily: "'Playfair Display', serif",
+                                        fontFamily: "'Montserrat', serif",
                                         fontSize: '20px',
                                         color: colors.textDark,
                                     }}>↺ Generation History</h3>
@@ -5107,8 +5113,8 @@ Save this for later! 📌`
                                             <div key={item.id} style={{
                                                 padding: '16px',
                                                 borderRadius: '12px',
-                                                background: darkMode ? 'rgba(59,163,181,0.05)' : 'rgba(36,133,145,0.03)',
-                                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.06)'}`,
+                                                background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
+                                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.06)'}`,
                                             }}>
                                                 <p style={{ fontSize: '14px', color: colors.textDark, fontWeight: '500', marginBottom: '8px' }}>
                                                     {item.hook.slice(0, 80)}...
@@ -5478,7 +5484,7 @@ Save this for later! 📌`
                                 
                                 {/* Stats */}
                                 <div style={{
-                                    background: darkMode ? 'rgba(59,163,181,0.05)' : 'rgba(36,133,145,0.03)',
+                                    background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
                                     border: `1px solid ${colors.cardBorder}`,
                                     borderRadius: '12px',
                                     padding: '16px',
@@ -5522,11 +5528,11 @@ Save this for later! 📌`
                                 width: '90%',
                                 maxHeight: '80vh',
                                 overflow: 'auto',
-                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
-                                    fontFamily: "'Playfair Display', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '20px',
                                     color: colors.textDark,
                                     marginBottom: '20px',
@@ -5539,8 +5545,8 @@ Save this for later! 📌`
                                             <div key={item.id} style={{
                                                 padding: '16px',
                                                 borderRadius: '12px',
-                                                background: darkMode ? 'rgba(0,115,207,0.05)' : 'rgba(0,115,207,0.03)',
-                                                border: `1px solid ${darkMode ? 'rgba(0,115,207,0.15)' : 'rgba(0,115,207,0.1)'}`,
+                                                background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(101,173,178,0.03)',
+                                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(101,173,178,0.1)'}`,
                                             }}>
                                                 <p style={{ fontSize: '14px', color: colors.text, marginBottom: '10px', lineHeight: '1.5' }}>
                                                     {item.content.slice(0, 200)}{item.content.length > 200 ? '...' : ''}
@@ -5597,11 +5603,11 @@ Save this for later! 📌`
                                 padding: '32px',
                                 maxWidth: '400px',
                                 width: '90%',
-                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
-                                    fontFamily: "'Playfair Display', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '20px',
                                     color: colors.textDark,
                                     marginBottom: '20px',
@@ -5610,8 +5616,8 @@ Save this for later! 📌`
                                     <button onClick={() => { copyWithFormatting(); setShowExportModal(false); }} style={{
                                         padding: '14px 20px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '14px',
                                         cursor: 'pointer',
@@ -5623,8 +5629,8 @@ Save this for later! 📌`
                                     <button onClick={() => { exportAsText(); setShowExportModal(false); }} style={{
                                         padding: '14px 20px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '14px',
                                         cursor: 'pointer',
@@ -5636,8 +5642,8 @@ Save this for later! 📌`
                                     <button onClick={() => { exportAsCSV(); setShowExportModal(false); }} style={{
                                         padding: '14px 20px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '14px',
                                         cursor: 'pointer',
@@ -5675,7 +5681,7 @@ Save this for later! 📌`
                             }} onClick={e => e.stopPropagation()}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                                     <h3 style={{
-                                        fontFamily: "'Playfair Display', serif",
+                                        fontFamily: "'Montserrat', serif",
                                         fontSize: '18px',
                                         color: darkMode ? '#fff' : '#000',
                                     }}>📱 {previewPlatform === 'instagram' ? 'Instagram' : previewPlatform === 'twitter' ? 'Twitter/X' : 'TikTok'} Preview</h3>
@@ -5740,7 +5746,7 @@ Save this for later! 📌`
                                             <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: colors.teal, flexShrink: 0 }}></div>
                                             <div>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                    <span style={{ fontWeight: '700', fontSize: '14px', color: darkMode ? '#fff' : '#000' }}>Fountain Vitality</span>
+                                                    <span style={{ fontWeight: '700', fontSize: '14px', color: darkMode ? '#fff' : '#000' }}>Fountain</span>
                                                     <span style={{ color: '#1DA1F2' }}>✓</span>
                                                     <span style={{ color: '#666', fontSize: '13px' }}>@fountainvitality · 1h</span>
                                                 </div>
@@ -5841,11 +5847,11 @@ Save this for later! 📌`
                                 padding: '24px',
                                 maxWidth: '360px',
                                 width: '90%',
-                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.1)'}`,
+                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.1)'}`,
                                 boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
                             }} onClick={e => e.stopPropagation()}>
                                 <h3 style={{
-                                    fontFamily: "'Playfair Display', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '18px',
                                     color: colors.textDark,
                                     marginBottom: '16px',
@@ -5860,7 +5866,7 @@ Save this for later! 📌`
                                                     height: '36px',
                                                     borderRadius: '8px',
                                                     border: 'none',
-                                                    background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                                    background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                                     fontSize: '18px',
                                                     cursor: 'pointer',
                                                     transition: 'transform 0.1s',
@@ -5884,11 +5890,11 @@ Save this for later! 📌`
                         {/* Value Proposition */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(59,163,181,0.06) 0%, rgba(13,30,54,0.9) 100%)'
+                                ? 'linear-gradient(165deg, rgba(101,173,178,0.06) 0%, rgba(13,30,54,0.9) 100%)'
                                 : 'linear-gradient(165deg, rgba(36,133,145,0.06) 0%, rgba(255,255,255,0.95) 100%)',
                             borderRadius: '20px',
                             padding: '28px',
-                            border: `1px solid ${darkMode ? 'rgba(59,163,181,0.12)' : 'rgba(36,133,145,0.08)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.12)' : 'rgba(36,133,145,0.08)'}`,
                             backdropFilter: 'blur(16px)',
                         }}>
                             <div style={{
@@ -5908,7 +5914,7 @@ Save this for later! 📌`
                                     fontSize: '18px',
                                 }}>◇</span>
                                 <h3 style={{
-                                    fontFamily: "'Playfair Display', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '18px',
                                     fontWeight: '500',
                                     color: colors.textDark,
@@ -5936,7 +5942,7 @@ Save this for later! 📌`
                                         color: colors.text, 
                                         fontSize: '14px',
                                         padding: '8px 0',
-                                        borderBottom: `1px solid ${darkMode ? 'rgba(59,163,181,0.06)' : 'rgba(36,133,145,0.06)'}`,
+                                        borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.06)' : 'rgba(36,133,145,0.06)'}`,
                                     }}>
                                         <span style={{
                                             color: colors.teal,
@@ -5951,11 +5957,11 @@ Save this for later! 📌`
                         {/* How to Use */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(0,115,207,0.05) 0%, rgba(13,30,54,0.9) 100%)'
-                                : 'linear-gradient(165deg, rgba(0,115,207,0.05) 0%, rgba(255,255,255,0.95) 100%)',
+                                ? 'linear-gradient(165deg, rgba(101,173,178,0.05) 0%, rgba(13,30,54,0.9) 100%)'
+                                : 'linear-gradient(165deg, rgba(101,173,178,0.05) 0%, rgba(255,255,255,0.95) 100%)',
                             borderRadius: '20px',
                             padding: '28px',
-                            border: `1px solid ${darkMode ? 'rgba(0,115,207,0.12)' : 'rgba(0,115,207,0.08)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.12)' : 'rgba(101,173,178,0.08)'}`,
                             backdropFilter: 'blur(16px)',
                         }}>
                             <div style={{
@@ -5975,7 +5981,7 @@ Save this for later! 📌`
                                     fontSize: '18px',
                                 }}>→</span>
                                 <h3 style={{
-                                    fontFamily: "'Playfair Display', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '18px',
                                     fontWeight: '500',
                                     color: colors.textDark,
@@ -6003,7 +6009,7 @@ Save this for later! 📌`
                                         color: colors.text, 
                                         fontSize: '14px',
                                         padding: '8px 0',
-                                        borderBottom: `1px solid ${darkMode ? 'rgba(0,115,207,0.06)' : 'rgba(0,115,207,0.06)'}`,
+                                        borderBottom: `1px solid ${darkMode ? 'rgba(101,173,178,0.06)' : 'rgba(101,173,178,0.06)'}`,
                                     }}>
                                         <span style={{
                                             width: '22px',
@@ -6042,7 +6048,7 @@ Save this for later! 📌`
                                 width: '32px',
                                 height: '32px',
                                 borderRadius: '8px',
-                                background: 'linear-gradient(135deg, #248591, #3ba3b5)',
+                                background: 'linear-gradient(135deg, #65ADB2, #4dd4cc)',
                                 color: 'white',
                                 fontSize: '16px',
                             }}>1</span>
@@ -6116,7 +6122,7 @@ Save this for later! 📌`
                                 width: '32px',
                                 height: '32px',
                                 borderRadius: '8px',
-                                background: 'linear-gradient(135deg, #0073cf, #3399e6)',
+                                background: 'linear-gradient(135deg, #65ADB2, #3399e6)',
                                 color: 'white',
                                 fontSize: '16px',
                             }}>3</span>
@@ -6178,7 +6184,7 @@ Save this for later! 📌`
                     <div style={{
                         ...styles.card,
                         background: darkMode 
-                            ? 'linear-gradient(165deg, rgba(59,163,181,0.04) 0%, rgba(13,30,54,0.95) 100%)'
+                            ? 'linear-gradient(165deg, rgba(101,173,178,0.04) 0%, rgba(13,30,54,0.95) 100%)'
                             : 'linear-gradient(165deg, rgba(36,133,145,0.04) 0%, rgba(255,255,255,0.98) 100%)',
                     }}>
                         <h2 style={styles.sectionTitle}>
@@ -6243,7 +6249,7 @@ Save this for later! 📌`
                         backgroundClip: 'padding-box, border-box',
                     }}>
                         <h2 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '20px',
                             fontWeight: '600',
                             color: '#1a5f7a',
@@ -6280,7 +6286,7 @@ Save this for later! 📌`
                                 onDragOver={handleDragOver}
                                 onDragLeave={handleDragLeave}
                                 style={{
-                                    border: isDragging ? '3px dashed #248591' : '3px dashed #ccd9d5',
+                                    border: isDragging ? '3px dashed #65ADB2' : '3px dashed #ccd9d5',
                                     borderRadius: '16px',
                                     padding: '40px 20px',
                                     textAlign: 'center',
@@ -6306,7 +6312,7 @@ Save this for later! 📌`
                                     {isDragging ? '📥' : '📸'}
                                 </div>
                                 <p style={{
-                                    fontFamily: "'DM Sans', sans-serif",
+                                    fontFamily: "'Open Sans', sans-serif",
                                     fontSize: '16px',
                                     fontWeight: '600',
                                     color: '#3a5a4a',
@@ -6315,7 +6321,7 @@ Save this for later! 📌`
                                     {isDragging ? 'Drop your file here!' : 'Drag & drop or click to upload'}
                                 </p>
                                 <p style={{
-                                    fontFamily: "'DM Sans', sans-serif",
+                                    fontFamily: "'Open Sans', sans-serif",
                                     fontSize: '14px',
                                     color: '#6a8a7a',
                                 }}>
@@ -6402,7 +6408,7 @@ Save this for later! 📌`
                                 <div>
                                     <label style={{
                                         display: 'block',
-                                        fontFamily: "'DM Sans', sans-serif",
+                                        fontFamily: "'Open Sans', sans-serif",
                                         fontSize: '15px',
                                         fontWeight: '600',
                                         color: '#3a5a4a',
@@ -6420,7 +6426,7 @@ Save this for later! 📌`
                                             padding: '16px',
                                             borderRadius: '12px',
                                             border: '2px solid #ccd9d5',
-                                            fontFamily: "'DM Sans', sans-serif",
+                                            fontFamily: "'Open Sans', sans-serif",
                                             fontSize: '15px',
                                             lineHeight: '1.6',
                                             resize: 'vertical',
@@ -6428,7 +6434,7 @@ Save this for later! 📌`
                                             transition: 'border-color 0.2s ease',
                                             background: '#f8faf9',
                                         }}
-                                        onFocus={(e) => e.target.style.borderColor = '#248591'}
+                                        onFocus={(e) => e.target.style.borderColor = '#65ADB2'}
                                         onBlur={(e) => e.target.style.borderColor = '#ccd9d5'}
                                     />
                                     <p style={{
@@ -6453,7 +6459,7 @@ Save this for later! 📌`
                                         }}>
                                             <span style={{ fontSize: '16px' }}>🎯</span>
                                             <span style={{ fontSize: '13px', color: '#1a5f7a', fontWeight: '500' }}>
-                                                Auto-detected: <strong style={{ color: '#248591' }}>
+                                                Auto-detected: <strong style={{ color: '#65ADB2' }}>
                                                     {detectContentType(contentDescription) === 'testimonial' ? '💬 Testimonial' : 
                                                      detectContentType(contentDescription) === 'mythBusting' ? '🔍 Myth-Busting' : 
                                                      '📚 Educational'}
@@ -6487,9 +6493,9 @@ Save this for later! 📌`
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseOver={(e) => {
-                                                        e.target.style.background = '#248591';
+                                                        e.target.style.background = '#65ADB2';
                                                         e.target.style.color = 'white';
-                                                        e.target.style.borderColor = '#248591';
+                                                        e.target.style.borderColor = '#65ADB2';
                                                     }}
                                                     onMouseOut={(e) => {
                                                         e.target.style.background = 'white';
@@ -6541,8 +6547,8 @@ Save this for later! 📌`
                                 flex: '1',
                                 minWidth: '200px',
                                 background: contentDescription.trim() 
-                                    ? 'linear-gradient(135deg, #8A2BE2 0%, #9966CC 25%, #248591 50%, #3ba3b5 75%, #5a8fa8 100%)'
-                                    : 'linear-gradient(135deg, #aaa 0%, #999 100%)',
+                                    ? 'linear-gradient(135deg, #1fa39c 0%, #65ADB2 50%, #4dd4cc 100%)'
+                                    : 'linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%)',
                                 backgroundSize: '200% 200%',
                                 animation: contentDescription.trim() ? 'gradientShift 4s ease infinite' : 'none',
                                 opacity: isLoading ? 0.8 : contentDescription.trim() ? 1 : 0.6,
@@ -6569,7 +6575,7 @@ Save this for later! 📌`
                     {!contentDescription.trim() && (
                         <p style={{
                             fontSize: '13px',
-                            color: '#0073cf',
+                            color: '#65ADB2',
                             marginTop: '12px',
                             textAlign: 'center',
                             background: 'linear-gradient(135deg, #fff9f0 0%, #fff5e6 100%)',
@@ -6732,7 +6738,7 @@ Save this for later! 📌`
                                     </div>
                                     <div style={{
                                         height: '4px',
-                                        background: darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.1)',
+                                        background: darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.1)',
                                         borderRadius: '2px',
                                         overflow: 'hidden',
                                     }}>
@@ -6761,8 +6767,8 @@ Save this for later! 📌`
                                     style={{
                                         padding: '10px 18px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '13px',
                                         cursor: 'pointer',
@@ -6778,8 +6784,8 @@ Save this for later! 📌`
                                     style={{
                                         padding: '10px 18px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '13px',
                                         cursor: 'pointer',
@@ -6795,8 +6801,8 @@ Save this for later! 📌`
                                     style={{
                                         padding: '10px 18px',
                                         borderRadius: '10px',
-                                        border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
-                                        background: darkMode ? 'rgba(59,163,181,0.08)' : 'rgba(36,133,145,0.05)',
+                                        border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        background: darkMode ? 'rgba(101,173,178,0.08)' : 'rgba(36,133,145,0.05)',
                                         color: colors.text,
                                         fontSize: '13px',
                                         cursor: 'pointer',
@@ -6831,8 +6837,8 @@ Save this for later! 📌`
                                             <div key={v.id} style={{
                                                 padding: '16px',
                                                 borderRadius: '12px',
-                                                background: darkMode ? 'rgba(59,163,181,0.05)' : 'rgba(36,133,145,0.03)',
-                                                border: `1px solid ${darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                                                background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
+                                                border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
                                             }}>
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                                                     <span style={{
@@ -6887,9 +6893,9 @@ Save this for later! 📌`
                         marginTop: '32px',
                     }}>
                         {[
-                            { number: '10,000+', label: 'Hooks & Captions', icon: '📝', color: '#248591' },
+                            { number: '10,000+', label: 'Hooks & Captions', icon: '📝', color: '#65ADB2' },
                             { number: '15+', label: 'Content Categories', icon: '📂', color: '#5a8fa8' },
-                            { number: '8', label: 'Platforms Supported', icon: '📱', color: '#0073cf' },
+                            { number: '8', label: 'Platforms Supported', icon: '📱', color: '#65ADB2' },
                             { number: '∞', label: 'Combinations', icon: '✨', color: '#8A2BE2' },
                         ].map((stat, index) => (
                             <div key={index} style={{
@@ -6902,7 +6908,7 @@ Save this for later! 📌`
                             }}>
                                 <div style={{ fontSize: '28px', marginBottom: '8px' }}>{stat.icon}</div>
                                 <div style={{
-                                    fontFamily: "'Fraunces', serif",
+                                    fontFamily: "'Montserrat', serif",
                                     fontSize: '28px',
                                     fontWeight: '700',
                                     color: stat.color,
@@ -6927,7 +6933,7 @@ Save this for later! 📌`
                         border: '2px solid rgba(36,133,145,0.1)',
                     }}>
                         <h3 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '22px',
                             fontWeight: '600',
                             color: '#1a5f7a',
@@ -6964,7 +6970,7 @@ Save this for later! 📌`
                                     <div style={{ fontSize: '24px', marginBottom: '8px' }}>{item.emoji}</div>
                                     <div style={{
                                         fontSize: '11px',
-                                        color: '#248591',
+                                        color: '#65ADB2',
                                         fontWeight: '700',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.5px',
@@ -7007,7 +7013,7 @@ Save this for later! 📌`
                             left: '30px',
                             fontSize: '60px',
                             opacity: '0.15',
-                            color: '#248591',
+                            color: '#65ADB2',
                         }}>"</div>
                         <div style={{
                             position: 'absolute',
@@ -7015,11 +7021,11 @@ Save this for later! 📌`
                             right: '30px',
                             fontSize: '60px',
                             opacity: '0.15',
-                            color: '#248591',
+                            color: '#65ADB2',
                             transform: 'rotate(180deg)',
                         }}>"</div>
                         <p style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '22px',
                             fontWeight: '500',
                             color: '#1a5f7a',
@@ -7041,7 +7047,7 @@ Save this for later! 📌`
                             color: '#5a8fa8',
                             fontWeight: '600',
                         }}>
-                            — Fountain Vitality
+                            — Fountain
                         </p>
                     </div>
 
@@ -7055,10 +7061,10 @@ Save this for later! 📌`
                         border: '2px solid rgba(230,126,34,0.15)',
                     }}>
                         <h3 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '22px',
                             fontWeight: '600',
-                            background: 'linear-gradient(135deg, #0073cf 0%, #5a8fa8 100%)',
+                            background: 'linear-gradient(135deg, #65ADB2 0%, #5a8fa8 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
@@ -7120,7 +7126,7 @@ Save this for later! 📌`
                                     }}>
                                         <span style={{ fontSize: '20px' }}>{item.icon}</span>
                                         <h4 style={{
-                                            fontFamily: "'DM Sans', sans-serif",
+                                            fontFamily: "'Open Sans', sans-serif",
                                             fontSize: '15px',
                                             fontWeight: '700',
                                             color: '#1a5f7a',
@@ -7140,19 +7146,19 @@ Save this for later! 📌`
 
                     {/* Content Pillars */}
                     <div style={{
-                        background: 'linear-gradient(135deg, #1a5f7a 0%, #248591 50%, #3ba3b5 100%)',
+                        background: 'linear-gradient(135deg, #1a5f7a 0%, #65ADB2 50%, #4dd4cc 100%)',
                         borderRadius: '24px',
                         padding: '32px',
                         marginTop: '32px',
                         color: 'white',
                     }}>
                         <h3 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '22px',
                             fontWeight: '600',
                             marginBottom: '8px',
                         }}>
-                            🏛️ Fountain Vitality Content Pillars
+                            🏛️ Fountain Content Pillars
                         </h3>
                         <p style={{
                             fontSize: '14px',
@@ -7205,7 +7211,7 @@ Save this for later! 📌`
                         border: '2px solid rgba(156,175,136,0.2)',
                     }}>
                         <h3 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '22px',
                             fontWeight: '600',
                             color: '#7A9066',
@@ -7279,7 +7285,7 @@ Save this for later! 📌`
                     {activeTool === 'hashtags' && (
                     <div style={styles.card}>
                         <h2 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '24px',
                             fontWeight: '600',
                             color: colors.teal,
@@ -7442,7 +7448,7 @@ Save this for later! 📌`
                     {activeTool === 'scripts' && (
                     <div style={styles.card}>
                         <h2 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '24px',
                             fontWeight: '600',
                             color: colors.teal,
@@ -7526,7 +7532,7 @@ Save this for later! 📌`
                                 </div>
                                 <pre style={{
                                     ...styles.resultContent,
-                                    fontFamily: "'DM Sans', monospace",
+                                    fontFamily: "'Open Sans', monospace",
                                     fontSize: '14px',
                                     lineHeight: '1.8',
                                 }}>
@@ -7557,7 +7563,7 @@ Save this for later! 📌`
                     {activeTool === 'emails' && (
                     <div style={styles.card}>
                         <h2 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '24px',
                             fontWeight: '600',
                             color: colors.teal,
@@ -7677,7 +7683,7 @@ Save this for later! 📌`
                     {activeTool === 'bios' && (
                     <div style={styles.card}>
                         <h2 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '24px',
                             fontWeight: '600',
                             color: colors.teal,
@@ -7759,7 +7765,7 @@ Save this for later! 📌`
                                 <div style={{
                                     ...styles.resultContent,
                                     whiteSpace: 'pre-line',
-                                    fontFamily: "'DM Sans', sans-serif",
+                                    fontFamily: "'Open Sans', sans-serif",
                                 }}>
                                     {generatedBio}
                                 </div>
@@ -7816,7 +7822,7 @@ Save this for later! 📌`
                     {activeTool === 'polls' && (
                     <div style={styles.card}>
                         <h2 style={{
-                            fontFamily: "'Fraunces', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '24px',
                             fontWeight: '600',
                             color: colors.teal,
@@ -7932,7 +7938,7 @@ Save this for later! 📌`
                                                 <div style={{
                                                     flex: 1,
                                                     padding: '20px',
-                                                    background: 'linear-gradient(135deg, #248591 0%, #3ba3b5 100%)',
+                                                    background: 'linear-gradient(135deg, #65ADB2 0%, #4dd4cc 100%)',
                                                     borderRadius: '12px',
                                                     color: 'white',
                                                     fontWeight: '600',
@@ -8018,7 +8024,7 @@ Save this for later! 📌`
                     {activeTool === 'ctas' && (
                     <div style={styles.card}>
                         <h2 style={{
-                            fontFamily: "'Playfair Display', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '24px',
                             fontWeight: '500',
                             color: colors.textDark,
@@ -8051,8 +8057,8 @@ Save this for later! 📌`
                                 <div key={i} style={{
                                     padding: '16px 20px',
                                     borderRadius: '12px',
-                                    background: darkMode ? 'rgba(59,163,181,0.05)' : 'rgba(36,133,145,0.03)',
-                                    border: `1px solid ${darkMode ? 'rgba(59,163,181,0.1)' : 'rgba(36,133,145,0.08)'}`,
+                                    background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
+                                    border: `1px solid ${darkMode ? 'rgba(101,173,178,0.1)' : 'rgba(36,133,145,0.08)'}`,
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
@@ -8063,7 +8069,7 @@ Save this for later! 📌`
                                         <button onClick={() => addToFavorites(cta, 'cta')} style={{
                                             padding: '6px 12px',
                                             borderRadius: '6px',
-                                            border: `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
                                             background: 'transparent',
                                             color: colors.text,
                                             fontSize: '12px',
@@ -8108,14 +8114,14 @@ Save this for later! 📌`
                         {/* Seasonal Content Suggestions */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(0,115,207,0.08) 0%, rgba(13,30,54,0.95) 100%)'
-                                : 'linear-gradient(165deg, rgba(0,115,207,0.08) 0%, rgba(255,255,255,0.98) 100%)',
+                                ? 'linear-gradient(165deg, rgba(101,173,178,0.08) 0%, rgba(13,30,54,0.95) 100%)'
+                                : 'linear-gradient(165deg, rgba(101,173,178,0.08) 0%, rgba(255,255,255,0.98) 100%)',
                             borderRadius: '20px',
                             padding: '24px',
-                            border: `1px solid ${darkMode ? 'rgba(0,115,207,0.15)' : 'rgba(0,115,207,0.1)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(101,173,178,0.1)'}`,
                         }}>
                             <h3 style={{
-                                fontFamily: "'Playfair Display', serif",
+                                fontFamily: "'Montserrat', serif",
                                 fontSize: '17px',
                                 color: colors.textDark,
                                 marginBottom: '16px',
@@ -8133,7 +8139,7 @@ Save this for later! 📌`
                                     <div key={i} style={{
                                         padding: '12px',
                                         borderRadius: '10px',
-                                        background: darkMode ? 'rgba(0,115,207,0.06)' : 'rgba(0,115,207,0.04)',
+                                        background: darkMode ? 'rgba(101,173,178,0.06)' : 'rgba(101,173,178,0.04)',
                                         fontSize: '13px',
                                         color: colors.text,
                                         display: 'flex',
@@ -8170,14 +8176,14 @@ Save this for later! 📌`
                         {/* CTA Library Quick Access */}
                         <div style={{
                             background: darkMode 
-                                ? 'linear-gradient(165deg, rgba(59,163,181,0.06) 0%, rgba(13,30,54,0.95) 100%)'
+                                ? 'linear-gradient(165deg, rgba(101,173,178,0.06) 0%, rgba(13,30,54,0.95) 100%)'
                                 : 'linear-gradient(165deg, rgba(36,133,145,0.06) 0%, rgba(255,255,255,0.98) 100%)',
                             borderRadius: '20px',
                             padding: '24px',
-                            border: `1px solid ${darkMode ? 'rgba(59,163,181,0.15)' : 'rgba(36,133,145,0.1)'}`,
+                            border: `1px solid ${darkMode ? 'rgba(101,173,178,0.15)' : 'rgba(36,133,145,0.1)'}`,
                         }}>
                             <h3 style={{
-                                fontFamily: "'Playfair Display', serif",
+                                fontFamily: "'Montserrat', serif",
                                 fontSize: '17px',
                                 color: colors.textDark,
                                 marginBottom: '16px',
@@ -8192,7 +8198,7 @@ Save this for later! 📌`
                                     <button key={type} onClick={() => setBioTone(type)} style={{
                                         padding: '6px 12px',
                                         borderRadius: '8px',
-                                        border: bioTone === type ? 'none' : `1px solid ${darkMode ? 'rgba(59,163,181,0.2)' : 'rgba(36,133,145,0.15)'}`,
+                                        border: bioTone === type ? 'none' : `1px solid ${darkMode ? 'rgba(101,173,178,0.2)' : 'rgba(36,133,145,0.15)'}`,
                                         background: bioTone === type ? colors.teal : 'transparent',
                                         color: bioTone === type ? (darkMode ? '#0a0f0d' : '#fff') : colors.text,
                                         fontSize: '12px',
@@ -8206,7 +8212,7 @@ Save this for later! 📌`
                                     <div key={i} style={{
                                         padding: '10px 12px',
                                         borderRadius: '8px',
-                                        background: darkMode ? 'rgba(59,163,181,0.05)' : 'rgba(36,133,145,0.03)',
+                                        background: darkMode ? 'rgba(101,173,178,0.05)' : 'rgba(36,133,145,0.03)',
                                         fontSize: '12px',
                                         color: colors.text,
                                         display: 'flex',
@@ -8260,17 +8266,17 @@ Save this for later! 📌`
                         </div>
                         
                         <p style={{
-                            fontFamily: "'Playfair Display', serif",
+                            fontFamily: "'Montserrat', serif",
                             fontSize: '15px',
                             color: colors.textDark,
                             fontWeight: '400',
                             marginBottom: '8px',
                         }}>
-                            Built for <span style={{ fontStyle: 'italic' }}>Fountain Vitality</span>
+                            Built for <span style={{ fontWeight: '600', color: colors.teal }}>Fountain</span>
                         </p>
                         
                         <p style={{
-                            fontFamily: "'Outfit', sans-serif",
+                            fontFamily: "'Open Sans', sans-serif",
                             fontSize: '12px',
                             color: colors.textMuted,
                             letterSpacing: '0.5px',
